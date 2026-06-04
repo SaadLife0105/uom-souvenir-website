@@ -13,7 +13,7 @@ export default function Home() {
     <div className="bg-slate-50 text-slate-950">
       <Navbar />
 
-      <main>
+      <main className="pt-16 md:pt-20">
         <Hero />
 
         <section id="categories" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">

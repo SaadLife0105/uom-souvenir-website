@@ -48,7 +48,7 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header className="fixed inset-x-0 top-4 z-50 px-4">
+    <header className="fixed inset-x-0 top-4 md:top-6 z-50 px-4">
       <div className="mx-auto flex max-w-7xl items-center gap-4 rounded-[2rem] bg-white/85 px-4 py-3 shadow-2xl shadow-slate-900/10 backdrop-blur-xl ring-1 ring-slate-200/80">
         <a
           href="#home"
