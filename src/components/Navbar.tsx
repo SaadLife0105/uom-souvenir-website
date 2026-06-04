@@ -1,117 +1,131 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import type { ReactNode } from "react";
+import PillNav from "./reactbits/PillNav";
 import { navLinks } from "./store-data";
 
-const MenuIcon = ({ open }: { open: boolean }) => (
-  <svg viewBox="0 0 24 24" className="h-6 w-6 fill-current">
-    {open ? (
-      <path d="M18.3 5.7a1 1 0 0 0-1.4-1.4L12 9.17 7.1 4.3a1 1 0 0 0-1.4 1.4L10.83 12l-5.13 5.1a1 1 0 0 0 1.4 1.4L12 14.83l4.9 4.86a1 1 0 0 0 1.4-1.4L13.17 12l5.13-5.1Z" />
-    ) : (
-      <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-    )}
-  </svg>
+const IconButton = ({ label, icon }: { label: string; icon: ReactNode }) => (
+  <button
+    type="button"
+    className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 transition hover:border-slate-300 hover:bg-slate-50 hover:text-slate-900"
+  >
+    <span className="sr-only">{label}</span>
+    {icon}
+  </button>
 );
 
 export default function Navbar() {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [activeHref, setActiveHref] = useState(navLinks[0]?.href ?? "#home");
+
+  useEffect(() => {
+    const offset = 96;
+
+    const handleScroll = () => {
+      let current = navLinks[0]?.href ?? "#home";
+
+      navLinks.forEach((link) => {
+        const id = link.href.replace("#", "");
+        const element = document.getElementById(id);
+
+        if (!element) {
+          return;
+        }
+
+        const top = element.getBoundingClientRect().top;
+
+        if (top <= offset) {
+          current = link.href;
+        }
+      });
+
+      setActiveHref(current);
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-xl">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-        <a href="#home" className="flex items-center gap-3 text-slate-950">
-          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-slate-950 text-sm font-semibold text-white shadow-md">
-            U
-          </div>
-          <div className="leading-tight">
-            <p className="text-xs uppercase tracking-[0.3em] text-slate-500">University of Mauritius</p>
-            <p className="text-base font-semibold">Souvenir Store</p>
+    <header className="fixed inset-x-0 top-4 z-50 px-4">
+      <div className="mx-auto flex max-w-7xl items-center gap-4 rounded-[2rem] bg-white/85 px-4 py-3 shadow-2xl shadow-slate-900/10 backdrop-blur-xl ring-1 ring-slate-200/80">
+        <a
+          href="#home"
+          className="flex items-center gap-3 rounded-2xl bg-slate-950 px-3 py-2 text-white shadow-sm transition hover:shadow-md"
+        >
+          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white text-slate-950 font-semibold">U</div>
+          <div className="hidden flex-col sm:flex">
+            <span className="text-sm font-semibold leading-none">UoM Souvenir</span>
+            <span className="text-xs uppercase tracking-[0.28em] text-slate-400">University Store</span>
           </div>
         </a>
 
-        <nav className="hidden items-center gap-8 md:flex">
-          {navLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className="text-sm font-semibold text-slate-700 transition hover:text-slate-900"
-            >
-              {link.label}
-            </a>
-          ))}
-        </nav>
-
-        <div className="hidden items-center gap-4 md:flex">
-          <button className="group rounded-full border border-slate-200 bg-white p-3 text-slate-600 transition hover:border-slate-300 hover:text-slate-900">
-            <span className="sr-only">Search</span>
-            <svg viewBox="0 0 24 24" className="h-5 w-5">
-              <path
-                d="M10.5 18a7.5 7.5 0 1 1 5.303-2.197l4.45 4.45a1 1 0 0 1-1.414 1.414l-4.45-4.45A7.466 7.466 0 0 1 10.5 18Zm0-2a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11Z"
-                fill="currentColor"
-              />
-            </svg>
-          </button>
-          <button className="relative rounded-full border border-slate-200 bg-white p-3 text-slate-600 transition hover:border-slate-300 hover:text-slate-900">
-            <span className="sr-only">Open cart</span>
-            <span className="absolute -right-1 -top-1 flex h-5 min-w-[1.25rem] items-center justify-center rounded-full bg-emerald-600 px-1.5 text-xs font-semibold text-white">
-              3
-            </span>
-            <svg viewBox="0 0 24 24" className="h-5 w-5">
-              <path
-                d="M6 6h15l-1.5 9.5H8.5L6 6Zm2.5 12a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Zm9 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Z"
-                fill="currentColor"
-              />
-            </svg>
-          </button>
-          <button className="rounded-full border border-slate-200 bg-white p-3 text-slate-600 transition hover:border-slate-300 hover:text-slate-900">
-            <span className="sr-only">User account</span>
-            <svg viewBox="0 0 24 24" className="h-5 w-5">
-              <path
-                d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Zm0 2c-3.33 0-6 1.67-6 4v1h12v-1c0-2.33-2.67-4-6-4Z"
-                fill="currentColor"
-              />
-            </svg>
-          </button>
+        <div className="hidden flex-1 justify-center md:flex">
+          <PillNav
+            logo="/uom-logo.svg"
+            logoAlt="University of Mauritius logo"
+            items={navLinks}
+            activeHref={activeHref}
+            className="w-full max-w-2xl"
+            baseColor="#0f172a"
+            pillColor="#ffffff"
+            hoveredPillTextColor="#0f172a"
+            pillTextColor="#0f172a"
+            showLogo={false}
+            onMobileMenuClick={() => {}}
+          />
         </div>
 
-        <button
-          className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 transition hover:border-slate-300 hover:text-slate-900 md:hidden"
-          aria-label="Open mobile menu"
-          aria-expanded={menuOpen}
-          onClick={() => setMenuOpen((current) => !current)}
-        >
-          <MenuIcon open={menuOpen} />
-        </button>
+        <div className="flex flex-1 justify-center md:hidden">
+          <PillNav
+            logo="/uom-logo.svg"
+            logoAlt="University of Mauritius logo"
+            items={navLinks}
+            activeHref={activeHref}
+            className="w-full max-w-xs"
+            baseColor="#0f172a"
+            pillColor="#ffffff"
+            hoveredPillTextColor="#0f172a"
+            pillTextColor="#0f172a"
+            showLogo={false}
+            onMobileMenuClick={() => {}}
+          />
+        </div>
+
+        <div className="hidden items-center gap-3 md:flex">
+          <IconButton
+            label="Search"
+            icon={
+              <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="11" cy="11" r="7" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+              </svg>
+            }
+          />
+          <IconButton
+            label="Cart"
+            icon={
+              <div className="relative">
+                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor">
+                  <path d="M6 6h15l-1.5 9.5H8.5L6 6Zm2.5 12a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Zm9 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Z" />
+                </svg>
+                <span className="absolute -right-1 -top-1 flex h-5 min-w-[1.25rem] items-center justify-center rounded-full bg-emerald-600 px-1.5 text-[10px] font-semibold text-white">
+                  3
+                </span>
+              </div>
+            }
+          />
+          <IconButton
+            label="Account"
+            icon={
+              <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor">
+                <path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Zm0 2c-3.33 0-6 1.67-6 4v1h12v-1c0-2.33-2.67-4-6-4Z" />
+              </svg>
+            }
+          />
+        </div>
       </div>
-
-      {menuOpen ? (
-        <div className="border-t border-slate-200 bg-white/95 px-4 py-5 shadow-lg md:hidden">
-          <div className="space-y-4">
-            {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="block rounded-2xl px-4 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
-              >
-                {link.label}
-              </a>
-            ))}
-          </div>
-          <div className="mt-4 grid gap-3 rounded-3xl border border-slate-200 bg-slate-50 p-4">
-            <button className="flex items-center justify-between rounded-2xl bg-white px-4 py-3 text-sm font-medium text-slate-700 shadow-sm transition hover:bg-slate-100">
-              Search
-              <span>⌕</span>
-            </button>
-            <button className="flex items-center justify-between rounded-2xl bg-white px-4 py-3 text-sm font-medium text-slate-700 shadow-sm transition hover:bg-slate-100">
-              Cart
-              <span>3</span>
-            </button>
-            <button className="flex items-center justify-between rounded-2xl bg-white px-4 py-3 text-sm font-medium text-slate-700 shadow-sm transition hover:bg-slate-100">
-              Account
-            </button>
-          </div>
-        </div>
-      ) : null}
     </header>
   );
 }

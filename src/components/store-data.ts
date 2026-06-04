@@ -33,7 +33,7 @@ export const navLinks = [
   { label: "Shop", href: "#shop" },
   { label: "Categories", href: "#categories" },
   { label: "About", href: "#about" },
-  { label: "Contact", href: "#footer" },
+  { label: "Contact", href: "#contact" },
 ];
 
 export const categories: CategoryItem[] = [
