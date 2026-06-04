@@ -1,65 +1,107 @@
-import Image from "next/image";
+import Footer from "@/components/Footer";
+import Hero from "@/components/Hero";
+import Navbar from "@/components/Navbar";
+import CategoryCard from "@/components/CategoryCard";
+import ProductCard from "@/components/ProductCard";
+import PromoBanner from "@/components/PromoBanner";
+import FeatureCard from "@/components/FeatureCard";
+import TestimonialCard from "@/components/TestimonialCard";
+import { categories, featuredProducts, bestSellers, features, testimonials } from "@/components/store-data";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+    <div className="bg-slate-50 text-slate-950">
+      <Navbar />
+
+      <main>
+        <Hero />
+
+        <section id="categories" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between gap-4 pb-8">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-emerald-700">Featured categories</p>
+              <h2 className="mt-3 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">Designed for campus life.</h2>
+            </div>
+            <a href="#shop" className="text-sm font-semibold text-slate-700 transition hover:text-slate-900">
+              View all categories →
+            </a>
+          </div>
+          <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-5">
+            {categories.map((category) => (
+              <CategoryCard key={category.title} category={category} />
+            ))}
+          </div>
+        </section>
+
+        <section id="shop" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+          <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-500">Featured products</p>
+              <h2 className="mt-3 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">Campus essentials with premium finishes.</h2>
+            </div>
+            <p className="max-w-xl text-sm leading-7 text-slate-600">
+              Handpicked University of Mauritius favorites with comfortable silhouettes, student-ready materials and clean finishing touches.
+            </p>
+          </div>
+          <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+            {featuredProducts.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        </section>
+
+        <PromoBanner />
+
+        <section id="best-sellers" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+          <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-emerald-700">Best sellers</p>
+              <h2 className="mt-3 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">Loved by students and alumni.</h2>
+            </div>
+            <div className="text-sm text-slate-600">
+              Swipe the collection on mobile, or browse the grid on desktop.
+            </div>
+          </div>
+          <div className="mt-10 flex gap-6 overflow-x-auto pb-4 pr-4 sm:grid sm:grid-cols-2 lg:grid-cols-4 lg:overflow-visible lg:pb-0 lg:pr-0">
+            {bestSellers.map((product) => (
+              <div key={product.id} className="min-w-[20rem] sm:min-w-0">
+                <ProductCard product={product} />
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section id="about" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+          <div className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
+            <div className="space-y-6">
+              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-500">Why choose us</p>
+              <h2 className="text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">Premium quality, authentic campus merchandise.</h2>
+              <p className="max-w-2xl text-base leading-8 text-slate-600">
+                We bring together official University of Mauritius products, sustainable materials and a calm shopping experience built around student needs.
+              </p>
+            </div>
+            <div className="grid gap-6 sm:grid-cols-2">
+              {features.map((feature) => (
+                <FeatureCard key={feature.title} title={feature.title} description={feature.description} icon={feature.icon} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="testimonials" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-emerald-700">Testimonials</p>
+            <h2 className="mt-3 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">Real feedback from campus shoppers.</h2>
+          </div>
+          <div className="mt-10 grid gap-6 lg:grid-cols-3">
+            {testimonials.map((testimonial) => (
+              <TestimonialCard key={testimonial.name} testimonial={testimonial} />
+            ))}
+          </div>
+        </section>
       </main>
+
+      <Footer />
     </div>
   );
 }
