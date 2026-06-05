@@ -14,6 +14,17 @@ export interface ProductItem {
   category: string;
 }
 
+export interface ShopProduct {
+  id: string;
+  name: string;
+  description: string;
+  colors: string[];
+  price: number | null;
+  quantity: number;
+  isDisplayOnly: boolean;
+  image: string;
+}
+
 export interface FeatureItem {
   title: string;
   description: string;
@@ -110,40 +121,7 @@ export const featuredProducts: ProductItem[] = [
   },
 ];
 
-export const bestSellers: ProductItem[] = [
-  {
-    id: "uom-cap",
-    name: "University Cap",
-    price: "Rs 600",
-    rating: 4.7,
-    image: "/product-card.svg",
-    category: "Accessories",
-  },
-  {
-    id: "uom-backpack",
-    name: "Campus Backpack",
-    price: "Rs 1,780",
-    rating: 4.8,
-    image: "/product-card.svg",
-    category: "Accessories",
-  },
-  {
-    id: "uom-sweatshirt",
-    name: "Heritage Sweatshirt",
-    price: "Rs 1,980",
-    rating: 4.9,
-    image: "/product-card.svg",
-    category: "Hoodies",
-  },
-  {
-    id: "uom-stationery",
-    name: "Desk Bundle",
-    price: "Rs 990",
-    rating: 4.7,
-    image: "/product-card.svg",
-    category: "Stationery",
-  },
-];
+export const bestSellers: ProductItem[] = [];
 
 export const features: FeatureItem[] = [
   {
@@ -161,18 +139,13 @@ export const features: FeatureItem[] = [
 export const workflowSteps: WorkflowStepItem[] = [
   {
     step: 1,
-    title: "Browse & Reserve",
-    description: "Add your favorite UOM souvenirs (mugs, pens, pins) to your digital cart.",
+    title: "Browse Items",
+    description: "Explore all the UOM souvenirs available and add your favorite items to your digital cart.",
   },
   {
     step: 2,
-    title: "Get Digital Receipt",
-    description: "Confirm your cart to automatically receive a formatted invoice/receipt via email.",
-  },
-  {
-    step: 3,
-    title: "Pay & Collect",
-    description: "Bring your digital or printed email receipt to the UOM Finance Office to complete payment and collect your items.",
+    title: "Pay at Finance Office",
+    description: "Present your receipt at the UOM Finance Office to complete payment and collect your items.",
   },
 ];
 
@@ -211,3 +184,26 @@ export const footerLinks = {
     "souvenir@uom.ac.mu",
   ],
 };
+
+export const shopProducts: ShopProduct[] = [
+  { id: "1", name: "Mug", description: "Branded customised mug", colors: ["White"], price: 225, quantity: 8, isDisplayOnly: false, image: "/images/placeholder.png" },
+  { id: "2", name: "Cap", description: "Gabardine cap", colors: ["Blue", "White"], price: 275, quantity: 27, isDisplayOnly: false, image: "/images/placeholder.png" },
+  { id: "3", name: "Pen", description: "Corporate pen", colors: ["Blue", "Red", "Black"], price: 50, quantity: 76, isDisplayOnly: false, image: "/images/placeholder.png" },
+  { id: "4", name: "Insulated Water Bottle", description: "Insulated bottle", colors: ["Red", "Green", "Black"], price: 550, quantity: 1, isDisplayOnly: true, image: "/images/placeholder.png" },
+  { id: "5", name: "Jute Bag", description: "60th Anniversary Edition", colors: ["Natural Jute Beige"], price: null, quantity: 29, isDisplayOnly: false, image: "/images/placeholder.png" },
+  { id: "6", name: "Keyring", description: "60th Anniversary Edition", colors: ["Silver"], price: 150, quantity: 16, isDisplayOnly: false, image: "/images/placeholder.png" },
+  { id: "7", name: "Notebook A6", description: "Includes sticker notes", colors: ["Assorted"], price: 150, quantity: 1, isDisplayOnly: true, image: "/images/placeholder.png" },
+  { id: "8", name: "Notebook A5", description: "60th Anniversary Edition", colors: ["Navy Blue", "Black"], price: 200, quantity: 9, isDisplayOnly: false, image: "/images/placeholder.png" },
+  { id: "9", name: "Paperweight", description: "Recycled glass, round design", colors: ["Clear Glass"], price: 400, quantity: 1, isDisplayOnly: true, image: "/images/placeholder.png" },
+  { id: "10", name: "Dodo Paperweight", description: "Recycled glass Dodo design", colors: ["Clear Glass"], price: 520, quantity: 1, isDisplayOnly: true, image: "/images/placeholder.png" },
+  { id: "11", name: "Pen Drive", description: "32GB USB drive", colors: ["White"], price: 500, quantity: 14, isDisplayOnly: false, image: "/images/placeholder.png" },
+  { id: "12", name: "Pen Holder", description: "60th Anniversary Edition", colors: ["Assorted"], price: null, quantity: 17, isDisplayOnly: false, image: "/images/placeholder.png" },
+  { id: "13", name: "Pin", description: "60th Anniversary Edition", colors: ["Gold"], price: 150, quantity: 20, isDisplayOnly: false, image: "/images/placeholder.png" },
+  { id: "14", name: "Polo Shirt", description: "University polo shirt", colors: ["Navy Blue", "Black"], price: 500, quantity: 27, isDisplayOnly: false, image: "/images/placeholder.png" },
+  { id: "15", name: "Sweatshirt", description: "University sweatshirt", colors: ["Navy Blue", "Black"], price: 545, quantity: 39, isDisplayOnly: false, image: "/images/placeholder.png" },
+  { id: "16", name: "Tie", description: "Pure silk with UoM tag", colors: ["Blue", "Beige", "Maroon"], price: 500, quantity: 10, isDisplayOnly: false, image: "/images/placeholder.png" },
+  { id: "17", name: "T-Shirt", description: "University t-shirt", colors: ["Black", "White"], price: 285, quantity: 80, isDisplayOnly: false, image: "/images/placeholder.png" },
+  { id: "18", name: "Tote Bag (Small)", description: "Features University logo", colors: ["Natural Beige"], price: 120, quantity: 2, isDisplayOnly: false, image: "/images/placeholder.png" },
+  { id: "19", name: "Tote Bag (Large)", description: "Features University logo", colors: ["Natural Beige"], price: 145, quantity: 10, isDisplayOnly: false, image: "/images/placeholder.png" },
+  { id: "20", name: "Umbrella", description: "University branded umbrella", colors: ["Navy Blue"], price: 520, quantity: 2, isDisplayOnly: false, image: "/images/placeholder.png" },
+];

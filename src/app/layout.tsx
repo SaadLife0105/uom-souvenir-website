@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { CartProvider } from "@/context/CartContext";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -26,8 +27,11 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      data-scroll-behavior="smooth"
     >
-      <body className="min-h-full flex flex-col bg-[#0d1f33] text-[#eef3fb]">{children}</body>
+      <body className="min-h-full flex flex-col bg-[#0d1f33] text-[#eef3fb]">
+        <CartProvider>{children}</CartProvider>
+      </body>
     </html>
   );
 }
