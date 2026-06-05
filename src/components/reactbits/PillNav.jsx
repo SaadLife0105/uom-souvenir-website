@@ -287,11 +287,6 @@ const PillNav = ({
             </li>
           ))}
         </ul>
-        <div className="mobile-menu-actions">
-          <button type="button" className="mobile-action-button">Search</button>
-          <button type="button" className="mobile-action-button">Cart (3)</button>
-          <button type="button" className="mobile-action-button">Account</button>
-        </div>
       </div>
     </div>
   );

@@ -36,8 +36,7 @@ export interface TestimonialItem {
 
 export const navLinks = [
   { label: "Home", href: "#home" },
-  { label: "Shop", href: "#shop" },
-  { label: "Categories", href: "#categories" },
+  { label: "Browse", href: "#shop" },
   { label: "Cart", href: "/cart" },
   { label: "About", href: "#about" },
   { label: "Contact", href: "#contact" },
@@ -205,8 +204,7 @@ export const testimonials: TestimonialItem[] = [
 ];
 
 export const footerLinks = {
-  quick: ["About", "Shop", "Categories", "Support"],
-  categories: ["Hoodies", "T-Shirts", "Mugs", "Accessories", "Stationery"],
+  quick: ["About", "Browse", "Support"],
   contact: [
     "University of Mauritius, Réduit",
     "+230 1234 5678",

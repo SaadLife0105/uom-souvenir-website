@@ -14,15 +14,15 @@ export default function SectionHeader({
   return (
     <div className={className}>
       {eyebrow ? (
-        <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#009AD9]">
+        <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#faa153]">
           {eyebrow}
         </p>
       ) : null}
-      <h2 className="mt-3 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">
+      <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[#eef3fb] sm:text-4xl">
         {title}
       </h2>
       {description ? (
-        <p className="mt-4 max-w-xl text-sm leading-7 text-slate-600">
+        <p className="mt-4 max-w-xl text-sm leading-7 text-[#99a7c0]">
           {description}
         </p>
       ) : null}

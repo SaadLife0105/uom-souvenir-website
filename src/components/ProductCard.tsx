@@ -5,21 +5,10 @@ interface ProductCardProps {
   product: ProductItem;
 }
 
-const RatingStars = ({ rating }: { rating: number }) => (
-  <div className="flex items-center gap-1 text-sm text-amber-500">
-    {Array.from({ length: 5 }).map((_, index) => (
-      <span key={index} className={index + 1 <= Math.round(rating) ? "opacity-100" : "opacity-30"}>
-        ★
-      </span>
-    ))}
-    <span className="text-xs text-slate-500">{rating.toFixed(1)}</span>
-  </div>
-);
-
 export default function ProductCard({ product }: ProductCardProps) {
   return (
-    <article className="group overflow-hidden rounded-[2rem] border border-[#A88243]/15 bg-white transition hover:-translate-y-1 hover:shadow-[0_24px_80px_-40px_rgba(15,23,42,0.2)] dark:border-slate-700/40 dark:bg-slate-950">
-      <div className="relative h-72 overflow-hidden bg-slate-100">
+    <article className="group overflow-hidden rounded-[2rem] border border-[#3f5a80] bg-[#162c47] transition hover:-translate-y-1 hover:shadow-[0_24px_80px_-40px_rgba(0,0,0,0.3)]">
+      <div className="relative h-72 overflow-hidden bg-[#0d1f33]">
         <Image
           src={product.image}
           alt={product.name}
@@ -31,13 +20,12 @@ export default function ProductCard({ product }: ProductCardProps) {
       <div className="space-y-4 p-6">
         <div className="flex items-center justify-between gap-4">
           <div>
-              <p className="text-base font-semibold text-slate-950 dark:text-slate-100">{product.name}</p>
-              <p className="text-sm text-slate-500 dark:text-slate-400">{product.category}</p>
+            <p className="text-base font-semibold text-[#eef3fb]">{product.name}</p>
+            <p className="text-sm text-[#99a7c0]">{product.category}</p>
           </div>
-          <p className="text-lg font-semibold text-slate-950 dark:text-slate-100">{product.price}</p>
+          <p className="text-lg font-semibold text-[#eef3fb]">{product.price}</p>
         </div>
-        <RatingStars rating={product.rating} />
-        <button className="inline-flex w-full items-center justify-center rounded-2xl bg-[#009AD9] px-4 py-3 text-sm font-semibold text-white transition hover:bg-[#007fbf]">
+        <button className="inline-flex w-full items-center justify-center rounded-full bg-[#faa153] px-4 py-3 text-sm font-semibold text-[#0d1f33] transition hover:bg-[#e69d6d]">
           Add to Cart
         </button>
       </div>

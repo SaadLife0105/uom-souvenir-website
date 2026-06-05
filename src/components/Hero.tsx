@@ -2,36 +2,34 @@ import Image from "next/image";
 
 export default function Hero() {
   return (
-    <section id="home" className="overflow-hidden bg-[#F4F7FA] dark:bg-slate-950">
+    <section id="home" className="overflow-hidden bg-[#0d1f33]">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
         <div className="grid gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
           <div className="space-y-8">
+            <div className="inline-flex items-center gap-3 rounded-full bg-[#162c47] px-4 py-2 text-sm font-semibold text-[#eef3fb] shadow-sm shadow-[#0d1f33]/30">
+              Official University of Mauritius Souvenir Store
+            </div>
             <div className="space-y-5">
-              <h1 className="max-w-3xl text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl dark:text-slate-100">
-                Premium University of Mauritius souvenirs designed for campus life.
+              <h1 className="max-w-3xl text-4xl font-semibold tracking-tight text-[#eef3fb] sm:text-5xl">
+                Curated campus essentials for University of Mauritius life.
               </h1>
-              <p className="max-w-xl text-sm leading-7 text-slate-600 sm:text-base dark:text-slate-300">
-                Celebrate your UoM story with thoughtfully crafted merchandise built for comfort, everyday use and lasting quality.
+              <p className="max-w-xl text-sm leading-7 text-[#99a7c0] sm:text-base">
+                Discover premium UoM merchandise crafted for comfort, everyday use, and memorable campus moments.
               </p>
             </div>
             <div className="flex flex-col gap-4 sm:flex-row">
               <a
                 href="#shop"
-                className="inline-flex items-center justify-center rounded-2xl bg-[#009AD9] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#007fbf]"
+                className="inline-flex items-center justify-center rounded-full bg-[#faa153] px-6 py-3 text-sm font-semibold text-[#0d1f33] transition hover:bg-[#e69d6d]"
               >
-                Shop Now
-              </a>
-              <a
-                href="#categories"
-                className="inline-flex items-center justify-center rounded-2xl border border-[#009AD9] bg-white px-6 py-3 text-sm font-semibold text-[#009AD9] transition hover:bg-[#f4f7fa] dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800"
-              >
-                Explore Categories
+                Browse selections
               </a>
             </div>
           </div>
           <div className="relative mx-auto w-full max-w-2xl">
-            <div className="absolute inset-x-0 top-4 h-72 rounded-[2.5rem] bg-gradient-to-r from-[#009AD9]/10 via-white to-[#A88243]/10 blur-2xl" />
-            <div className="relative overflow-hidden rounded-[2.5rem] border border-slate-200 bg-white shadow-[0_40px_120px_-50px_rgba(15,23,42,0.18)]">
+            <div className="pointer-events-none absolute -right-8 top-10 h-40 w-40 rounded-full bg-[#faa153]/20 blur-3xl" />
+            <div className="pointer-events-none absolute left-8 top-24 h-40 w-40 rounded-full bg-[#6bb1ff]/15 blur-3xl" />
+            <div className="relative overflow-hidden rounded-[2.5rem] border border-[#3f5a80] bg-[#162c47] shadow-[0_40px_120px_-50px_rgba(0,0,0,0.35)]">
               <Image
                 src="/hero-illustration.svg"
                 alt="University of Mauritius souvenir display"
