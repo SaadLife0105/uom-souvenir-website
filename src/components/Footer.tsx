@@ -2,11 +2,11 @@ import { footerLinks } from "./store-data";
 
 export default function Footer() {
   return (
-    <footer id="contact" className="bg-slate-950 text-slate-300">
+    <footer id="contact" className="bg-[#0f172a] text-slate-300">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid gap-10 lg:grid-cols-[1.2fr_1fr_1fr_1fr]">
           <div className="space-y-4">
-            <div className="inline-flex h-11 items-center justify-center rounded-2xl bg-white text-slate-950 px-4 font-semibold shadow-sm">
+            <div className="inline-flex h-11 items-center justify-center rounded-2xl bg-[#009AD9] text-white px-4 font-semibold shadow-sm">
               UoM
             </div>
             <p className="max-w-sm text-sm leading-7 text-slate-400">
@@ -18,7 +18,7 @@ export default function Footer() {
             <ul className="mt-6 space-y-3 text-sm leading-7">
               {footerLinks.quick.map((item) => (
                 <li key={item}>
-                  <a href="#home" className="transition hover:text-white">
+                  <a href="#home" className="transition hover:text-[#009AD9]">
                     {item}
                   </a>
                 </li>
@@ -30,7 +30,7 @@ export default function Footer() {
             <ul className="mt-6 space-y-3 text-sm leading-7">
               {footerLinks.categories.map((item) => (
                 <li key={item}>
-                  <a href="#shop" className="transition hover:text-white">
+                  <a href="#shop" className="transition hover:text-[#009AD9]">
                     {item}
                   </a>
                 </li>
@@ -49,9 +49,9 @@ export default function Footer() {
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-slate-800 pt-8 text-sm text-slate-500 sm:flex-row">
           <p>© 2026 University of Mauritius Souvenir Store. All rights reserved.</p>
           <div className="flex items-center gap-4">
-            <a href="#" className="transition hover:text-white">Instagram</a>
-            <a href="#" className="transition hover:text-white">Facebook</a>
-            <a href="#" className="transition hover:text-white">LinkedIn</a>
+            <a href="#" className="transition hover:text-[#009AD9]">Instagram</a>
+            <a href="#" className="transition hover:text-[#009AD9]">Facebook</a>
+            <a href="#" className="transition hover:text-[#009AD9]">LinkedIn</a>
           </div>
         </div>
       </div>

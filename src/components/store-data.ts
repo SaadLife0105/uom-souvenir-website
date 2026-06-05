@@ -20,6 +20,12 @@ export interface FeatureItem {
   icon: "shield" | "leaf" | "delivery" | "lock";
 }
 
+export interface WorkflowStepItem {
+  step: number;
+  title: string;
+  description: string;
+}
+
 export interface TestimonialItem {
   name: string;
   role: string;
@@ -32,6 +38,7 @@ export const navLinks = [
   { label: "Home", href: "#home" },
   { label: "Shop", href: "#shop" },
   { label: "Categories", href: "#categories" },
+  { label: "Cart", href: "/cart" },
   { label: "About", href: "#about" },
   { label: "Contact", href: "#contact" },
 ];
@@ -150,15 +157,23 @@ export const features: FeatureItem[] = [
     description: "Comfortable fabrics and durable finishes made to last.",
     icon: "leaf",
   },
+];
+
+export const workflowSteps: WorkflowStepItem[] = [
   {
-    title: "Fast Delivery",
-    description: "Campus pickup and express shipping options available.",
-    icon: "delivery",
+    step: 1,
+    title: "Browse & Reserve",
+    description: "Add your favorite UOM souvenirs (mugs, pens, pins) to your digital cart.",
   },
   {
-    title: "Secure Payments",
-    description: "Safe checkout experience with trusted payment options.",
-    icon: "lock",
+    step: 2,
+    title: "Get Digital Receipt",
+    description: "Confirm your cart to automatically receive a formatted invoice/receipt via email.",
+  },
+  {
+    step: 3,
+    title: "Pay & Collect",
+    description: "Bring your digital or printed email receipt to the UOM Finance Office to complete payment and collect your items.",
   },
 ];
 

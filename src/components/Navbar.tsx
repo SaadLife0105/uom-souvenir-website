@@ -8,7 +8,7 @@ import { navLinks } from "./store-data";
 const IconButton = ({ label, icon }: { label: string; icon: ReactNode }) => (
   <button
     type="button"
-    className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 transition hover:border-slate-300 hover:bg-slate-50 hover:text-slate-900"
+    className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 transition hover:border-slate-300 hover:bg-slate-50 hover:text-slate-900 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700"
   >
     <span className="sr-only">{label}</span>
     {icon}
@@ -17,6 +17,32 @@ const IconButton = ({ label, icon }: { label: string; icon: ReactNode }) => (
 
 export default function Navbar() {
   const [activeHref, setActiveHref] = useState(navLinks[0]?.href ?? "#home");
+  const [theme, setTheme] = useState<"light" | "dark">("light");
+
+  useEffect(() => {
+    const storedTheme = localStorage.getItem("uom-theme") as "light" | "dark" | null;
+    if (storedTheme) {
+      setTheme(storedTheme);
+      document.documentElement.classList.toggle("dark", storedTheme === "dark");
+      return;
+    }
+
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    setTheme(prefersDark ? "dark" : "light");
+    document.documentElement.classList.toggle("dark", prefersDark);
+  }, []);
+
+  useEffect(() => {
+    // ensure the html.dark class mirrors state and persist selection
+    try {
+      if (typeof document !== "undefined") {
+        document.documentElement.classList.toggle("dark", theme === "dark");
+      }
+      localStorage.setItem("uom-theme", theme);
+    } catch (e) {
+      /* ignore in non-browser environments */
+    }
+  }, [theme]);
 
   useEffect(() => {
     const offset = 96;
@@ -48,16 +74,16 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header className="fixed inset-x-0 top-4 md:top-6 z-50 px-4">
-      <div className="mx-auto flex max-w-7xl items-center gap-4 rounded-[2rem] bg-white/85 px-4 py-3 shadow-2xl shadow-slate-900/10 backdrop-blur-xl ring-1 ring-slate-200/80">
+    <header className="fixed inset-x-0 top-4 z-50 px-4">
+      <div className="mx-auto flex h-16 w-[95%] max-w-7xl items-center gap-4 rounded-[2rem] bg-white/90 px-4 shadow-2xl shadow-slate-900/10 backdrop-blur-xl ring-1 ring-slate-200/80 dark:bg-slate-950/95 dark:ring-slate-700/60">
         <a
           href="#home"
-          className="flex items-center gap-3 rounded-2xl bg-slate-950 px-3 py-2 text-white shadow-sm transition hover:shadow-md"
+          className="flex items-center gap-3 rounded-2xl bg-[#009AD9] px-3 py-2 text-white shadow-sm transition hover:bg-[#007fbf]"
         >
-          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white text-slate-950 font-semibold">U</div>
+          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white text-[#009AD9] font-semibold">U</div>
           <div className="hidden flex-col sm:flex">
             <span className="text-sm font-semibold leading-none">UoM Souvenir</span>
-            <span className="text-xs uppercase tracking-[0.28em] text-slate-400">University Store</span>
+            <span className="text-xs uppercase tracking-[0.28em] text-white/80">University Store</span>
           </div>
         </a>
 
@@ -103,19 +129,18 @@ export default function Navbar() {
               </svg>
             }
           />
-          <IconButton
-            label="Cart"
-            icon={
-              <div className="relative">
-                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor">
-                  <path d="M6 6h15l-1.5 9.5H8.5L6 6Zm2.5 12a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Zm9 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Z" />
-                </svg>
-                <span className="absolute -right-1 -top-1 flex h-5 min-w-[1.25rem] items-center justify-center rounded-full bg-emerald-600 px-1.5 text-[10px] font-semibold text-white">
-                  3
-                </span>
-              </div>
-            }
-          />
+          <a
+            href="/cart"
+            className="relative inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 transition hover:border-slate-300 hover:bg-slate-50 hover:text-slate-900 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700"
+            aria-label="Cart"
+          >
+            <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor">
+              <path d="M6 6h15l-1.5 9.5H8.5L6 6Zm2.5 12a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Zm9 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Z" />
+            </svg>
+            <span className="absolute -right-1 -top-1 flex h-5 min-w-[1.25rem] items-center justify-center rounded-full bg-[#E31A22] px-1.5 text-[10px] font-semibold text-white">
+              3
+            </span>
+          </a>
           <IconButton
             label="Account"
             icon={
@@ -124,6 +149,33 @@ export default function Navbar() {
               </svg>
             }
           />
+          <button
+            type="button"
+            aria-label="Toggle theme"
+            onClick={() => {
+              // functional update to avoid stale closures
+              setTheme((prev) => {
+                const next = prev === "light" ? "dark" : "light";
+                try {
+                  if (typeof document !== "undefined") document.documentElement.classList.toggle("dark", next === "dark");
+                  localStorage.setItem("uom-theme", next);
+                } catch (e) {}
+                return next;
+              });
+            }}
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 transition hover:border-slate-300 hover:bg-slate-50 hover:text-slate-900 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700"
+          >
+            {theme === "light" ? (
+              <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="5" />
+                <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+              </svg>
+            ) : (
+              <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" />
+              </svg>
+            )}
+          </button>
         </div>
       </div>
     </header>

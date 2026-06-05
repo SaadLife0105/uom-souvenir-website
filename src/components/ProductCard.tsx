@@ -18,7 +18,7 @@ const RatingStars = ({ rating }: { rating: number }) => (
 
 export default function ProductCard({ product }: ProductCardProps) {
   return (
-    <article className="group overflow-hidden rounded-[2rem] border border-slate-200 bg-white transition hover:-translate-y-1 hover:shadow-[0_24px_80px_-40px_rgba(15,23,42,0.2)]">
+    <article className="group overflow-hidden rounded-[2rem] border border-[#A88243]/15 bg-white transition hover:-translate-y-1 hover:shadow-[0_24px_80px_-40px_rgba(15,23,42,0.2)] dark:border-slate-700/40 dark:bg-slate-950">
       <div className="relative h-72 overflow-hidden bg-slate-100">
         <Image
           src={product.image}
@@ -31,13 +31,13 @@ export default function ProductCard({ product }: ProductCardProps) {
       <div className="space-y-4 p-6">
         <div className="flex items-center justify-between gap-4">
           <div>
-            <p className="text-base font-semibold text-slate-950">{product.name}</p>
-            <p className="text-sm text-slate-500">{product.category}</p>
+              <p className="text-base font-semibold text-slate-950 dark:text-slate-100">{product.name}</p>
+              <p className="text-sm text-slate-500 dark:text-slate-400">{product.category}</p>
           </div>
-          <p className="text-lg font-semibold text-slate-950">{product.price}</p>
+          <p className="text-lg font-semibold text-slate-950 dark:text-slate-100">{product.price}</p>
         </div>
         <RatingStars rating={product.rating} />
-        <button className="inline-flex w-full items-center justify-center rounded-2xl bg-slate-950 px-4 py-3 text-sm font-semibold text-white transition hover:bg-slate-800">
+        <button className="inline-flex w-full items-center justify-center rounded-2xl bg-[#009AD9] px-4 py-3 text-sm font-semibold text-white transition hover:bg-[#007fbf]">
           Add to Cart
         </button>
       </div>
