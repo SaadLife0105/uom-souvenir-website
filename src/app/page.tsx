@@ -87,7 +87,7 @@ export default function Home() {
               <div>
                 <SectionHeader
                   eyebrow="Why choose us"
-                  title="Premium quality, authentic campus merchandise."
+                  title="Premium quality, authentic UoM campus merchandise."
                   description="We bring together official University of Mauritius products, sustainable materials and a calm shopping experience built around student needs."
                 />
               </div>
@@ -107,6 +107,8 @@ export default function Home() {
                 eyebrow="Testimonials"
                 title="Real feedback from campus shoppers."
                 description="Students, alumni and faculty share what they love most about the UoM souvenir experience."
+                className="text-center"
+                wideDescription
               />
             </div>
             <div className="mt-10 grid gap-6 lg:grid-cols-3">

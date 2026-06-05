@@ -37,7 +37,7 @@ export interface TestimonialItem {
 export const navLinks = [
   { label: "Home", href: "#home" },
   { label: "Browse", href: "#shop" },
-  { label: "Cart", href: "/cart" },
+  { label: "Guide", href: "#workflow" },
   { label: "About", href: "#about" },
   { label: "Contact", href: "#contact" },
 ];

@@ -1,3 +1,5 @@
+import Image from "next/image";
+import uomLogo from "@/app/images/uom-logo.png";
 import { footerLinks } from "./store-data";
 
 export default function Footer() {
@@ -6,10 +8,13 @@ export default function Footer() {
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid gap-10 lg:grid-cols-[1.2fr_1fr_1fr]">
           <div className="space-y-4">
-            <div className="inline-flex h-11 items-center justify-center rounded-2xl bg-[#faa153] px-4 font-semibold text-[#0d1f33] shadow-sm shadow-[#0d1f33]/20">
-              UoM Souvenir Store
+            <div className="inline-flex items-center gap-3 rounded-2xl bg-[#162c47] px-4 py-3 shadow-sm shadow-[#0d1f33]/20">
+              <div className="relative h-12 w-auto overflow-hidden rounded-2xl bg-[#eef3fb] p-2">
+                <Image src={uomLogo} alt="UoM Souvenir Store Logo" className="object-contain" width={48} height={48} />
+              </div>
+              <span className="font-semibold text-[#eef3fb]">UoM Souvenir Store</span>
             </div>
-            <p className="max-w-sm text-sm leading-7 text-[#99a7c0]">
+            <p className="text-sm leading-7 text-[#99a7c0]">
               Official University of Mauritius merchandise with premium campus essentials, gifts, and student favorites.
             </p>
           </div>

@@ -61,7 +61,7 @@ export default function Navbar() {
 
         <div className="hidden flex-1 justify-center md:flex">
           <PillNav
-            logo="/images/uom-logo.png"
+            logo={uomLogo.src}
             logoAlt="University of Mauritius logo"
             items={navLinks}
             activeHref={activeHref}
@@ -77,7 +77,7 @@ export default function Navbar() {
 
         <div className="flex flex-1 justify-center md:hidden">
           <PillNav
-            logo="/images/uom-logo.png"
+            logo={uomLogo.src}
             logoAlt="University of Mauritius logo"
             items={navLinks}
             activeHref={activeHref}

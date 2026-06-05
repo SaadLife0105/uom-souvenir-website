@@ -3,6 +3,8 @@ interface SectionHeaderProps {
   title: string;
   description?: string;
   className?: string;
+  descriptionClassName?: string;
+  wideDescription?: boolean;
 }
 
 export default function SectionHeader({
@@ -10,6 +12,8 @@ export default function SectionHeader({
   title,
   description,
   className = "",
+  descriptionClassName = "",
+  wideDescription = false,
 }: SectionHeaderProps) {
   return (
     <div className={className}>
@@ -22,7 +26,7 @@ export default function SectionHeader({
         {title}
       </h2>
       {description ? (
-        <p className="mt-4 max-w-xl text-sm leading-7 text-[#99a7c0]">
+        <p className={`mt-4 text-sm leading-7 text-[#99a7c0] ${wideDescription ? 'sm:whitespace-nowrap' : 'max-w-xl'} ${descriptionClassName}`}>
           {description}
         </p>
       ) : null}
