@@ -11,7 +11,7 @@ export default function PromoBanner() {
             </p>
             <div className="flex flex-col gap-4 sm:flex-row">
               <a
-                href="#shop"
+                href="/shop"
                 className="inline-flex items-center justify-center rounded-full bg-[#faa153] px-6 py-3 text-sm font-semibold text-[#0d1f33] transition hover:bg-[#e69d6d]"
               >
                 Browse selections

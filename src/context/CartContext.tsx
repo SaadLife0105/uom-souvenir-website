@@ -11,8 +11,8 @@ export interface CartItem extends ShopProduct {
 interface CartContextType {
   cartItems: CartItem[];
   addToCart: (product: ShopProduct, quantity: number, color?: string) => void;
-  removeFromCart: (productId: string) => void;
-  updateQuantity: (productId: string, quantity: number) => void;
+  removeFromCart: (productId: string, color?: string) => void;
+  updateQuantity: (productId: string, quantity: number, color?: string) => void;
   clearCart: () => void;
   getTotalPrice: () => number;
 }
@@ -74,23 +74,36 @@ export function CartProvider({ children }: { children: ReactNode }) {
     });
   };
 
-  const removeFromCart = (productId: string) => {
+  const removeFromCart = (productId: string, color?: string) => {
     setCartItems((prevItems) =>
-      prevItems.filter((item) => item.id !== productId)
+      prevItems.filter(
+        (item) => item.id !== productId || item.selectedColor !== color
+      )
     );
   };
 
-  const updateQuantity = (productId: string, quantity: number) => {
+  const updateQuantity = (
+    productId: string,
+    quantity: number,
+    color?: string
+  ) => {
     setCartItems((prevItems) =>
-      prevItems.map((item) => {
-        if (item.id === productId) {
-          if (quantity <= 0) {
-            return null as any;
-          }
-          return { ...item, selectedQuantity: Math.min(quantity, item.quantity) };
+      prevItems.flatMap((item) => {
+        if (item.id !== productId || item.selectedColor !== color) {
+          return [item];
         }
-        return item;
-      }).filter(Boolean)
+
+        if (quantity <= 0) {
+          return [];
+        }
+
+        return [
+          {
+            ...item,
+            selectedQuantity: Math.min(quantity, item.quantity),
+          },
+        ];
+      })
     );
   };
 

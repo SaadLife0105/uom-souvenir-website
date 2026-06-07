@@ -10,7 +10,7 @@ export default function Footer() {
           <div className="space-y-4">
             <div className="inline-flex items-center gap-3 rounded-2xl bg-[#162c47] px-4 py-3 shadow-sm shadow-[#0d1f33]/20">
               <div className="relative h-12 w-auto overflow-hidden rounded-2xl bg-[#eef3fb] p-2">
-                <Image src={uomLogo} alt="UoM Souvenir Store Logo" className="object-contain" width={48} height={48} />
+                <Image src={uomLogo} alt="UoM Souvenir Store Logo" className="w-auto h-auto object-contain" width={48} height={48} />
               </div>
               <span className="font-semibold text-[#eef3fb]">UoM Souvenir Store</span>
             </div>

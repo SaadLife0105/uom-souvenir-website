@@ -1,11 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 import Image from "next/image";
 import uomLogo from "@/app/images/uom-logo.png";
 import PillNav from "./reactbits/PillNav";
 import { navLinks } from "./store-data";
+import { useCart } from "@/context/CartContext";
 
 const IconButton = ({ label, icon }: { label: string; icon: ReactNode }) => (
   <button
@@ -18,9 +20,22 @@ const IconButton = ({ label, icon }: { label: string; icon: ReactNode }) => (
 );
 
 export default function Navbar() {
+  const pathname = usePathname();
   const [activeHref, setActiveHref] = useState(navLinks[0]?.href ?? "#home");
+  const isCartPage = pathname === "/cart";
+  const isShopPage = pathname === "/shop";
 
   useEffect(() => {
+    if (isShopPage) {
+      setActiveHref("#shop");
+      return;
+    }
+
+    if (isCartPage) {
+      setActiveHref(navLinks[0]?.href ?? "#home");
+      return;
+    }
+
     const offset = 96;
 
     const handleScroll = () => {
@@ -47,14 +62,23 @@ export default function Navbar() {
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [isCartPage, isShopPage, pathname]);
+
+  const { cartItems } = useCart();
+  const cartQuantity = cartItems.reduce((count, item) => count + item.selectedQuantity, 0);
 
   return (
     <header className="fixed inset-x-0 top-4 z-50 px-4">
       <div className="mx-auto flex h-16 w-[95%] max-w-7xl items-center gap-4 rounded-[2rem] border border-[#3f5a80] bg-[#0d1f33]/95 px-4 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.35)] backdrop-blur-xl">
         <a href="#home" className="flex items-center gap-3 rounded-full bg-[#162c47] px-3 py-2 text-[#eef3fb] shadow-sm shadow-[#0d1f33]/20 transition hover:bg-[#0d1f33]">
           <div className="relative h-11 w-11 overflow-hidden rounded-2xl bg-[#eef3fb]">
-            <Image src={uomLogo} alt="UoM Souvenir Store Logo" width={50} height={50} className="object-contain" />
+            <Image
+              src={uomLogo}
+              alt="UoM Souvenir Store Logo"
+              width={50}
+              height={50}
+              className="w-auto h-auto object-contain"
+            />
           </div>
           <span className="text-sm font-semibold uppercase tracking-[0.2em]">UoM Souvenir Store</span>
         </a>
@@ -94,14 +118,16 @@ export default function Navbar() {
         <div className="hidden items-center gap-3 md:flex">
           <a
             href="/cart"
-            className="relative inline-flex h-11 w-11 items-center justify-center rounded-full border border-[#3f5a80] bg-[#162c47] text-[#eef3fb] transition hover:bg-[#0d1f33] hover:text-[#faa153]"
+            className={`relative inline-flex h-11 w-11 items-center justify-center rounded-full border bg-[#162c47] text-[#eef3fb] transition hover:bg-[#0d1f33] hover:text-[#faa153] ${
+              isCartPage ? "border-[#faa153] text-[#faa153]" : "border-[#3f5a80]"
+            }`}
             aria-label="Cart"
           >
             <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor">
               <path d="M6 6h15l-1.5 9.5H8.5L6 6Zm2.5 12a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Zm9 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Z" />
             </svg>
             <span className="absolute -right-1 -top-1 flex h-5 min-w-[1.25rem] items-center justify-center rounded-full bg-[#faa153] px-1.5 text-[10px] font-semibold text-[#0d1f33]">
-              3
+              {cartQuantity}
             </span>
           </a>
           <IconButton
