@@ -13,7 +13,7 @@ export default function Home() {
     <div className="min-h-screen bg-[#D7F2FF] text-white">
       <Navbar />
 
-      <main className="pt-28">
+      <main>
         <Hero />
 
         <section id="categories" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">

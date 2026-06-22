@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function Hero() {
   return (
-    <section id="home" className="relative overflow-hidden bg-[#D7F2FF] pb-24 pt-24">
+    <section id="home" className="relative overflow-hidden bg-[#D7F2FF] pb-24 pt-32">
       <div className="absolute inset-x-0 top-0 h-96 bg-gradient-to-b from-white/90 to-[#D7F2FF]" />
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">

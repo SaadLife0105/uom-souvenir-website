@@ -68,8 +68,8 @@ export default function Navbar() {
   const cartQuantity = cartItems.reduce((count, item) => count + item.selectedQuantity, 0);
 
   return (
-    <header className="fixed inset-x-0 top-6 z-50 px-4">
-      <div className="mx-auto flex h-20 w-[95%] max-w-7xl items-center gap-4 rounded-3xl border border-white/25 bg-transparent px-4 shadow-[0_35px_90px_-35px_rgba(0,0,0,0.35)] backdrop-blur-xl">
+    <header className="fixed inset-x-0 top-6 z-50 px-4 bg-transparent">
+      <div className="mx-auto flex h-20 w-[95%] max-w-7xl items-center gap-4 rounded-3xl border border-white/25 bg-transparent px-4 shadow-xl backdrop-blur-xl">
         <a href="#home" className="flex items-center gap-3 rounded-3xl bg-transparent px-4 py-3 text-[#7F0906] transition hover:text-[#C82520]">
           <div className="relative h-11 w-11 overflow-hidden rounded-2xl bg-white p-2">
             <Image
