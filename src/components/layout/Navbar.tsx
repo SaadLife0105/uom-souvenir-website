@@ -5,8 +5,8 @@ import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 import Image from "next/image";
 import uomLogo from "@/app/images/uom-logo.png";
-import PillNav from "./reactbits/PillNav";
-import { navLinks } from "./store-data";
+import PillNav from "../reactbits/PillNav";
+import { navLinks } from "@/data/store-data";
 import { useCart } from "@/context/CartContext";
 
 const IconButton = ({ label, icon }: { label: string; icon: ReactNode }) => (
@@ -41,7 +41,7 @@ export default function Navbar() {
     const handleScroll = () => {
       let current = navLinks[0]?.href ?? "#home";
 
-      navLinks.forEach((link) => {
+      navLinks.forEach((link: { href: string }) => {
         const id = link.href.replace("#", "");
         const element = document.getElementById(id);
 

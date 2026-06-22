@@ -1,9 +1,9 @@
 'use client';
 
 import Link from 'next/link';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
-import CartNoticeBanner from '@/components/CartNoticeBanner';
+import Navbar from '@/components/layout/Navbar';
+import Footer from '@/components/layout/Footer';
+import CartNoticeBanner from '@/components/shop/CartNoticeBanner';
 import { useCart } from '@/context/CartContext';
 
 export default function CartPage() {

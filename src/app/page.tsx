@@ -1,12 +1,12 @@
-import Footer from "@/components/Footer";
-import Hero from "@/components/Hero";
-import Navbar from "@/components/Navbar";
-import PromoBanner from "@/components/PromoBanner";
+import Footer from "@/components/layout/Footer";
+import Hero from "@/components/home/Hero";
+import Navbar from "@/components/layout/Navbar";
+import PromoBanner from "@/components/home/PromoBanner";
 import FeatureCard from "@/components/FeatureCard";
-import TestimonialCard from "@/components/TestimonialCard";
+import TestimonialCard from "@/components/home/TestimonialCard";
 import SectionHeader from "@/components/SectionHeader";
-import WorkflowStepCard from "@/components/WorkflowStepCard";
-import { categories, shopProducts, features, testimonials, workflowSteps } from "@/components/store-data";
+import WorkflowStepCard from "@/components/home/WorkflowStepCard";
+import { categories, shopProducts, features, testimonials, workflowSteps } from "@/data/store-data";
 
 export default function Home() {
   return (
@@ -24,7 +24,7 @@ export default function Home() {
               description="Handpicked University of Mauritius favorites with comfortable silhouettes, student-ready materials and clean finishing touches."
             />
             <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {shopProducts.slice(0, 4).map((product) => (
+              {shopProducts.slice(0, 4).map((product: { id: string; image: string; name: string }) => (
                 <div key={product.id} className="flex h-full flex-col overflow-hidden rounded-[2rem] border border-[#3f5a80] bg-[#162c47] transition hover:-translate-y-1 hover:shadow-[0_24px_80px_-40px_rgba(0,0,0,0.3)]">
                   <div className="relative h-72 overflow-hidden bg-[#0d1f33]">
                     <img src={product.image} alt={product.name} className="h-full w-full object-cover" />
@@ -57,7 +57,7 @@ export default function Home() {
               description="The portal reserves your items and prepares your order for collection at the UoM Finance Office."
             />
             <div className="mt-10 grid gap-6 md:grid-cols-2 max-w-4xl mx-auto">
-              {workflowSteps.map((step) => (
+              {workflowSteps.map((step: { step: number; title: string; description: string }) => (
                 <WorkflowStepCard key={step.step} step={step.step} title={step.title} description={step.description} />
               ))}
             </div>
@@ -75,7 +75,7 @@ export default function Home() {
                 />
               </div>
               <div className="grid gap-6 sm:grid-cols-2">
-                {features.map((feature) => (
+                {features.map((feature: { title: string; description: string; icon: "shield" | "leaf" | "delivery" | "lock" }) => (
                   <FeatureCard key={feature.title} title={feature.title} description={feature.description} icon={feature.icon} />
                 ))}
               </div>
@@ -95,7 +95,7 @@ export default function Home() {
               />
             </div>
             <div className="mt-10 grid gap-6 lg:grid-cols-3">
-              {testimonials.map((testimonial) => (
+              {testimonials.map((testimonial: { name: string; role: string; review: string; rating: number; avatar: string }) => (
                 <TestimonialCard key={testimonial.name} testimonial={testimonial} />
               ))}
             </div>

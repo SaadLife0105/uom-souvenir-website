@@ -2,9 +2,9 @@
 
 import { useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
-import { shopProducts, type ShopProduct } from '@/components/store-data';
+import Navbar from '@/components/layout/Navbar';
+import Footer from '@/components/layout/Footer';
+import { shopProducts, type ShopProduct } from '@/data/store-data';
 import { useCart } from '@/context/CartContext';
 
 const PLACEHOLDER_IMAGE =

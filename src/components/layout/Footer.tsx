@@ -1,6 +1,6 @@
 import Image from "next/image";
 import uomLogo from "@/app/images/uom-logo.png";
-import { footerLinks } from "./store-data";
+import { footerLinks } from "@/data/store-data";
 
 export default function Footer() {
   return (
