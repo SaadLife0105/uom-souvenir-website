@@ -10,13 +10,14 @@ import { categories, testimonials, workflowSteps } from "@/data/store-data";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-[#D7F2FF] text-white">
+    <div className="min-h-screen">
       <Navbar />
 
       <main>
         <Hero />
 
-        <section id="categories" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <div className="bg-[#D7F2FF]">
+          <section id="categories" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <div className="space-y-8">
             <SectionHeader
               eyebrow="Categories"
@@ -35,7 +36,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="steps" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 bg-[#D7F2FF]">
+        <section id="steps" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <div className="overflow-hidden rounded-3xl border-2 border-[#C82520] bg-white p-8 shadow-xl sm:p-10">
             <SectionHeader
               eyebrow="Steps"
@@ -90,6 +91,7 @@ export default function Home() {
             </div>
           </div>
         </section>
+      </div>
       </main>
 
       <Footer />
