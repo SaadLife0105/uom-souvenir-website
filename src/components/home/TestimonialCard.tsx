@@ -1,5 +1,5 @@
 import Image from "next/image";
-import type { TestimonialItem } from "./store-data";
+import type { TestimonialItem } from "@/data/store-data";
 
 interface TestimonialCardProps {
   testimonial: TestimonialItem;

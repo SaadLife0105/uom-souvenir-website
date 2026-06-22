@@ -1,5 +1,5 @@
 import Image from "next/image";
-import type { ProductItem } from "./store-data";
+import type { ProductItem } from "@/data/store-data";
 
 interface ProductCardProps {
   product: ProductItem;

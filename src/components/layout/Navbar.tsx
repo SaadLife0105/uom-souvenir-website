@@ -4,15 +4,15 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 import Image from "next/image";
+import { Search, ShoppingBag, User } from "lucide-react";
 import uomLogo from "@/app/images/uom-logo.png";
-import PillNav from "../reactbits/PillNav";
 import { navLinks } from "@/data/store-data";
 import { useCart } from "@/context/CartContext";
 
 const IconButton = ({ label, icon }: { label: string; icon: ReactNode }) => (
   <button
     type="button"
-    className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[#3f5a80] bg-[#162c47] text-[#eef3fb] transition hover:bg-[#0d1f33] hover:text-[#faa153]"
+    className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/30 bg-transparent text-[#7F0906] transition hover:bg-[#E99C19] hover:text-white"
   >
     <span className="sr-only">{label}</span>
     {icon}
@@ -68,76 +68,49 @@ export default function Navbar() {
   const cartQuantity = cartItems.reduce((count, item) => count + item.selectedQuantity, 0);
 
   return (
-    <header className="fixed inset-x-0 top-4 z-50 px-4">
-      <div className="mx-auto flex h-16 w-[95%] max-w-7xl items-center gap-4 rounded-[2rem] border border-[#3f5a80] bg-[#0d1f33]/95 px-4 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.35)] backdrop-blur-xl">
-        <a href="#home" className="flex items-center gap-3 rounded-full bg-[#162c47] px-3 py-2 text-[#eef3fb] shadow-sm shadow-[#0d1f33]/20 transition hover:bg-[#0d1f33]">
-          <div className="relative h-11 w-11 overflow-hidden rounded-2xl bg-[#eef3fb]">
+    <header className="fixed inset-x-0 top-6 z-50 px-4">
+      <div className="mx-auto flex h-20 w-[95%] max-w-7xl items-center gap-4 rounded-3xl border border-white/25 bg-transparent px-4 shadow-[0_35px_90px_-35px_rgba(0,0,0,0.35)] backdrop-blur-xl">
+        <a href="#home" className="flex items-center gap-3 rounded-3xl bg-transparent px-4 py-3 text-[#7F0906] transition hover:text-[#C82520]">
+          <div className="relative h-11 w-11 overflow-hidden rounded-2xl bg-white p-2">
             <Image
               src={uomLogo}
-              alt="UoM Souvenir Store Logo"
-              width={50}
-              height={50}
+              alt="University Of Mauritius shield logo"
+              width={44}
+              height={44}
               className="w-auto h-auto object-contain"
             />
           </div>
-          <span className="text-sm font-semibold uppercase tracking-[0.2em]">UoM Souvenir Store</span>
+          <div className="hidden min-w-[12rem] flex-col sm:flex">
+            <span className="text-sm font-semibold text-[#7F0906]">University Of Mauritius</span>
+            <span className="text-xs text-[#7F0906] text-opacity-80">Souvenir Shop</span>
+          </div>
         </a>
 
         <div className="hidden flex-1 justify-center md:flex">
-          <PillNav
-            logo={uomLogo.src}
-            logoAlt="University of Mauritius logo"
-            items={navLinks}
-            activeHref={activeHref}
-            className="w-full max-w-2xl"
-            baseColor="#eef3fb"
-            pillColor="#162c47"
-            hoveredPillTextColor="#faa153"
-            pillTextColor="#eef3fb"
-            showLogo={false}
-            onMobileMenuClick={() => {}}
-          />
+          <nav className="flex items-center gap-6 text-sm font-medium text-[#7F0906]">
+            {navLinks.map((link) => (
+              <a key={link.href} href={link.href} className="transition hover:text-[#C82520]">
+                {link.label}
+              </a>
+            ))}
+          </nav>
         </div>
 
-        <div className="flex flex-1 justify-center md:hidden">
-          <PillNav
-            logo={uomLogo.src}
-            logoAlt="University of Mauritius logo"
-            items={navLinks}
-            activeHref={activeHref}
-            className="w-full max-w-xs"
-            baseColor="#eef3fb"
-            pillColor="#162c47"
-            hoveredPillTextColor="#faa153"
-            pillTextColor="#eef3fb"
-            showLogo={false}
-            onMobileMenuClick={() => {}}
-          />
-        </div>
-
-        <div className="hidden items-center gap-3 md:flex">
+        <div className="ml-auto hidden items-center gap-3 md:flex">
+          <IconButton label="Search" icon={<Search className="h-5 w-5 text-[#7F0906]" />} />
           <a
             href="/cart"
-            className={`relative inline-flex h-11 w-11 items-center justify-center rounded-full border bg-[#162c47] text-[#eef3fb] transition hover:bg-[#0d1f33] hover:text-[#faa153] ${
-              isCartPage ? "border-[#faa153] text-[#faa153]" : "border-[#3f5a80]"
+            className={`relative inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/25 bg-transparent text-[#7F0906] transition hover:bg-[#E99C19] hover:text-white ${
+              isCartPage ? "border-[#C82520] text-white" : ""
             }`}
             aria-label="Cart"
           >
-            <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor">
-              <path d="M6 6h15l-1.5 9.5H8.5L6 6Zm2.5 12a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Zm9 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Z" />
-            </svg>
-            <span className="absolute -right-1 -top-1 flex h-5 min-w-[1.25rem] items-center justify-center rounded-full bg-[#faa153] px-1.5 text-[10px] font-semibold text-[#0d1f33]">
+            <ShoppingBag className="h-5 w-5 text-[#7F0906]" />
+            <span className="absolute -right-1 -top-1 flex h-5 min-w-[1.25rem] items-center justify-center rounded-full bg-[#C82520] px-1.5 text-[10px] font-semibold text-white">
               {cartQuantity}
             </span>
           </a>
-          <IconButton
-            label="Account"
-            icon={
-              <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor">
-                <path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Zm0 2c-3.33 0-6 1.67-6 4v1h12v-1c0-2.33-2.67-4-6-4Z" />
-              </svg>
-            }
-          />
+          <IconButton label="Account" icon={<User className="h-5 w-5 text-[#7F0906]" />} />
         </div>
       </div>
     </header>

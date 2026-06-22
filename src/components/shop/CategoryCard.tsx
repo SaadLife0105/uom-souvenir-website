@@ -1,5 +1,5 @@
 import Image from "next/image";
-import type { CategoryItem } from "./store-data";
+import type { CategoryItem } from "@/data/store-data";
 
 interface CategoryCardProps {
   category: CategoryItem;

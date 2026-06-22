@@ -46,41 +46,41 @@ export interface TestimonialItem {
 }
 
 export const navLinks = [
-  { label: "Home", href: "#home" },
   { label: "Browse", href: "#shop" },
-  { label: "Guide", href: "#workflow" },
-  { label: "About", href: "#about" },
+  { label: "Categories", href: "#categories" },
+  { label: "How-to", href: "#steps" },
   { label: "Contact", href: "#contact" },
+  { label: "FAQ", href: "#faq" },
 ];
 
 export const categories: CategoryItem[] = [
   {
-    title: "Hoodies",
-    description: "Soft campus layer for study sessions.",
+    title: "Apparel",
+    description: "Premium sweatshirts, tees and UoM campus layers.",
     image: "/category-placeholder.svg",
     href: "#shop",
   },
   {
-    title: "T-Shirts",
-    description: "Lightweight essentials with UoM style.",
-    image: "/category-placeholder.svg",
-    href: "#shop",
-  },
-  {
-    title: "Mugs",
-    description: "Daily drinkware with university pride.",
+    title: "Drinkware",
+    description: "Mugs, bottles and cups that carry university pride.",
     image: "/category-placeholder.svg",
     href: "#shop",
   },
   {
     title: "Accessories",
-    description: "Campus-ready bags, caps and more.",
+    description: "Bags, hats and campus-ready essentials.",
     image: "/category-placeholder.svg",
     href: "#shop",
   },
   {
     title: "Stationery",
-    description: "Premium notebooks and study essentials.",
+    description: "Notebooks, pens and planners for every study session.",
+    image: "/category-placeholder.svg",
+    href: "#shop",
+  },
+  {
+    title: "Gifts",
+    description: "Collectibles and keepsakes made for UoM fans.",
     image: "/category-placeholder.svg",
     href: "#shop",
   },
@@ -140,44 +140,45 @@ export const workflowSteps: WorkflowStepItem[] = [
   {
     step: 1,
     title: "Browse Items",
-    description: "Explore all the UOM souvenirs available and add your favorite items to your digital cart.",
+    description: "Explore souvenirs, compare campus favourites and add the best picks to your cart.",
   },
   {
     step: 2,
-    title: "Pay at Finance Office",
-    description: "Present your receipt at the UOM Finance Office to complete payment and collect your items.",
+    title: "Get an Invoice",
+    description: "Generate a clear invoice from your selections and confirm your reservation details.",
+  },
+  {
+    step: 3,
+    title: "Pay and Pick Up",
+    description: "Pay at the UoM Finance Office and collect your reserved items when ready.",
   },
 ];
 
 export const testimonials: TestimonialItem[] = [
   {
-    name: "Amala Raj",
-    role: "Computer Science Student",
-    review:
-      "The hoodie is so comfortable and the design feels truly premium. Delivery was quick and the quality exceeded expectations.",
+    name: "Person",
+    role: "Student",
+    review: "The hoodie is so comfortable and the design feels truly premium.",
     rating: 5,
     avatar: "/avatar-placeholder.svg",
   },
   {
-    name: "Kevin Leung",
-    role: "UoM Alumna",
-    review:
-      "I love the merchandise range — the mug and tote bag are perfect gifts. The store feels modern and easy to shop.",
+    name: "Person",
+    role: "Alumni",
+    review: "The hoodie is so comfortable and the design feels truly premium.",
     rating: 5,
     avatar: "/avatar-placeholder.svg",
   },
   {
-    name: "Nadia Abbas",
-    role: "Faculty Member",
-    review:
-      "Excellent materials and clean packaging. The campus collection is stylish and well made.",
-    rating: 4,
+    name: "Person",
+    role: "Faculty",
+    review: "The hoodie is so comfortable and the design feels truly premium.",
+    rating: 5,
     avatar: "/avatar-placeholder.svg",
   },
 ];
 
 export const footerLinks = {
-  quick: ["About", "Browse", "Support"],
   contact: [
     "University of Mauritius, Réduit",
     "+230 1234 5678",

@@ -9,13 +9,20 @@ export default function WorkflowStepCard({
   title,
   description,
 }: WorkflowStepCardProps) {
+  const stepLabel = String(step).padStart(2, "0");
+
   return (
-    <article className="rounded-[2rem] border border-[#3f5a80] bg-[#162c47] p-8 shadow-sm transition hover:-translate-y-1 hover:shadow-[0_24px_80px_-45px_rgba(0,0,0,0.3)]">
-      <div className="flex h-12 w-12 items-center justify-center rounded-3xl bg-[#faa153] text-base font-semibold text-[#0d1f33]">
-        {step}
+    <article className="flex h-full flex-col justify-between rounded-2xl border-2 border-[#C82520] bg-white p-8 shadow-xl">
+      <div className="flex items-center gap-4">
+        <div className="grid h-14 w-14 place-items-center rounded-full bg-[#E99C19] text-white shadow-sm">
+          <span className="text-2xl font-bold">→</span>
+        </div>
+        <div>
+          <div className="text-3xl font-bold text-[#E99C19]">{stepLabel}</div>
+          <h3 className="text-xl font-bold text-[#7F0906]">{title}</h3>
+        </div>
       </div>
-      <h3 className="mt-6 text-xl font-semibold text-[#eef3fb]">{title}</h3>
-      <p className="mt-3 max-w-xl text-sm leading-7 text-[#99a7c0]">{description}</p>
+      <p className="mt-6 text-sm leading-7 text-[#7F0906]">{description}</p>
     </article>
   );
 }
