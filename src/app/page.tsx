@@ -17,24 +17,27 @@ export default function Home() {
         <Hero />
 
         <div className="bg-[#D7F2FF]">
-          <section id="categories" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-          <div className="space-y-8">
-            <SectionHeader
-              eyebrow="Categories"
-              title="Discover souvenirs across every campus collection."
-              description="Explore curated categories for apparel, drinkware, accessories, stationery, and gifts designed for UoM supporters."
-            />
-            <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
-              {categories.map((category) => (
-                <CategoryCard
-                  key={category.title}
-                  title={category.title}
-                  description={category.description}
-                />
-              ))}
+          <section id="categories" className="w-full px-4 py-16 md:px-6">
+            <div className="space-y-8">
+              <SectionHeader
+                eyebrow="Categories"
+                title="Discover souvenirs across every campus collection."
+                description="Explore curated categories for apparel, drinkware, accessories, stationery, and gifts designed for UoM supporters."
+              />
+              <div className="grid grid-cols-1 gap-3 md:grid-cols-4">
+                {categories.map((category) => (
+                  <CategoryCard
+                    key={category.title}
+                    title={category.title}
+                    image={category.image}
+                    href={category.href}
+                    bgColor={category.bgColor}
+                    textColor={category.textColor}
+                  />
+                ))}
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
 
         <section id="steps" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <div className="overflow-hidden rounded-3xl border-2 border-[#C82520] bg-white p-8 shadow-xl sm:p-10">

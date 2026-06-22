@@ -1,31 +1,45 @@
+import Image, { type StaticImageData } from "next/image";
+import Link from "next/link";
+
 interface CategoryCardProps {
   title: string;
-  description: string;
+  image: string | StaticImageData;
+  href: string;
+  bgColor: string;
+  textColor: string;
 }
 
-export default function CategoryCard({ title, description }: CategoryCardProps) {
+export default function CategoryCard({
+  title,
+  image,
+  href,
+  bgColor,
+}: CategoryCardProps) {
   return (
-    <article className="flex h-full flex-col overflow-hidden rounded-3xl border border-[#C82520] bg-[#C82520] text-white shadow-[0_20px_60px_-30px_rgba(200,37,32,0.45)] transition hover:-translate-y-1">
-      <div className="flex h-48 items-center justify-center bg-white/10 p-6">
-        <div className="flex h-24 w-24 items-center justify-center rounded-3xl border border-white/20 bg-white/15 text-center text-sm font-semibold uppercase tracking-[0.24em] text-white">
-          Image
+    <Link
+      href={href}
+      className="group block h-full overflow-hidden rounded-2xl transition-all duration-300 ease-in-out hover:rounded-[4rem]"
+      style={{ backgroundColor: bgColor }}
+    >
+      <div className="relative flex h-80 items-center justify-center overflow-hidden p-4">
+        <div className="absolute inset-0 flex items-center justify-center opacity-10 transition-opacity duration-300 group-hover:opacity-100">
+          <Image
+            src={image}
+            alt={title}
+            className="w-full h-full object-contain p-4"
+            priority={false}
+          />
         </div>
-      </div>
-      <div className="flex flex-1 flex-col gap-6 p-6">
-        <div>
-          <h3 className="text-2xl sm:text-3xl font-bold">{title}</h3>
-          <p className="mt-3 text-lg leading-7 text-white/90">{description}</p>
-        </div>
-        <a
-          href="/shop"
-          className="mt-auto inline-flex items-center justify-center rounded-2xl bg-white px-4 py-3 text-sm font-semibold text-[#C82520] transition hover:bg-[#F8F8F8]"
-        >
-          Explore
-          <span aria-hidden="true" className="ml-2">
-            →
+
+        <div className="relative z-10 flex h-full w-full flex-col items-center justify-center text-center">
+          <h3 className="text-3xl font-bold text-white transition-transform duration-300 group-hover:-translate-y-4">
+            {title}
+          </h3>
+          <span className="mt-6 inline-flex rounded-full bg-white/15 px-6 py-3 text-sm font-semibold text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+            Shop Now
           </span>
-        </a>
+        </div>
       </div>
-    </article>
+    </Link>
   );
 }

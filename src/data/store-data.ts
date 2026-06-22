@@ -1,8 +1,16 @@
+import type { StaticImageData } from "next/image";
+import gownAndHat from "@/app/images/gownandhat-nobg.png";
+import notebookAndPen from "@/app/images/notebookandpen-nobg.png";
+import hoodieAndShoes from "@/app/images/hoodieandshoes-nobg.png";
+import laptopAndCase from "@/app/images/laptopandcase-nobg.png";
+
 export interface CategoryItem {
   title: string;
   description: string;
-  image: string;
+  image: StaticImageData;
   href: string;
+  bgColor: string;
+  textColor: string;
 }
 
 export interface ProductItem {
@@ -55,34 +63,36 @@ export const navLinks = [
 
 export const categories: CategoryItem[] = [
   {
-    title: "Apparel",
-    description: "Premium sweatshirts, tees and UoM campus layers.",
-    image: "/category-placeholder.svg",
-    href: "#shop",
+    title: "Graduation",
+    description: "Celebrate your milestone with signature graduation keepsakes.",
+    image: gownAndHat,
+    href: "/shop",
+    bgColor: "#7F0906",
+    textColor: "white",
   },
   {
-    title: "Drinkware",
-    description: "Mugs, bottles and cups that carry university pride.",
-    image: "/category-placeholder.svg",
-    href: "#shop",
+    title: "Stationary",
+    description: "Notebooks, planners and writing essentials for every study session.",
+    image: notebookAndPen,
+    href: "/shop",
+    bgColor: "#C82520",
+    textColor: "white",
   },
   {
-    title: "Accessories",
-    description: "Bags, hats and campus-ready essentials.",
-    image: "/category-placeholder.svg",
-    href: "#shop",
+    title: "Clothing",
+    description: "Campus-ready hoodies, tees and premium UoM apparel.",
+    image: hoodieAndShoes,
+    href: "/shop",
+    bgColor: "#E99C19",
+    textColor: "white",
   },
   {
-    title: "Stationery",
-    description: "Notebooks, pens and planners for every study session.",
-    image: "/category-placeholder.svg",
-    href: "#shop",
-  },
-  {
-    title: "Gifts",
-    description: "Collectibles and keepsakes made for UoM fans.",
-    image: "/category-placeholder.svg",
-    href: "#shop",
+    title: "Accessory",
+    description: "Stylish bags, cases and campus accessories for every day.",
+    image: laptopAndCase,
+    href: "/shop",
+    bgColor: "#B91A15",
+    textColor: "white",
   },
 ];
 
