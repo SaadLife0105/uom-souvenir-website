@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 import Image from "next/image";
-import { Search, ShoppingBag, User } from "lucide-react";
+import { ShoppingBag, User } from "lucide-react";
 import uomLogo from "@/app/images/uom-logo.png";
 import { navLinks } from "@/data/store-data";
 import { useCart } from "@/context/CartContext";
@@ -97,7 +97,6 @@ export default function Navbar() {
         </div>
 
         <div className="ml-auto hidden items-center gap-3 md:flex">
-          <IconButton label="Search" icon={<Search className="h-5 w-5 text-[#7F0906]" />} />
           <a
             href="/cart"
             className={`relative inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/25 bg-transparent text-[#7F0906] transition hover:bg-[#E99C19] hover:text-white ${
