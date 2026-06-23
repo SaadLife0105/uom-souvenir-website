@@ -18,15 +18,15 @@ export default function CategoryCard({
   return (
     <Link
       href={href}
-      className="group relative block h-[550px] overflow-hidden rounded-2xl transition-all duration-300 ease-in-out hover:rounded-[4rem]"
+      className="group relative block h-[200px] sm:h-[280px] md:h-[550px] overflow-hidden rounded-2xl transition-all duration-300 ease-in-out hover:rounded-[4rem]"
       style={{ backgroundColor: bgColor }}
     >
-      <div className="relative flex h-full flex-col items-center justify-center overflow-hidden p-6">
+      <div className="relative flex h-full flex-col items-center justify-center overflow-hidden p-4 md:p-6">
         <div className="absolute inset-0 flex items-center justify-center">
           <Image
             src={image}
             alt={title}
-            className={`h-[70%] w-full object-contain transition-transform duration-500 ${
+            className={`h-[60%] sm:h-[65%] md:h-[70%] w-full object-contain transition-transform duration-500 ${
               title === "Clothing"
                 ? "scale-[1.65] group-hover:scale-[1.75]"
                 : "group-hover:scale-105"
@@ -35,11 +35,11 @@ export default function CategoryCard({
           />
         </div>
 
-        <div className="relative z-10 flex flex-col items-center justify-center text-center gap-4">
-          <h3 className="text-4xl font-bold text-white transition-transform duration-300 group-hover:-translate-y-2">
+        <div className="relative z-10 flex flex-col items-center justify-center text-center gap-2 md:gap-4">
+          <h3 className="text-lg sm:text-2xl md:text-4xl font-bold text-white transition-transform duration-300 group-hover:-translate-y-2">
             {title}
           </h3>
-          <span className="pointer-events-none opacity-0 rounded-full border border-white/20 bg-white/40 px-6 py-3 text-sm font-semibold text-[#111827] backdrop-blur-xl transition-all duration-300 group-hover:opacity-100 group-hover:pointer-events-auto">
+          <span className="pointer-events-none opacity-0 rounded-full border border-white/20 bg-white/40 px-4 sm:px-6 py-2 sm:py-3 text-xs sm:text-sm font-semibold text-[#111827] backdrop-blur-xl transition-all duration-300 group-hover:opacity-100 group-hover:pointer-events-auto">
             Shop Now
           </span>
         </div>

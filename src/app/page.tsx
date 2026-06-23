@@ -17,14 +17,14 @@ export default function Home() {
         <Hero />
 
         <div className="bg-[#D7F2FF]">
-          <section id="categories" className="w-full px-4 py-16 md:px-6">
+          <section id="categories" className="w-full px-4 py-16 md:px-8">
             <div className="space-y-8">
               <SectionHeader
                 eyebrow="Categories"
                 title="Discover souvenirs across every campus collection."
                 description="Explore curated categories for apparel, drinkware, accessories, stationery, and gifts designed for UoM supporters."
               />
-              <div className="grid grid-cols-1 gap-3 md:grid-cols-4">
+              <div className="grid grid-cols-2 gap-2 md:grid-cols-4 md:gap-3">
                 {categories.map((category) => (
                   <CategoryCard
                     key={category.title}
@@ -61,10 +61,10 @@ export default function Home() {
 
         <section id="faq" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <div className="space-y-4 text-left">
-            <h2 className="text-3xl font-semibold tracking-tight text-[#7F0906] sm:text-4xl">
+            <h2 className="text-xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-[#7F0906]">
               Frequently Asked Questions (FAQ)
             </h2>
-            <p className="w-full max-w-none whitespace-nowrap text-sm leading-7 text-[#7F0906]">
+            <p className="w-full max-w-full text-sm leading-7 text-[#7F0906]">
               Everything you need to know about reserving items, generating invoices, and collecting your University of Mauritius souvenirs.
             </p>
           </div>

@@ -29,7 +29,7 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
       data-scroll-behavior="smooth"
     >
-      <body className="min-h-full flex flex-col bg-[#0d1f33] text-[#eef3fb]">
+      <body className="min-h-full flex flex-col bg-[#0d1f33] text-[#eef3fb] overflow-x-hidden w-full max-w-full">
         <CartProvider>{children}</CartProvider>
       </body>
     </html>
