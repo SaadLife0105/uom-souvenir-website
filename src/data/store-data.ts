@@ -1,8 +1,8 @@
 import type { StaticImageData } from "next/image";
-import gownAndHat from "@/app/images/gownandhat-nobg.png";
-import notebookAndPen from "@/app/images/notebookandpen-nobg.png";
-import hoodieAndShoes from "@/app/images/hoodieandshoes-nobg.png";
-import laptopAndCase from "@/app/images/laptopandcase-nobg.png";
+import gownAndHat from "@/app/images/category/gownandhat-nobg.png";
+import notebookAndPen from "@/app/images/category/notebookandpen-nobg.png";
+import hoodieAndShoes from "@/app/images/category/hoodieandshoes-nobg.png";
+import laptopAndCase from "@/app/images/category/laptopandcase-nobg.png";
 
 export interface CategoryItem {
   title: string;
