@@ -2,6 +2,7 @@ import Footer from "@/components/layout/Footer";
 import Hero from "@/components/home/Hero";
 import Navbar from "@/components/layout/Navbar";
 import CategoryCard from "@/components/home/CategoryCard";
+import BestSellers from "@/components/home/BestSellers";
 import FaqAccordion from "@/components/home/FaqAccordion";
 import FeedbackCard from "@/components/home/FeedbackCard";
 import SectionHeader from "@/components/SectionHeader";
@@ -38,6 +39,8 @@ export default function Home() {
               </div>
             </div>
           </section>
+
+          <BestSellers />
 
         <section id="steps" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <div className="overflow-hidden rounded-3xl border-2 border-[#C82520] bg-white p-8 shadow-xl sm:p-10">
