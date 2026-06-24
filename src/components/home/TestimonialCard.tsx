@@ -10,7 +10,7 @@ export default function TestimonialCard({ testimonial }: TestimonialCardProps) {
     <article className="rounded-[2rem] border border-[#3f5a80] bg-[#162c47] p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-[0_24px_80px_-50px_rgba(0,0,0,0.28)]">
       <div className="flex items-center gap-4">
         <div className="relative h-14 w-14 overflow-hidden rounded-full bg-[#0d1f33]">
-          <Image src={testimonial.avatar} alt={testimonial.name} fill className="object-cover" />
+          <Image src={testimonial.avatar} alt={testimonial.name} fill sizes="56px" className="object-cover" />
         </div>
         <div>
           <p className="text-sm text-[#faa153]">{testimonial.role}</p>

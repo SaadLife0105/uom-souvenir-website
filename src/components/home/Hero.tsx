@@ -10,6 +10,7 @@ export default function Hero() {
           src={heroBackground}
           alt="Hero background"
           fill
+          sizes="100vw"
           className="object-cover"
           priority
         />
@@ -19,7 +20,7 @@ export default function Hero() {
         <div className="flex max-w-md flex-col items-end text-right space-y-4 text-[#E99C19]">
           <div className="inline-flex items-center gap-4">
             <div className="relative h-14 w-14 overflow-hidden rounded-full">
-              <Image src={uomLogo} alt="UoM logo" fill className="object-contain" />
+              <Image src={uomLogo} alt="UoM logo" fill sizes="56px" className="object-contain" />
             </div>
             <span className="text-2xl font-bold tracking-tight sm:text-3xl">
               University of Mauritius

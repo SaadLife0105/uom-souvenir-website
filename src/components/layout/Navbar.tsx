@@ -87,7 +87,7 @@ export default function Navbar() {
 
         {/* Logo */}
         <a href="#home" className="flex items-center gap-3 rounded-3xl bg-transparent px-4 py-3 text-[#7F0906] transition hover:text-[#C82520]" onClick={() => setIsOpen(false)}>
-          <div className="relative h-11 w-11 overflow-hidden rounded-2xl bg-white p-2">
+          <div className="relative h-11 w-11 overflow-hidden rounded-2xl bg-transparent p-2">
             <Image
               src={uomLogo}
               alt="University Of Mauritius shield logo"
