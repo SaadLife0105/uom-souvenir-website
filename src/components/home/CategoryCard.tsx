@@ -18,11 +18,11 @@ export default function CategoryCard({
   return (
     <Link
       href={href}
-      className="group relative block h-[200px] sm:h-[280px] md:h-[550px] overflow-hidden rounded-2xl transition-all duration-300 ease-in-out hover:rounded-[4rem]"
+      className="group relative block h-[170px] sm:h-[240px] md:h-[470px] overflow-hidden rounded-2xl transition-all duration-300 ease-in-out hover:rounded-[10.5rem]"
       style={{ backgroundColor: bgColor }}
     >
       <div className="relative flex h-full flex-col items-center justify-center overflow-hidden p-4 md:p-6">
-        <div className="absolute inset-0 flex items-center justify-center">
+        <div className="absolute inset-0 flex items-center justify-center scale-[0.92] transition-transform duration-500">
           <Image
             src={image}
             alt={title}
