@@ -23,7 +23,6 @@ export default function BestSellers() {
           <SectionHeader
             eyebrow="Best Sellers"
             title="Discover our most popular UoM souvenirs."
-            description="Shop the top campus favourites across mugs, bags, hoodies, notebooks, and gowns."
             className="max-w-2xl"
           />
           <div className="flex gap-2">

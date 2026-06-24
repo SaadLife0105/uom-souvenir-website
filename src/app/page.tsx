@@ -23,7 +23,6 @@ export default function Home() {
               <SectionHeader
                 eyebrow="Categories"
                 title="Discover souvenirs across every campus collection."
-                description="Explore curated categories for apparel, drinkware, accessories, stationery, and gifts designed for UoM supporters."
               />
               <div className="grid grid-cols-2 gap-2 md:grid-cols-4 md:gap-3">
                 {categories.map((category) => (
@@ -47,7 +46,6 @@ export default function Home() {
             <SectionHeader
               eyebrow="Steps"
               title="Reserve your souvenirs in 3 simple steps."
-              description="The portal reserves your items and prepares your order for collection at the UoM Finance Office."
             />
             <div className="mt-10 grid gap-6 md:grid-cols-3">
               {workflowSteps.map((step) => (
@@ -82,7 +80,6 @@ export default function Home() {
               <SectionHeader
                 eyebrow="Feedback"
                 title="Students, alumni and faculty share what they love most about the UoM souvenir experience."
-                description="The feedback below reflects the comfort, quality and premium feel that campus shoppers enjoy with every order."
               />
             </div>
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">

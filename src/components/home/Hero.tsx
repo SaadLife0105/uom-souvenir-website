@@ -1,5 +1,5 @@
 import Image from "next/image";
-import heroBackground from "@/app/images/hero-background-blurred.png";
+import heroBackground from "@/app/images/herobackground.png";
 import uomLogo from "@/app/images/uom-logo.png";
 
 export default function Hero() {
