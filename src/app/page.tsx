@@ -4,10 +4,9 @@ import Navbar from "@/components/layout/Navbar";
 import CategoryCard from "@/components/home/CategoryCard";
 import BestSellers from "@/components/home/BestSellers";
 import FaqAccordion from "@/components/home/FaqAccordion";
-import FeedbackCard from "@/components/home/FeedbackCard";
 import SectionHeader from "@/components/SectionHeader";
 import WorkflowStepCard from "@/components/home/WorkflowStepCard";
-import { categories, testimonials, workflowSteps } from "@/data/store-data";
+import { categories, workflowSteps } from "@/data/store-data";
 
 export default function Home() {
   return (
@@ -21,8 +20,7 @@ export default function Home() {
           <section id="categories" className="w-full px-4 py-16 md:px-8">
             <div className="space-y-8">
               <SectionHeader
-                eyebrow="Categories"
-                title="Discover souvenirs across every campus collection."
+                title="Categories"
               />
               <div className="grid grid-cols-2 gap-2 md:grid-cols-4 md:gap-3">
                 {categories.map((category) => (
@@ -62,38 +60,15 @@ export default function Home() {
 
         <section id="faq" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <div className="space-y-4 text-left">
-            <h2 className="text-xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-[#7F0906]">
-              Frequently Asked Questions (FAQ)
-            </h2>
-            <p className="w-full max-w-full text-sm leading-7 text-[#7F0906]">
-              Everything you need to know about reserving items, generating invoices, and collecting your University of Mauritius souvenirs.
-            </p>
+            <SectionHeader
+                title="Frequently Asked Questions (FAQ)"
+              />
           </div>
           <div className="mt-10 grid gap-4">
             <FaqAccordion />
           </div>
         </section>
 
-        <section id="feedback" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-          <div className="space-y-10 text-left">
-            <div className="max-w-3xl">
-              <SectionHeader
-                eyebrow="Feedback"
-                title="Students, alumni and faculty share what they love most about the UoM souvenir experience."
-              />
-            </div>
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {testimonials.map((testimonial, index) => (
-                <FeedbackCard
-                  key={`${testimonial.name}-${index}`}
-                  name={testimonial.name}
-                  role={testimonial.role}
-                  quote={testimonial.review}
-                />
-              ))}
-            </div>
-          </div>
-        </section>
       </div>
       </main>
 

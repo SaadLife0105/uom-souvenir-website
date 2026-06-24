@@ -207,30 +207,6 @@ export const workflowSteps: WorkflowStepItem[] = [
   },
 ];
 
-export const testimonials: TestimonialItem[] = [
-  {
-    name: "Person",
-    role: "Student",
-    review: "The hoodie is so comfortable and the design feels truly premium.",
-    rating: 5,
-    avatar: "/avatar-placeholder.svg",
-  },
-  {
-    name: "Person",
-    role: "Alumni",
-    review: "The hoodie is so comfortable and the design feels truly premium.",
-    rating: 5,
-    avatar: "/avatar-placeholder.svg",
-  },
-  {
-    name: "Person",
-    role: "Faculty",
-    review: "The hoodie is so comfortable and the design feels truly premium.",
-    rating: 5,
-    avatar: "/avatar-placeholder.svg",
-  },
-];
-
 export const footerLinks = {
   contact: [
     "University of Mauritius, Réduit",

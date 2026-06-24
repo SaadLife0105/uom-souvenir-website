@@ -21,8 +21,7 @@ export default function BestSellers() {
       <div className="space-y-8">
         <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <SectionHeader
-            eyebrow="Best Sellers"
-            title="Discover our most popular UoM souvenirs."
+            title="Discover our Best Sellers"
             className="max-w-2xl"
           />
           <div className="flex gap-2">
