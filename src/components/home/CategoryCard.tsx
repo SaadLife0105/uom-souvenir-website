@@ -26,7 +26,7 @@ export default function CategoryCard({
           <Image
             src={image}
             alt={title}
-            className={`h-[60%] sm:h-[65%] md:h-[70%] w-full object-contain transition-transform duration-500 ${
+            className={`h-[85%] sm:h-[75%] md:h-[70%] w-full object-contain transition-transform duration-500 ${
               title === "Clothing"
                 ? "scale-[1.65] group-hover:scale-[1.75]"
                 : "group-hover:scale-105"

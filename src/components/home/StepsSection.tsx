@@ -4,11 +4,11 @@ import { workflowSteps } from "@/data/store-data";
 
 export default function WorkflowSteps() {
   return (
-    <section id="steps" className="mx-auto max-w-7xl px-2 pt-[40px] pb-[40px] sm:px-3 lg:px-4">
+    <section id="steps" className="mx-auto max-w-7xl px-4 pt-[40px] pb-[40px] sm:px-5 lg:px-4">
       {/* Outer: CSS borders follow rounded-b-3xl corners naturally. relative so the wave SVG positions against it. */}
       <div className="relative rounded-b-3xl border-l border-r border-b border-[#FFCB70]">
         <div className="overflow-hidden rounded-b-3xl bg-[#F8EEDE] min-h-[440px]">
-          <div className="relative -top-[20px] flex flex-col gap-8 p-6 pt-36 sm:p-10 sm:pt-44 md:flex-row md:items-start md:gap-12">
+          <div className="relative -top-[20px] flex flex-col gap-6 px-4 pb-6 pt-32 sm:gap-8 sm:p-10 sm:pt-44 md:flex-row md:items-start md:gap-12">
             {/* Left: heading + divider + description */}
             <div className="md:w-64 flex-shrink-0">
               <h2 className="text-[1.8rem] font-bold leading-tight text-[#1A3C7D] sm:text-[2.2rem]">
@@ -32,10 +32,10 @@ export default function WorkflowSteps() {
                       {String(step.step).padStart(2, "0")}
                     </div>
                     <h3 className="mt-1 text-base font-bold text-[#1A3C7D]">{step.title}</h3>
-                    <p className="mt-2 text-[0.9rem] leading-relaxed text-[#1E2019]">{step.description}</p>
+                    <p className="mt-2 text-[0.78rem] leading-snug text-[#1E2019] sm:text-[0.9rem] sm:leading-relaxed">{step.description}</p>
                   </div>
                   {i < 2 && (
-                    <div className="mt-8 w-10 flex-shrink-0 border-t-2 border-dashed border-[#FFCB70] md:w-[58px]" />
+                    <div className="mt-8 w-3 flex-shrink-0 border-t-2 border-dashed border-[#FFCB70] sm:w-8 md:w-[58px]" />
                   )}
                 </Fragment>
               ))}

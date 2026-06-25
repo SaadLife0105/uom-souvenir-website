@@ -26,9 +26,12 @@ export default function BestSellers() {
   }, [updateButtons]);
 
   const scroll = (dir: "left" | "right") => {
-    if (!scrollRef.current) return;
-    const cardWidth = scrollRef.current.offsetWidth / 3;
-    scrollRef.current.scrollBy({ left: dir === "left" ? -cardWidth : cardWidth, behavior: "smooth" });
+    const el = scrollRef.current;
+    if (!el) return;
+    const card = el.firstElementChild as HTMLElement | null;
+    // Advance by one actual card (+ the flex gap) so it works at any breakpoint.
+    const step = card ? card.offsetWidth + 12 : el.offsetWidth / 3;
+    el.scrollBy({ left: dir === "left" ? -step : step, behavior: "smooth" });
   };
 
   const btnBase =
