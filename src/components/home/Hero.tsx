@@ -70,30 +70,28 @@ export default function Hero() {
         </svg>
 
         {/* Main Content */}
-        <div className="absolute left-[250px] top-[450px] max-w-[600px]">
+        <div className="absolute left-[290px] top-[480px] max-w-[1200px]">
 
-          <div className="flex items-center gap-5">
+          {/* Logo — change top/left/width/height freely; text won't move */}
+          <Image
+            src={uomLogo}
+            alt="Logo"
+            width={150}
+            height={150}
+            className="absolute top-[-10px] left-[-80px]"
+          />
 
-            <Image
-              src={uomLogo}
-              alt="Logo"
-              width={62}
-              height={62}
-            />
+          <div className="pl-[82px]">
+            <h1 className="text-[40px] font-bold leading-none text-[#F0B323]">
+              University of Mauritius
+            </h1>
 
-            <div>
-              <h1 className="text-[40px] font-bold leading-none text-[#F0B323]">
-                University of Mauritius
-              </h1>
-
-              <p className="mt-2 text-[32px] text-[#65A9FF]">
-                A piece of UoM
-              </p>
-            </div>
-
+            <p className="mt-2 text-[32px] text-[#65A9FF]">
+              A piece of UoM
+            </p>
           </div>
 
-          <p className="absolute left-[83px] text-[18px] leading-9 text-white/95">
+          <p className="absolute left-[83px] w-[550px] text-[18px] leading-9 text-white/95">
            Browse premium UoM merchandise, reserve your favorites online, and collect them with ease on campus.uui
           </p>
 

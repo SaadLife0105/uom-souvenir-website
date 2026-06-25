@@ -1,54 +1,76 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { bestSellers } from "@/data/store-data";
 import BestSellersCard from "./BestSellersCard";
-import SectionHeader from "@/components/SectionHeader";
 
 export default function BestSellers() {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [atStart, setAtStart] = useState(true);
+  const [atEnd, setAtEnd] = useState(false);
+
+  const updateButtons = useCallback(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    setAtStart(el.scrollLeft <= 1);
+    setAtEnd(el.scrollLeft + el.clientWidth >= el.scrollWidth - 1);
+  }, []);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    updateButtons();
+    el.addEventListener("scroll", updateButtons, { passive: true });
+    return () => el.removeEventListener("scroll", updateButtons);
+  }, [updateButtons]);
 
   const scroll = (dir: "left" | "right") => {
     if (!scrollRef.current) return;
-    // Scroll by one card width (1/3 of container + gap)
     const cardWidth = scrollRef.current.offsetWidth / 3;
     scrollRef.current.scrollBy({ left: dir === "left" ? -cardWidth : cardWidth, behavior: "smooth" });
   };
 
+  const btnBase =
+    "absolute top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-[#FFCB70] bg-[#FFCB70] text-[#1E2019] transition-all duration-300 hover:bg-[#ffd98a] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFCB70]";
+
   return (
-    <section id="best-sellers" className="w-full px-2 py-2 md:px-3">
+    <section id="best-sellers" className="w-full px-4 py-2 md:px-6">
       <div className="space-y-2">
-        <div className="flex flex-col gap-2 lg:flex-row lg:items-end lg:justify-between">
-          <SectionHeader
-            title="Discover our Best Sellers"
-            className="max-w-2xl"
-          />
-          <div className="flex gap-2">
-            <button
-              onClick={() => scroll("left")}
-              aria-label="Scroll left"
-              className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-gray-400 bg-white/60 text-[#1E2019] transition hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900"
-            >
-              <ChevronLeft size={18} />
-            </button>
-            <button
-              onClick={() => scroll("right")}
-              aria-label="Scroll right"
-              className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-gray-400 bg-white/60 text-[#1E2019] transition hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900"
-            >
-              <ChevronRight size={18} />
-            </button>
-          </div>
+        <div className="pt-6 pb-2 text-center">
+          <h2 className="text-3xl font-bold tracking-tight text-[#1E2019] sm:text-4xl">
+            Discover our <span className="text-[#C82520]">Best Sellers</span>
+          </h2>
+          <p className="mt-2 text-sm leading-7 text-[#475569]">
+            Our customers can&apos;t get enough of these.
+          </p>
         </div>
 
-        <div
-          ref={scrollRef}
-          className="flex gap-3 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-        >
-          {bestSellers.map((campaign) => (
-            <BestSellersCard key={campaign.id} campaign={campaign} />
-          ))}
+        <div className="relative">
+          <button
+            onClick={() => scroll("left")}
+            aria-label="Scroll left"
+            className={`${btnBase} left-2 ${atStart ? "pointer-events-none opacity-0" : "opacity-100"}`}
+          >
+            <ChevronLeft size={18} />
+          </button>
+
+          <div
+            ref={scrollRef}
+            className="flex gap-3 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          >
+            {bestSellers.map((campaign) => (
+              <BestSellersCard key={campaign.id} campaign={campaign} />
+            ))}
+          </div>
+
+          <button
+            onClick={() => scroll("right")}
+            aria-label="Scroll right"
+            className={`${btnBase} right-2 ${atEnd ? "pointer-events-none opacity-0" : "opacity-100"}`}
+          >
+            <ChevronRight size={18} />
+          </button>
         </div>
       </div>
     </section>

@@ -4,7 +4,7 @@ import type { BestSellerCampaign } from "@/data/store-data";
 
 export default function BestSellersCard({ campaign }: { campaign: BestSellerCampaign }) {
   return (
-    <article className="group relative aspect-[3/4] w-[calc((100%-24px)/3)] shrink-0 overflow-hidden rounded-2xl">
+    <article className="group relative aspect-[3/4] w-[calc((100%-24px)/3-20px)] shrink-0 overflow-hidden rounded-2xl">
       {/* Full-bleed background image */}
       <Image
         src={campaign.image}
