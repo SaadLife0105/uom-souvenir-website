@@ -40,16 +40,16 @@ export default function FaqAccordion() {
             <button
               type="button"
               onClick={() => setOpenIndex(isOpen ? null : index)}
-              className="flex w-full items-center justify-between gap-4 px-6 py-6 text-left text-[#1f2937] transition hover:bg-[#D7F2FF]"
+              className="flex w-full items-center justify-between gap-4 px-6 py-6 text-left text-[#1E2019] transition hover:bg-[#D7F2FF]"
               aria-expanded={isOpen}
             >
-              <span className="text-base font-semibold text-[#1f2937]">{item.question}</span>
+              <span className="text-base font-semibold text-[#1E2019]">{item.question}</span>
               <span className={`inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#C82520] bg-[#E99C19] text-white transition ${isOpen ? "rotate-45" : "rotate-0"}`}>
                 +
               </span>
             </button>
             <div className={`overflow-hidden transition-all duration-300 ${isOpen ? "max-h-96" : "max-h-0"}`}>
-              <div className="px-6 pb-6 text-sm leading-7 text-[#1f2937]">{item.answer}</div>
+              <div className="px-6 pb-6 text-sm leading-7 text-[#1E2019]">{item.answer}</div>
             </div>
           </div>
         );

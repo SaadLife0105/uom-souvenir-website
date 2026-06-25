@@ -17,8 +17,8 @@ export default function Home() {
         <Hero />
 
         <div className="bg-[#D7F2FF]">
-          <section id="categories" className="w-full px-4 py-16 md:px-8">
-            <div className="space-y-8">
+          <section id="categories" className="w-full px-2 py-2 md:px-3">
+            <div className="space-y-2">
               <SectionHeader
                 title="Categories"
               />
@@ -39,13 +39,13 @@ export default function Home() {
 
           <BestSellers />
 
-        <section id="steps" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-          <div className="overflow-hidden rounded-3xl border-2 border-[#C82520] bg-white p-8 shadow-xl sm:p-10">
+        <section id="steps" className="mx-auto max-w-7xl px-2 py-2 sm:px-3 lg:px-4">
+          <div className="overflow-hidden rounded-3xl border-2 border-[#C82520] bg-white p-4 shadow-xl sm:p-6">
             <SectionHeader
               eyebrow="Steps"
               title="Reserve your souvenirs in 3 simple steps."
             />
-            <div className="mt-10 grid gap-6 md:grid-cols-3">
+            <div className="mt-2 grid gap-4 md:grid-cols-3">
               {workflowSteps.map((step) => (
                 <WorkflowStepCard
                   key={step.step}
@@ -58,13 +58,13 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="faq" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-          <div className="space-y-4 text-left">
+        <section id="faq" className="mx-auto max-w-7xl px-2 py-2 sm:px-3 lg:px-4">
+          <div className="space-y-2 text-left">
             <SectionHeader
                 title="Frequently Asked Questions (FAQ)"
               />
           </div>
-          <div className="mt-10 grid gap-4">
+          <div className="mt-2 grid gap-4">
             <FaqAccordion />
           </div>
         </section>

@@ -72,7 +72,7 @@ export const categories: CategoryItem[] = [
     description: "Celebrate your milestone with signature graduation keepsakes.",
     image: gownAndHat,
     href: "/shop",
-    bgColor: "#7F0906",
+    bgColor: "#FFCB70",
     textColor: "white",
   },
   {
@@ -80,7 +80,7 @@ export const categories: CategoryItem[] = [
     description: "Notebooks, planners and writing essentials for every study session.",
     image: notebookAndPen,
     href: "/shop",
-    bgColor: "#C82520",
+    bgColor: "#E1423D",
     textColor: "white",
   },
   {
@@ -88,7 +88,7 @@ export const categories: CategoryItem[] = [
     description: "Campus-ready hoodies, tees and premium UoM apparel.",
     image: hoodieAndShoes,
     href: "/shop",
-    bgColor: "#E99C19",
+    bgColor: "#FFCB70",
     textColor: "white",
   },
   {
@@ -96,7 +96,7 @@ export const categories: CategoryItem[] = [
     description: "Stylish bags, cases and campus accessories for every day.",
     image: laptopAndCase,
     href: "/shop",
-    bgColor: "#B91A15",
+    bgColor: "#E1423D",
     textColor: "white",
   },
 ];

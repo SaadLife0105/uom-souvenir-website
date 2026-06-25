@@ -17,9 +17,9 @@ export default function BestSellers() {
   };
 
   return (
-    <section id="best-sellers" className="w-full px-4 py-16 md:px-8">
-      <div className="space-y-8">
-        <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+    <section id="best-sellers" className="w-full px-2 py-2 md:px-3">
+      <div className="space-y-2">
+        <div className="flex flex-col gap-2 lg:flex-row lg:items-end lg:justify-between">
           <SectionHeader
             title="Discover our Best Sellers"
             className="max-w-2xl"
@@ -28,14 +28,14 @@ export default function BestSellers() {
             <button
               onClick={() => scroll("left")}
               aria-label="Scroll left"
-              className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-gray-400 bg-white/60 text-gray-700 transition hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900"
+              className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-gray-400 bg-white/60 text-[#1E2019] transition hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900"
             >
               <ChevronLeft size={18} />
             </button>
             <button
               onClick={() => scroll("right")}
               aria-label="Scroll right"
-              className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-gray-400 bg-white/60 text-gray-700 transition hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900"
+              className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-gray-400 bg-white/60 text-[#1E2019] transition hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900"
             >
               <ChevronRight size={18} />
             </button>

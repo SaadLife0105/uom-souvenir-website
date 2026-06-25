@@ -39,7 +39,7 @@ export default function CategoryCard({
           <h3 className="text-lg sm:text-2xl md:text-4xl font-bold text-white transition-transform duration-300 group-hover:-translate-y-2">
             {title}
           </h3>
-          <span className="pointer-events-none opacity-0 rounded-full border border-white/20 bg-white/40 px-4 sm:px-6 py-2 sm:py-3 text-xs sm:text-sm font-semibold text-[#111827] backdrop-blur-xl transition-all duration-300 group-hover:opacity-100 group-hover:pointer-events-auto">
+          <span className="pointer-events-none opacity-0 rounded-full border border-white/20 bg-white/40 px-4 sm:px-6 py-2 sm:py-3 text-xs sm:text-sm font-semibold text-[#1E2019] backdrop-blur-xl transition-all duration-300 group-hover:opacity-100 group-hover:pointer-events-auto">
             Shop Now
           </span>
         </div>
