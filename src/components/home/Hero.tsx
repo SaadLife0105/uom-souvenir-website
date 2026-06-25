@@ -94,7 +94,7 @@ export default function Hero() {
           </div>
 
           <p className="absolute left-[83px] text-[18px] leading-9 text-white/95">
-           Browse premium UoM merchandise, reserve your favorites online, and collect them with ease on campus.
+           Browse premium UoM merchandise, reserve your favorites online, and collect them with ease on campus.uui
           </p>
 
         </div>
