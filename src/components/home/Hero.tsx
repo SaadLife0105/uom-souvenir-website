@@ -65,7 +65,7 @@ export default function Hero() {
           "
             fill="none"
             stroke="#E3A31D"
-            strokeWidth="4"
+            strokeWidth="2"
           />
         </svg>
 
@@ -76,9 +76,9 @@ export default function Hero() {
           <Image
             src={uomLogo}
             alt="Logo"
-            width={150}
-            height={150}
-            className="absolute top-[-10px] left-[-80px]"
+            width={135}
+            height={135}
+            className="absolute top-[-13.5px] left-[-70px]"
           />
 
           <div className="pl-[82px]">
@@ -105,7 +105,7 @@ export default function Hero() {
         </div>
 
         {/* Blue dots */}
-        <div className="absolute bottom-15 right-14 grid grid-cols-5 gap-3">
+        <div className="absolute bottom-15 right-12 grid grid-cols-5 gap-3">
           {[...Array(25)].map((_, i) => (
             <div key={i} className="h-[3px] w-[3px] rounded-full bg-[#5AB5FF]" />
           ))}
