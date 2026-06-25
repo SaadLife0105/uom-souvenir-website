@@ -4,18 +4,18 @@ import { workflowSteps } from "@/data/store-data";
 
 export default function WorkflowSteps() {
   return (
-    <section id="steps" className="mx-auto max-w-7xl px-4 pt-[40px] pb-[40px] sm:px-5 lg:px-4">
+    <section id="steps" className="px-[30px] pt-[40px] pb-[40px]">
       {/* Outer: CSS borders follow rounded-b-3xl corners naturally. relative so the wave SVG positions against it. */}
       <div className="relative rounded-b-3xl border-l border-r border-b border-[#FFCB70]">
         <div className="overflow-hidden rounded-b-3xl bg-[#F8EEDE] min-h-[440px]">
           <div className="relative -top-[20px] flex flex-col gap-6 px-4 pb-6 pt-32 sm:gap-8 sm:p-10 sm:pt-44 md:flex-row md:items-start md:gap-12">
             {/* Left: heading + divider + description */}
-            <div className="md:w-64 flex-shrink-0">
-              <h2 className="text-[1.8rem] font-bold leading-tight text-[#1A3C7D] sm:text-[2.2rem]">
+            <div className="md:w-[360px] flex-shrink-0">
+              <h2 className="text-[2.52rem] font-bold leading-tight text-[#1A3C7D] sm:text-[3.08rem]">
                 Reserve your souvenirs in 3 simple steps.
               </h2>
               <hr className="my-4 border-[#C8963C]" />
-              <p className="text-base leading-relaxed text-[#1E2019]">
+              <p className="text-[1.09rem] leading-relaxed text-[#1E2019] sm:text-[1.26rem]">
                 The portal reserves your items and prepares your order for collection at the UoM Finance Office.
               </p>
             </div>
@@ -25,17 +25,17 @@ export default function WorkflowSteps() {
               {workflowSteps.map((step, i) => (
                 <Fragment key={step.step}>
                   <div className="flex flex-1 flex-col items-center text-center">
-                    <div className="flex h-[67px] w-[67px] items-center justify-center rounded-full bg-[#FFCB70] shadow-md">
-                      <ArrowRight className="text-[#1E2B4A]" size={26} strokeWidth={2.5} />
+                    <div className="flex h-[94px] w-[94px] items-center justify-center rounded-full bg-[#FFCB70] shadow-md">
+                      <ArrowRight className="text-[#1E2B4A]" size={36} strokeWidth={2.5} />
                     </div>
-                    <div className="mt-3 text-[1.8rem] font-bold text-[#FFCB70]">
+                    <div className="mt-3 text-[2.52rem] font-bold text-[#FFCB70]">
                       {String(step.step).padStart(2, "0")}
                     </div>
-                    <h3 className="mt-1 text-base font-bold text-[#1A3C7D]">{step.title}</h3>
-                    <p className="mt-2 text-[0.78rem] leading-snug text-[#1E2019] sm:text-[0.9rem] sm:leading-relaxed">{step.description}</p>
+                    <h3 className="mt-1 text-[1.4rem] font-bold text-[#1A3C7D]">{step.title}</h3>
+                    <p className="mt-2 text-[1.09rem] leading-snug text-[#1E2019] sm:text-[1.26rem] sm:leading-relaxed">{step.description}</p>
                   </div>
                   {i < 2 && (
-                    <div className="mt-8 w-3 flex-shrink-0 border-t-2 border-dashed border-[#FFCB70] sm:w-8 md:w-[58px]" />
+                    <div className="mt-10 w-3 flex-shrink-0 border-t-2 border-dashed border-[#FFCB70] sm:w-8 md:w-[58px]" />
                   )}
                 </Fragment>
               ))}
