@@ -38,7 +38,7 @@ export default function BestSellers() {
     "absolute top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-[#FFCB70] bg-[#FFCB70] text-[#1E2019] transition-all duration-300 hover:bg-[#ffd98a] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFCB70]";
 
   return (
-    <section id="best-sellers" className="w-full px-4 py-2 md:px-6">
+    <section id="best-sellers" className="w-full px-[15px] py-2 md:px-[20px]">
       <div className="space-y-2">
         <div className="pt-6 pb-2 text-center">
           <h2 className="text-3xl font-bold tracking-tight text-[#1E2019] sm:text-4xl">

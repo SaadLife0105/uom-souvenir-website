@@ -4,7 +4,7 @@ import { workflowSteps } from "@/data/store-data";
 
 export default function WorkflowSteps() {
   return (
-    <section id="steps" className="px-[30px] pt-[40px] pb-[40px]">
+    <section id="steps" className="px-[15px] pt-[40px] pb-[40px] md:px-[20px]">
       <div className="relative rounded-b-3xl border-l border-r border-b border-[#FFCB70]">
         <div className="overflow-hidden rounded-b-3xl bg-[#F8EEDE]">
           <div className="relative -top-[20px] flex flex-col gap-4 px-4 pb-4 pt-24 sm:gap-8 sm:p-10 sm:pt-44 md:flex-row md:items-start md:gap-12">
@@ -47,7 +47,9 @@ export default function WorkflowSteps() {
                     </div>
                   </div>
                   {i < 2 && (
-                    <div className="hidden md:block md:mt-10 md:w-3 md:flex-shrink-0 md:border-t-2 md:border-dashed md:border-[#FFCB70] lg:w-[58px]" />
+                    <div className="hidden md:relative md:block md:mt-10 md:w-0 md:flex-shrink-0">
+                      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[28px] border-t-2 border-dashed border-[#FFCB70] lg:w-[140px]" />
+                    </div>
                   )}
                 </Fragment>
               ))}
