@@ -4,7 +4,6 @@ import Navbar from "@/components/layout/Navbar";
 import CategoryCard from "@/components/home/CategoryCard";
 import BestSellers from "@/components/home/BestSellers";
 import FaqAccordion from "@/components/home/FaqAccordion";
-import SectionHeader from "@/components/SectionHeader";
 import StepsSection from "@/components/home/StepsSection";
 import { categories } from "@/data/store-data";
 
@@ -46,16 +45,7 @@ export default function Home() {
 
         <StepsSection />
 
-        <section id="faq" className="mx-auto max-w-7xl px-2 py-2 sm:px-3 lg:px-4">
-          <div className="space-y-2 text-left">
-            <SectionHeader
-                title="Frequently Asked Questions (FAQ)"
-              />
-          </div>
-          <div className="mt-2 grid gap-4">
-            <FaqAccordion />
-          </div>
-        </section>
+        <FaqAccordion />
 
       </div>
       </main>
