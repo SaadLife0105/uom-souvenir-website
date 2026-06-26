@@ -1,10 +1,10 @@
 "use client";
 
 import { useRef, useState, useEffect, useCallback } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, TrendingUp } from "lucide-react";
 import { bestSellers } from "@/data/store-data";
 import BestSellersCard from "./BestSellersCard";
-import { blackV, redV, darkBlueV } from "@/constants/variables";
+import { blackV, redV, darkBlueV, goldV, creamV } from "@/constants/variables";
 
 export default function BestSellers() {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -40,15 +40,20 @@ export default function BestSellers() {
   const btnStyle = { color: blackV };
 
   return (
-    <section id="best-sellers" className="w-full px-[15px] py-2 md:px-[20px]">
+    <section id="best-sellers" className="w-full px-[15px] pb-2 md:px-[20px]">
       <div className="space-y-2">
-        <div className="pt-6 pb-2 text-center">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl" style={{ color: blackV }}>
-            Discover our <span style={{ color: redV }}>Best Sellers</span>
-          </h2>
-          <p className="mt-2 text-sm leading-7" style={{ color: darkBlueV }}>
-            Our customers can&apos;t get enough of these.
-          </p>
+        <div className="pt-6 pb-2 flex items-start gap-5">
+          <div className="flex h-18 w-18 shrink-0 items-center justify-center rounded-full border-2" style={{ borderColor: goldV, backgroundColor: creamV }}>
+            <TrendingUp className="h-9 w-9" style={{ color: darkBlueV }} strokeWidth={1.5} />
+          </div>
+          <div>
+            <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl" style={{ color: blackV }}>
+              Discover our <span style={{ color: redV }}>Best Sellers</span>
+            </h2>
+            <p className="mt-2 text-sm leading-7" style={{ color: darkBlueV }}>
+              Our customers can&apos;t get enough of these.
+            </p>
+          </div>
         </div>
 
         <div className="relative">
