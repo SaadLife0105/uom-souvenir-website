@@ -1,5 +1,6 @@
 import Image, { type StaticImageData } from "next/image";
 import Link from "next/link";
+import { blackV, whiteV } from "@/constants/variables";
 
 interface CategoryCardProps {
   title: string;
@@ -36,10 +37,10 @@ export default function CategoryCard({
         </div>
 
         <div className="relative z-10 flex flex-col items-center justify-center text-center gap-2 md:gap-4">
-          <h3 className="text-lg sm:text-2xl md:text-4xl font-bold text-white transition-transform duration-300 group-hover:-translate-y-2">
+          <h3 className="text-lg sm:text-2xl md:text-4xl font-bold transition-transform duration-300 group-hover:-translate-y-2" style={{ color: whiteV }}>
             {title}
           </h3>
-          <span className="pointer-events-none opacity-0 rounded-full border border-white/20 bg-white/40 px-4 sm:px-6 py-2 sm:py-3 text-xs sm:text-sm font-semibold text-[#1E2019] backdrop-blur-xl transition-all duration-300 group-hover:opacity-100 group-hover:pointer-events-auto">
+          <span className="pointer-events-none opacity-0 rounded-full border border-white/20 bg-white/40 px-4 sm:px-6 py-2 sm:py-3 text-xs sm:text-sm font-semibold backdrop-blur-xl transition-all duration-300 group-hover:opacity-100 group-hover:pointer-events-auto" style={{ color: blackV }}>
             Shop Now
           </span>
         </div>

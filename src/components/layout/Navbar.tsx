@@ -8,11 +8,13 @@ import { ShoppingBag, User, Menu, X } from "lucide-react";
 import uomLogo from "@/app/images/uom-logo.png";
 import { navLinks } from "@/data/store-data";
 import { useCart } from "@/context/CartContext";
+import { blackV, goldV, redV, creamV } from "@/constants/variables";
 
 const IconButton = ({ label, icon }: { label: string; icon: ReactNode }) => (
   <button
     type="button"
-    className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/30 bg-transparent text-[#1E2019] transition hover:bg-[#E99C19] hover:text-white"
+    className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/30 bg-transparent transition hover:bg-[#FFCB70] hover:text-[#F5F6F4]"
+    style={{ color: blackV }}
   >
     <span className="sr-only">{label}</span>
     {icon}
@@ -79,14 +81,14 @@ export default function Navbar() {
           aria-label="Toggle menu"
         >
           {isOpen ? (
-            <X className="h-6 w-6 text-[#1E2019]" />
+            <X className="h-6 w-6" style={{ color: blackV }} />
           ) : (
-            <Menu className="h-6 w-6 text-[#1E2019]" />
+            <Menu className="h-6 w-6" style={{ color: blackV }} />
           )}
         </button>
 
         {/* Logo */}
-        <a href="#home" className="flex items-center gap-3 rounded-3xl bg-transparent pl-0 pr-4 py-2 text-[#1E2019] transition hover:text-[#C82520]" onClick={() => setIsOpen(false)}>
+        <a href="#home" className="flex items-center gap-3 rounded-3xl bg-transparent pl-0 pr-4 py-2 transition hover:text-[#E1423D]" style={{ color: blackV }} onClick={() => setIsOpen(false)}>
           <div className="flex h-11 w-11 items-center justify-center">
             <Image
               src={uomLogo}
@@ -97,16 +99,16 @@ export default function Navbar() {
             />
           </div>
           <div className="hidden min-w-[12rem] flex-col sm:flex">
-            <span className="text-sm font-semibold text-[#1E2019]">University Of Mauritius</span>
-            <span className="text-xs text-[#1E2019] text-opacity-80">Souvenir Shop</span>
+            <span className="text-sm font-semibold" style={{ color: blackV }}>University Of Mauritius</span>
+            <span className="text-xs" style={{ color: blackV }}>Souvenir Shop</span>
           </div>
         </a>
 
         {/* Desktop Navigation */}
         <div className="hidden flex-1 justify-center md:flex">
-          <nav className="flex items-center gap-6 text-sm font-medium text-[#1E2019]">
+          <nav className="flex items-center gap-6 text-sm font-medium" style={{ color: blackV }}>
             {navLinks.map((link) => (
-              <a key={link.href} href={link.href} className="transition hover:text-[#C82520]">
+              <a key={link.href} href={link.href} className="transition hover:text-[#E1423D]">
                 {link.label}
               </a>
             ))}
@@ -117,18 +119,19 @@ export default function Navbar() {
         <div className="ml-auto flex items-center gap-3 md:flex">
           <a
             href="/cart"
-            className={`relative inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/25 bg-transparent text-[#1E2019] transition hover:bg-[#E99C19] hover:text-white ${
-              isCartPage ? "border-[#C82520] text-white" : ""
+            className={`relative inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/25 bg-transparent transition hover:bg-[#FFCB70] hover:text-[#F5F6F4] ${
+              isCartPage ? "border-[#E1423D]" : ""
             }`}
+            style={{ color: blackV }}
             aria-label="Cart"
             onClick={() => setIsOpen(false)}
           >
-            <ShoppingBag className="h-5 w-5 text-[#1E2019]" />
-            <span className="absolute -right-1 -top-1 flex h-5 min-w-[1.25rem] items-center justify-center rounded-full bg-[#C82520] px-1.5 text-[10px] font-semibold text-white">
+            <ShoppingBag className="h-5 w-5" style={{ color: blackV }} />
+            <span className="absolute -right-1 -top-1 flex h-5 min-w-[1.25rem] items-center justify-center rounded-full px-1.5 text-[10px] font-semibold" style={{ backgroundColor: redV, color: creamV }}>
               {cartQuantity}
             </span>
           </a>
-          <IconButton label="Account" icon={<User className="h-5 w-5 text-[#1E2019]" />} />
+          <IconButton label="Account" icon={<User className="h-5 w-5" style={{ color: blackV }} />} />
         </div>
       </div>
 
@@ -143,7 +146,8 @@ export default function Navbar() {
             <a
               key={link.href}
               href={link.href}
-              className="block px-4 py-3 text-sm font-medium text-[#1E2019] transition hover:text-[#C82520] hover:bg-white/10 rounded-lg"
+              className="block px-4 py-3 text-sm font-medium transition hover:text-[#E1423D] hover:bg-white/10 rounded-lg"
+              style={{ color: blackV }}
               onClick={() => setIsOpen(false)}
             >
               {link.label}

@@ -4,6 +4,7 @@ import { useRef, useState, useEffect, useCallback } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { bestSellers } from "@/data/store-data";
 import BestSellersCard from "./BestSellersCard";
+import { blackV, redV, darkBlueV } from "@/constants/variables";
 
 export default function BestSellers() {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -35,16 +36,17 @@ export default function BestSellers() {
   };
 
   const btnBase =
-    "absolute top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-[#FFCB70] bg-[#FFCB70] text-[#1E2019] transition-all duration-300 hover:bg-[#ffd98a] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFCB70]";
+    "absolute top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-[#FFCB70] bg-[#FFCB70] transition-all duration-300 hover:bg-[#F8EEDE] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFCB70]";
+  const btnStyle = { color: blackV };
 
   return (
     <section id="best-sellers" className="w-full px-[15px] py-2 md:px-[20px]">
       <div className="space-y-2">
         <div className="pt-6 pb-2 text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-[#1E2019] sm:text-4xl">
-            Discover our <span className="text-[#C82520]">Best Sellers</span>
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl" style={{ color: blackV }}>
+            Discover our <span style={{ color: redV }}>Best Sellers</span>
           </h2>
-          <p className="mt-2 text-sm leading-7 text-[#475569]">
+          <p className="mt-2 text-sm leading-7" style={{ color: darkBlueV }}>
             Our customers can&apos;t get enough of these.
           </p>
         </div>
@@ -54,6 +56,7 @@ export default function BestSellers() {
             onClick={() => scroll("left")}
             aria-label="Scroll left"
             className={`${btnBase} left-2 ${atStart ? "pointer-events-none opacity-0" : "opacity-100"}`}
+            style={btnStyle}
           >
             <ChevronLeft size={18} />
           </button>
@@ -71,6 +74,7 @@ export default function BestSellers() {
             onClick={() => scroll("right")}
             aria-label="Scroll right"
             className={`${btnBase} right-2 ${atEnd ? "pointer-events-none opacity-0" : "opacity-100"}`}
+            style={btnStyle}
           >
             <ChevronRight size={18} />
           </button>

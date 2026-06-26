@@ -1,0 +1,145 @@
+================================================================================
+  HOME PAGE COLOR AUDIT — uom-souvenir-website
+================================================================================
+
+--------------------------------------------------------------------------------
+1. src/app/page.tsx
+--------------------------------------------------------------------------------
+#D7F2FF    bg-[#D7F2FF]          Categories section container background  : assign variable = paleBlueV
+#1E2019    text-[#1E2019]        Category section heading  : assign variable = blackV
+#C82520    text-[#C82520]        "Category" span in heading  : assign variable = redV
+#475569    text-[#475569]        Category section subtitle  : assign variable = darkBlueV
+
+--------------------------------------------------------------------------------
+2. src/components/layout/Navbar.tsx
+--------------------------------------------------------------------------------
+#1E2019    text-[#1E2019]        Icon buttons, logo, nav links, cart/account icons, mobile nav  : assign variable = blackV
+#E99C19    hover:bg-[#E99C19]    Icon button hover background  : assign variable = goldV
+#C82520    hover:text-[#C82520]  Logo hover, nav links hover, mobile nav hover  : assign variable = redV
+#C82520    border-[#C82520]      Cart button border (when on cart page)  : assign variable = redV
+#C82520    bg-[#C82520]          Cart quantity badge background  : assign variable = redV
+white      text-white            Cart quantity badge text  : assign variable = creamV
+
+--------------------------------------------------------------------------------
+3. src/components/home/Hero.tsx
+--------------------------------------------------------------------------------
+#072B57    SVG fill              Blue panel background (desktop + mobile)  : assign variable = darkBlueV
+#309ffa    SVG stroke            Blue outline polyline  : assign variable = paleBlueV
+#E3A31D    SVG stroke            Gold outline polyline  : assign variable = goldV
+#F0B323    text-[#F0B323]        Main heading "University of Mauritius"  : assign variable = goldV
+#65A9FF    text-[#65A9FF]        Tagline "A piece of UoM"  : assign variable = paleBlueV
+white/95   text-white/95         Description paragraph : assign variable = whiteV
+#F0B323    bg-[#F0B323]          Yellow dot grid  : assign variable = goldV
+#5AB5FF    bg-[#5AB5FF]          Blue dot grid  : assign variable = paleBlueV
+
+--------------------------------------------------------------------------------
+4. src/components/home/StepsSection.tsx
+--------------------------------------------------------------------------------
+#F8EEDE    bg-[#F8EEDE]          Section background  : assign variable = whiteV
+#FFCB70    border-[#FFCB70]      Section border (left, right, bottom) + step divider (dashed)  : assign variable = creamV
+#1A3C7D    text-[#1A3C7D]        Section heading + step titles  : assign variable = darkBlueV
+#C8963C    border-[#C8963C]      Heading horizontal rule  : assign variable = goldV
+#1E2019    text-[#1E2019]        Section description + step descriptions  : assign variable = blackV
+#FFCB70    bg-[#FFCB70]          Step icon circle background  : assign variable = creamV
+#1E2B4A    text-[#1E2B4A]        ArrowRight icon color  : assign variable = darkBlueV
+#FFCB70    text-[#FFCB70]        Step number text  : assign variable = goldV
+#D7F2FF    SVG fill              Wave path 1  : assign variable = paleBlueV
+#FFCB70    SVG fill              Wave path 2  : assign variable = goldV
+
+--------------------------------------------------------------------------------
+5. src/components/home/BestSellers.tsx
+--------------------------------------------------------------------------------
+#1E2019    text-[#1E2019]        Heading  : assign variable = blackV
+#C82520    text-[#C82520]        "Best Sellers" span in heading  : assign variable = redV
+#475569    text-[#475569]        Subtitle  : assign variable = darkBlueV
+#FFCB70    border-[#FFCB70]      Scroll buttons border  : assign variable = goldV
+#FFCB70    bg-[#FFCB70]          Scroll buttons background  : assign variable = goldV
+#ffd98a    hover:bg-[#ffd98a]    Scroll buttons hover background  : assign variable = creamV
+#1E2019    text-[#1E2019]        Scroll button text/icon  : assign variable = blackV
+
+--------------------------------------------------------------------------------
+6. src/components/home/BestSellersCard.tsx
+--------------------------------------------------------------------------------
+black/75   from-black/75         Card image gradient overlay (bottom)  : assign variable = blackV
+black/20   via-black/20          Card image gradient overlay (middle)  : assign variable = blackV
+transparent to-transparent       Card image gradient overlay (top)  : assign variable = message {i dont know if i should assign smth here, please advise me, but dont make changes yourself}
+white      text-white            Product/campaign title  : assign variable = whiteV
+white/70   border-white/70       "Order Now" button border  : assign variable = whiteV
+black/25   bg-black/25           "Order Now" button background  : assign variable = blackV
+white/20   hover:bg-white/20     "Order Now" button hover  : assign variable = blackV
+white      text-white            "Order Now" button text  : assign variable = whiteV
+
+--------------------------------------------------------------------------------
+7. src/components/home/CategoryCard.tsx
+--------------------------------------------------------------------------------
+dynamic    style={{ backgroundColor }}  Card background (from store-data.ts)  : assign variable = paleBlueV
+white      text-white                   Category title  : assign variable = whiteV
+#1E2019    text-[#1E2019]               "Shop Now" button text  : assign variable = blackV
+
+--------------------------------------------------------------------------------
+8. src/components/home/FaqAccordion.tsx
+--------------------------------------------------------------------------------
+#EDE5CE    bg-[#EDE5CE]          Header icon circle background + accordion icon circles  : assign variable = creamV
+#C9A440    border-[#C9A440]      Header icon border + open accordion border/shadow  : assign variable = goldV
+#C9A440    bg-[#C9A440]          Heading underline bar + closed toggle button background  : assign variable = goldV
+#1B2A4A    text-[#1B2A4A]        Icon color, heading, question text  : assign variable = darkBlueV
+#1B2A4A    bg-[#1B2A4A]          Open (expanded) toggle button background  : assign variable = darkBlueV
+#4A5568    text-[#4A5568]        Description + answer text  : assign variable = darkBlueV
+white      bg-white              Accordion item background  : assign variable = whiteV
+white      text-white            Toggle button +/- text  : assign variable = whiteV
+#D1C9B8    bg-[#D1C9B8]          Vertical divider between icon and question  : assign variable = creamV
+#E8E0D0    border-[#E8E0D0]      Answer section top divider  : assign variable = creamV
+
+--------------------------------------------------------------------------------
+9. src/components/layout/Footer.tsx
+--------------------------------------------------------------------------------
+#D7F2FF    bg-[#D7F2FF]          Footer section background  : assign variable = paleBlueV
+#1f2937    text-[#1f2937]        Brand name, contact list items  : assign variable = blackV
+#475569    text-[#475569]        Tagline, description paragraph  : assign variable = darkBlueV
+#C82520    shadow-[#C82520]/10   Logo badge shadow  : assign variable = redV
+#C82520    text-[#C82520]        "Contact Us" heading  : assign variable = redV
+#C82520    bg-[#C82520]          Copyright bar background  : assign variable = redV
+white      text-white            Copyright bar text  : assign variable = whiteV
+
+--------------------------------------------------------------------------------
+10. src/data/store-data.ts  (dynamic CategoryCard background colors)
+--------------------------------------------------------------------------------
+#FFCB70    bgColor prop          Graduation category card background  : assign variable = goldV
+#FFCB70    bgColor prop          Clothing category card background  : assign variable = goldV
+#E1423D    bgColor prop          Stationery category card background  : assign variable = redV
+#E1423D    bgColor prop          Accessory category card background  : assign variable = redV
+
+================================================================================
+  SUMMARY — UNIQUE BRAND COLORS
+================================================================================
+
+#1E2019   Dark charcoal     Primary text used throughout the entire page
+#C82520   Brand red         Accents, highlights, CTA elements, footer bar
+#FFCB70   Brand gold        Buttons, borders, step elements, category cards
+#D7F2FF   Light blue        Section backgrounds (categories, footer, SVG wave)
+#072B57   Deep navy         Hero SVG panels
+#F0B323   Hero gold         Hero main heading
+#C9A440   FAQ gold          FAQ accordion accents and toggle buttons
+#1B2A4A   FAQ navy          FAQ text and icons
+#1A3C7D   Steps navy        Steps section heading and titles
+#475569   Slate gray        Subtitle and secondary body text
+#1f2937   Dark gray         Footer body text (slight variant of #1E2019)
+#4A5568   Medium gray       FAQ body/answer text
+#E1423D   Category red      Stationery + Accessory category card backgrounds
+#E99C19   Navbar gold       Icon button hover background (Navbar only)
+#EDE5CE   Warm cream        FAQ icon circle backgrounds
+#F8EEDE   Light cream       Steps section background
+#65A9FF   Light blue        Hero tagline text
+#5AB5FF   Medium blue       Hero blue dot grid
+#309ffa   Bright blue       Hero SVG blue outline stroke
+#E3A31D   Warm gold         Hero SVG gold outline stroke
+#C8963C   Deep gold         Steps heading horizontal rule
+#1E2B4A   Dark navy         Steps ArrowRight icon
+#ffd98a   Light gold        BestSellers scroll button hover
+#D1C9B8   Warm gray         FAQ vertical divider
+#E8E0D0   Light warm gray   FAQ answer divider border
+
+================================================================================
+  TOTAL UNIQUE COLOR VALUES: 25 (+ white, black/75, black/25, black/20,
+                                    white/95, white/70, white/20)
+================================================================================

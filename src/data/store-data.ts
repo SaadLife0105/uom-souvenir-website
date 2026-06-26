@@ -1,4 +1,5 @@
 import type { StaticImageData } from "next/image";
+import { goldV, redV } from "@/constants/variables";
 import gownAndHat from "@/app/images/category/gownandhat-nobg.png";
 import notebookAndPen from "@/app/images/category/notebookandpen-nobg.png";
 import hoodieAndShoes from "@/app/images/category/hoodieandshoes-nobg.png";
@@ -72,7 +73,7 @@ export const categories: CategoryItem[] = [
     description: "Celebrate your milestone with signature graduation keepsakes.",
     image: gownAndHat,
     href: "/shop",
-    bgColor: "#FFCB70",
+    bgColor: goldV,
     textColor: "white",
   },
   {
@@ -80,7 +81,7 @@ export const categories: CategoryItem[] = [
     description: "Notebooks, planners and writing essentials for every study session.",
     image: notebookAndPen,
     href: "/shop",
-    bgColor: "#E1423D",
+    bgColor: redV,
     textColor: "white",
   },
   {
@@ -88,7 +89,7 @@ export const categories: CategoryItem[] = [
     description: "Campus-ready hoodies, tees and premium UoM apparel.",
     image: hoodieAndShoes,
     href: "/shop",
-    bgColor: "#FFCB70",
+    bgColor: goldV,
     textColor: "white",
   },
   {
@@ -96,7 +97,7 @@ export const categories: CategoryItem[] = [
     description: "Stylish bags, cases and campus accessories for every day.",
     image: laptopAndCase,
     href: "/shop",
-    bgColor: "#E1423D",
+    bgColor: redV,
     textColor: "white",
   },
 ];

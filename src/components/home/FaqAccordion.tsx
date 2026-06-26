@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ShoppingBag, Calendar, Pencil, CreditCard, MessageCircle } from "lucide-react";
+import { goldV, creamV, darkBlueV, whiteV } from "@/constants/variables";
 
 const faqItems = [
   {
@@ -38,15 +39,15 @@ export default function FaqAccordion() {
       <div className="mx-auto max-w-4xl">
         {/* Header */}
         <div className="mb-10 flex items-start gap-5">
-          <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full border-2 border-[#C9A440] bg-[#EDE5CE]">
-            <MessageCircle className="h-7 w-7 text-[#1B2A4A]" strokeWidth={1.5} />
+          <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full border-2" style={{ borderColor: goldV, backgroundColor: creamV }}>
+            <MessageCircle className="h-7 w-7" style={{ color: darkBlueV }} strokeWidth={1.5} />
           </div>
           <div>
-            <h2 className="text-3xl font-extrabold tracking-tight text-[#1B2A4A] sm:text-4xl">
+            <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl" style={{ color: darkBlueV }}>
               Frequently Asked Questions (FAQ)
             </h2>
-            <div className="mt-2 h-[3px] w-16 rounded-full bg-[#C9A440]" />
-            <p className="mt-3 text-sm leading-relaxed text-[#4A5568]">
+            <div className="mt-2 h-[3px] w-16 rounded-full" style={{ backgroundColor: goldV }} />
+            <p className="mt-3 text-sm leading-relaxed" style={{ color: darkBlueV }}>
               Everything you need to know about reserving items, generating invoices,
               <br className="hidden sm:block" /> and collecting your University of Mauritius souvenirs.
             </p>
@@ -61,11 +62,12 @@ export default function FaqAccordion() {
             return (
               <div
                 key={item.question}
-                className={`rounded-2xl bg-white transition-shadow ${
+                className={`rounded-2xl transition-shadow ${
                   isOpen
-                    ? "border border-[#C9A440] shadow-[0_4px_24px_-8px_rgba(201,164,64,0.25)]"
-                    : "border border-transparent shadow-[0_2px_12px_-4px_rgba(0,0,0,0.08)]"
+                    ? "border-2 shadow-[0_4px_24px_-8px_rgba(201,164,64,0.25)]"
+                    : "border-2 border-transparent shadow-[0_2px_12px_-4px_rgba(0,0,0,0.08)]"
                 }`}
+                style={{ backgroundColor: whiteV, borderColor: isOpen ? goldV : "transparent" }}
               >
                 <button
                   type="button"
@@ -74,23 +76,22 @@ export default function FaqAccordion() {
                   aria-expanded={isOpen}
                 >
                   {/* Icon circle */}
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#EDE5CE]">
-                    <Icon className="h-5 w-5 text-[#1B2A4A]" strokeWidth={1.5} />
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full" style={{ backgroundColor: creamV }}>
+                    <Icon className="h-5 w-5" style={{ color: darkBlueV }} strokeWidth={1.5} />
                   </div>
 
                   {/* Vertical divider */}
-                  <div className="h-8 w-px shrink-0 bg-[#D1C9B8]" />
+                  <div className="h-8 w-px shrink-0" style={{ backgroundColor: creamV }} />
 
                   {/* Question */}
-                  <span className="flex-1 text-base font-bold text-[#1B2A4A]">
+                  <span className="flex-1 text-base font-bold" style={{ color: darkBlueV }}>
                     {item.question}
                   </span>
 
                   {/* +/− button */}
                   <div
-                    className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-white text-xl font-light transition-colors ${
-                      isOpen ? "bg-[#1B2A4A]" : "bg-[#C9A440]"
-                    }`}
+                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xl font-light transition-colors"
+                    style={{ color: whiteV, backgroundColor: isOpen ? darkBlueV : goldV }}
                   >
                     {isOpen ? "−" : "+"}
                   </div>
@@ -102,8 +103,8 @@ export default function FaqAccordion() {
                     isOpen ? "max-h-96" : "max-h-0"
                   }`}
                 >
-                  <div className="mx-5 border-t border-[#E8E0D0]" />
-                  <p className="px-5 py-4 text-sm leading-7 text-[#4A5568]">{item.answer}</p>
+                  <div className="mx-5 border-t-2" style={{ borderColor: creamV }} />
+                  <p className="px-5 py-4 text-sm leading-7" style={{ color: darkBlueV }}>{item.answer}</p>
                 </div>
               </div>
             );

@@ -39,6 +39,9 @@ yarn-error.log*
 # gifs
 src/app/images/gifs
 
+#miscallaneous
+color-audits.txt
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

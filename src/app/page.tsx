@@ -6,6 +6,7 @@ import BestSellers from "@/components/home/BestSellers";
 import FaqAccordion from "@/components/home/FaqAccordion";
 import StepsSection from "@/components/home/StepsSection";
 import { categories } from "@/data/store-data";
+import { paleBlueV, blackV, redV, darkBlueV } from "@/constants/variables";
 
 export default function Home() {
   return (
@@ -15,14 +16,14 @@ export default function Home() {
       <main>
         <Hero />
 
-        <div className="bg-[#D7F2FF]">
+        <div style={{ backgroundColor: paleBlueV }}>
           <section id="categories" className="relative w-full overflow-hidden px-[15px] py-2 md:px-[20px]">
             <div className="space-y-2">
               <div className="pt-6 pb-2 text-center">
-                <h2 className="text-3xl font-bold tracking-tight text-[#1E2019] sm:text-4xl">
-                  Shop by <span className="text-[#C82520]">Category</span>
+                <h2 className="text-3xl font-bold tracking-tight sm:text-4xl" style={{ color: blackV }}>
+                  Shop by <span style={{ color: redV }}>Category</span>
                 </h2>
-                <p className="mt-2 text-sm leading-7 text-[#475569]">
+                <p className="mt-2 text-sm leading-7" style={{ color: darkBlueV }}>
                   Find the perfect souvenir from our most loved categories.
                 </p>
               </div>
