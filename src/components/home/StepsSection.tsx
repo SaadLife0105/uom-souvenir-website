@@ -1,11 +1,11 @@
 import { Fragment } from "react";
 import { ArrowRight } from "lucide-react";
 import { workflowSteps } from "@/data/store-data";
-import { paleBlueV, goldV, darkBlueV, blackV, whiteV } from "@/constants/variables";
+import { paleBlueV, goldV, darkBlueV, blackV, whiteV, redV } from "@/constants/variables";
 
 export default function WorkflowSteps() {
   return (
-    <section id="steps" className="px-[15px] pt-[40px] pb-[40px] md:px-[20px]">
+    <section id="steps" className="px-[15px] pt-[40px] pb-[50px] md:px-[20px]">
       <div className="relative rounded-b-3xl border-l-2 border-r-2 border-b-2" style={{ borderColor: goldV }}>
         <div className="overflow-hidden rounded-b-3xl" style={{ backgroundColor: whiteV }}>
           <div className="relative -top-[20px] flex flex-col gap-4 px-4 pb-4 pt-24 sm:gap-8 sm:p-10 sm:pt-44 md:flex-row md:items-start md:gap-12">
@@ -13,7 +13,7 @@ export default function WorkflowSteps() {
             {/* Left: heading + divider + description */}
             <div className="md:w-[360px] flex-shrink-0">
               <h2 className="text-[1.8rem] font-bold leading-tight sm:text-[2.2rem] md:text-[2.52rem] lg:text-[3.08rem]" style={{ color: darkBlueV }}>
-                Reserve your souvenirs in 3 simple steps.
+                Reserve your souvenirs in 3 simple <span style={{ color: redV }}>steps</span>.
               </h2>
               <hr className="my-4" style={{ borderColor: goldV }} />
               <p className="text-sm leading-relaxed sm:text-base md:text-[1.09rem]" style={{ color: blackV }}>

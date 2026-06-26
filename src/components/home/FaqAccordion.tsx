@@ -1,33 +1,59 @@
 "use client";
 
 import { useState } from "react";
-import { ShoppingBag, Calendar, Pencil, CreditCard, MessageCircle } from "lucide-react";
-import { goldV, creamV, darkBlueV, whiteV } from "@/constants/variables";
+import Image from "next/image";
+import { Truck, RefreshCw, Palette, MapPin, Clock, Tag, CreditCard, Bell, MessageCircle, Plus, Minus } from "lucide-react";
+import uomMap from "@/app/images/faq/uom-map.png";
+import { goldV, creamV, darkBlueV, whiteV, redV } from "@/constants/variables";
 
-const faqItems = [
+interface FaqItem {
+  icon: React.ElementType;
+  question: string;
+  answer: string;
+  mapImage?: boolean;
+}
+
+const faqItems: FaqItem[] = [
   {
-    icon: ShoppingBag,
-    question: "How do I reserve souvenirs for pickup?",
-    answer:
-      "Select the items you want, add them to your cart, and generate an invoice to reserve them for collection at the UoM Finance Office.",
+    icon: Truck,
+    question: "Do you have a delivery option / Do you ship internationally?",
+    answer: "No, all goods have to be collected in person at the University of Mauritius.",
   },
   {
-    icon: Calendar,
-    question: "When can I collect my order?",
-    answer:
-      "Orders are prepared after reservation and can be collected during Finance Office opening hours once your invoice is confirmed.",
+    icon: RefreshCw,
+    question: "What is your return or exchange policy?",
+    answer: "Once sold, items cannot be exchanged or returned.",
   },
   {
-    icon: Pencil,
-    question: "Can I update my reservation after checkout?",
-    answer:
-      "Yes. Contact the Finance Office or support team before collection to modify your reserved items, subject to availability.",
+    icon: Palette,
+    question: "Can I switch the colour of the product I ordered when I come for collection?",
+    answer: "No, but you may come to the shop to view the products before purchase.",
+  },
+  {
+    icon: Clock,
+    question: "What are your opening hours?",
+    answer: "Monday to Friday\n9.00 – 16.00\nLunch Time: 12.00 – 13.00",
+  },
+  {
+    icon: Tag,
+    question: "Do you offer discounts for UoM students or staff?",
+    answer: "No. All prices shown on the website are fixed.",
   },
   {
     icon: CreditCard,
-    question: "Do I need to pay online or on campus?",
-    answer:
-      "Payment is completed at the UoM Finance Office when you pick up your order, making the reservation process simple and secure.",
+    question: "How does the payment process work?",
+    answer: "You can either pay by cash directly before collection (take into consideration the validation date of the invoice), or pay through a bank transfer with details that will be provided to you. The reference number of the payment MUST be inserted on the invoice.",
+  },
+  {
+    icon: Bell,
+    question: "Can I pre-order items?",
+    answer: "No. We do not currently offer pre-orders or restock notifications.",
+  },
+  {
+    icon: MapPin,
+    question: "Where is the shop located?",
+    answer: "NAC Basement, University of Mauritius, Réduit. (Building 17)",
+    mapImage: true,
   },
 ];
 
@@ -35,27 +61,25 @@ export default function FaqAccordion() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section className="px-4 py-16 sm:px-8 lg:px-16">
-      <div className="mx-auto max-w-4xl">
+    <section id="faq" className="px-[15px] pb-16 md:px-[20px]">
+      <div>
         {/* Header */}
-        <div className="mb-10 flex items-start gap-5">
-          <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full border-2" style={{ borderColor: goldV, backgroundColor: creamV }}>
-            <MessageCircle className="h-7 w-7" style={{ color: darkBlueV }} strokeWidth={1.5} />
+        <div className="mb-4 flex items-start gap-5">
+          <div className="flex h-18 w-18 shrink-0 items-center justify-center rounded-full border-2" style={{ borderColor: goldV, backgroundColor: creamV }}>
+            <MessageCircle className="h-9 w-9" style={{ color: darkBlueV }} strokeWidth={1.5} />
           </div>
           <div>
             <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl" style={{ color: darkBlueV }}>
-              Frequently Asked Questions (FAQ)
+              Frequently Asked Questions <span style={{ color: redV }}>(FAQ)</span>
             </h2>
-            <div className="mt-2 h-[3px] w-16 rounded-full" style={{ backgroundColor: goldV }} />
-            <p className="mt-3 text-sm leading-relaxed" style={{ color: darkBlueV }}>
-              Everything you need to know about reserving items, generating invoices,
-              <br className="hidden sm:block" /> and collecting your University of Mauritius souvenirs.
+            <p className="mt-2 text-sm leading-7" style={{ color: darkBlueV }}>
+              Everything you need to know about reserving items, generating invoices, and collecting your University of Mauritius souvenirs.
             </p>
           </div>
         </div>
 
         {/* Accordion */}
-        <div className="space-y-4">
+        <div className="grid grid-cols-1 min-[1550px]:grid-cols-2 gap-4 items-start">
           {faqItems.map((item, index) => {
             const isOpen = openIndex === index;
             const Icon = item.icon;
@@ -72,7 +96,7 @@ export default function FaqAccordion() {
                 <button
                   type="button"
                   onClick={() => setOpenIndex(isOpen ? null : index)}
-                  className="flex w-full items-center gap-4 px-5 py-5 text-left"
+                  className="flex w-full items-center gap-4 px-5 py-5 text-left cursor-pointer"
                   aria-expanded={isOpen}
                 >
                   {/* Icon circle */}
@@ -90,21 +114,36 @@ export default function FaqAccordion() {
 
                   {/* +/− button */}
                   <div
-                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xl font-light transition-colors"
+                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition-colors"
                     style={{ color: whiteV, backgroundColor: isOpen ? darkBlueV : goldV }}
                   >
-                    {isOpen ? "−" : "+"}
+                    {isOpen ? <Minus className="h-4 w-4" strokeWidth={2} /> : <Plus className="h-4 w-4" strokeWidth={2} />}
                   </div>
                 </button>
 
                 {/* Answer */}
                 <div
                   className={`overflow-hidden transition-all duration-300 ${
-                    isOpen ? "max-h-96" : "max-h-0"
+                    isOpen ? "max-h-[900px]" : "max-h-0"
                   }`}
                 >
                   <div className="mx-5 border-t-2" style={{ borderColor: creamV }} />
-                  <p className="px-5 py-4 text-sm leading-7" style={{ color: darkBlueV }}>{item.answer}</p>
+                  <div className="px-5 py-4">
+                    <p className="text-sm leading-7 whitespace-pre-line" style={{ color: darkBlueV }}>
+                      {item.answer}
+                    </p>
+                    {item.mapImage && (
+                      <div className="mt-3 rounded-xl overflow-hidden max-w-[835px]" style={{ backgroundColor: whiteV }}>
+                        <Image
+                          src={uomMap}
+                          alt="UoM Campus Map — NAC Basement (Building 17)"
+                          width={uomMap.width}
+                          height={uomMap.height}
+                          className="block w-full h-auto max-h-[835px] object-contain"
+                        />
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             );
