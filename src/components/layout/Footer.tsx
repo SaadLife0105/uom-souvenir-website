@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Instagram, Facebook, Twitter, Mail } from "lucide-react";
 import uomLogo from "@/app/images/uom-logo.png";
+import sceoLogo from "@/app/images/sceo-logo.png";
 import ccLogo from "@/app/images/cc-logo.png";
 import lineartUom from "@/app/images/footer/lineartuom.png";
 import { footerLinks } from "@/data/store-data";
@@ -65,22 +66,35 @@ export default function Footer() {
           src={lineartUom}
           alt=""
           aria-hidden
-          className="pointer-events-none absolute bottom-0 right-0 hidden h-56 w-auto select-none object-contain opacity-20 lg:block"
+          className="pointer-events-none absolute bottom-0 right-0 hidden h-[291px] w-auto select-none object-contain opacity-20 lg:block"
         />
 
         <div className="relative mx-auto max-w-7xl px-6 pb-12 pt-10 sm:pt-12 lg:px-8">
           <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr_1.2fr]">
             {/* Brand */}
-            <div className="space-y-4">
+            <div className="space-y-5">
+              {/* Brought to you by — University of Mauritius */}
               <div className="flex items-center gap-3">
                 <div className="relative h-11 w-11 shrink-0">
-                  <Image src={uomLogo} alt="UoM Souvenir Portal logo" className="h-auto w-auto object-contain" width={44} height={44} />
+                  <Image src={uomLogo} alt="University of Mauritius logo" className="h-auto w-auto object-contain" width={44} height={44} />
                 </div>
                 <div className="leading-tight">
-                  <p className="font-bold tracking-wide" style={{ color: whiteV }}>UOM SOUVENIR</p>
-                  <p className="text-sm font-semibold tracking-[0.22em]" style={{ color: goldV }}>SHOP</p>
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.22em]" style={{ color: goldV }}>Brought to you by</p>
+                  <p className="text-sm font-bold tracking-wide" style={{ color: whiteV }}>University of Mauritius</p>
                 </div>
               </div>
+
+              {/* Managed by — Strategic Communications & Engagement Office */}
+              <div className="flex items-center gap-3 border-t pt-5" style={{ borderColor: `${goldV}33` }}>
+                <div className="relative h-11 w-11 shrink-0">
+                  <Image src={sceoLogo} alt="Strategic Communications & Engagement Office logo" className="h-auto w-auto object-contain" width={44} height={44} />
+                </div>
+                <div className="leading-tight">
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.22em]" style={{ color: goldV }}>Managed by</p>
+                  <p className="max-w-[14rem] text-sm font-bold leading-snug tracking-wide" style={{ color: whiteV }}>Strategic Communications &amp; Engagement Office</p>
+                </div>
+              </div>
+
               <p className="max-w-xs text-sm leading-7" style={{ color: paleBlueV }}>
                 Celebrating pride, tradition and excellence delivered to you.
               </p>

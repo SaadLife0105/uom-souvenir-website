@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 import Image from "next/image";
 import { ShoppingBag, User, Menu, X } from "lucide-react";
-import uomLogo from "@/app/images/uom-logo.png";
+import uomLogo from "@/app/images/sceo-logo.png";
 import { navLinks } from "@/data/store-data";
 import { useCart } from "@/context/CartContext";
 import { blackV, goldV, redV, creamV, whiteV } from "@/constants/variables";
@@ -90,18 +90,17 @@ export default function Navbar() {
 
         {/* Logo */}
         <a href="#home" className="flex items-center gap-3 rounded-3xl bg-transparent pl-0 pr-4 py-2 transition hover:text-[#E1423D]" style={{ color: blackV }} onClick={() => setIsOpen(false)}>
-          <div className="flex h-11 w-11 items-center justify-center">
+          <div className="flex h-[48px] w-[48px] items-center justify-center translate-y-[2px]">
             <Image
               src={uomLogo}
               alt="University Of Mauritius shield logo"
-              width={44}
-              height={44}
-              className="h-11 w-11 object-contain"
+              width={48}
+              height={48}
+              className="h-[48px] w-[48px] object-contain"
             />
           </div>
-          <div className="hidden min-w-[12rem] flex-col sm:flex">
-            <span className="text-sm font-semibold" style={{ color: blackV }}>University Of Mauritius</span>
-            <span className="text-xs" style={{ color: blackV }}>Souvenir Shop</span>
+          <div className="hidden min-w-[12rem] flex-col justify-center sm:flex">
+            <span className="text-sm font-semibold" style={{ color: blackV }}>Strategic Communications & Engagement Office</span>
           </div>
         </a>
 
