@@ -73,12 +73,12 @@ export default function Navbar() {
   return (
     <header className="fixed inset-x-0 top-6 z-50 px-4 bg-transparent">
       <div className="relative mx-auto w-[95%] max-w-7xl">
-      <div className="flex h-[59px] md:h-16 w-full items-center gap-4 rounded-3xl border border-white/40 px-4 shadow-xl backdrop-blur-md flex-wrap md:flex-nowrap" style={{ backgroundColor: `${whiteV}BF` }}>
+      <div className="flex h-[59px] md:h-16 w-full items-center gap-4 rounded-3xl border border-white/40 px-4 shadow-xl backdrop-blur-md flex-nowrap" style={{ backgroundColor: `${whiteV}BF` }}>
         {/* Mobile Menu Button */}
         <button
           type="button"
           onClick={() => setIsOpen(!isOpen)}
-          className="block md:hidden p-2"
+          className="block md:hidden shrink-0 p-2"
           aria-label="Toggle menu"
         >
           {isOpen ? (
@@ -89,8 +89,8 @@ export default function Navbar() {
         </button>
 
         {/* Logo */}
-        <a href="#home" className="flex items-center gap-3 rounded-3xl bg-transparent pl-0 pr-4 py-2 transition hover:text-[#E1423D]" style={{ color: blackV }} onClick={() => setIsOpen(false)}>
-          <div className="flex h-[48px] w-[48px] items-center justify-center translate-y-[2px]">
+        <a href="#home" className="flex min-w-0 items-center gap-3 rounded-3xl bg-transparent pl-0 pr-4 py-2 transition hover:text-[#E1423D]" style={{ color: blackV }} onClick={() => setIsOpen(false)}>
+          <div className="flex h-[48px] w-[48px] shrink-0 items-center justify-center translate-y-[2px]">
             <Image
               src={uomLogo}
               alt="University Of Mauritius shield logo"
@@ -99,8 +99,8 @@ export default function Navbar() {
               className="h-[48px] w-[48px] object-contain"
             />
           </div>
-          <div className="hidden min-w-[12rem] flex-col justify-center sm:flex">
-            <span className="text-sm font-semibold" style={{ color: blackV }}>Strategic Communications & Engagement Office</span>
+          <div className="hidden min-w-0 flex-col justify-center sm:flex md:min-w-[12rem]">
+            <span className="truncate text-sm font-semibold" style={{ color: blackV }}>Strategic Communications & Engagement Office</span>
           </div>
         </a>
 
@@ -116,7 +116,7 @@ export default function Navbar() {
         </div>
 
         {/* Cart and User Icons */}
-        <div className="ml-auto flex items-center gap-3 md:flex">
+        <div className="ml-auto flex shrink-0 items-center gap-3 md:flex">
           <a
             href="/cart"
             className={`relative inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/25 bg-transparent transition hover:bg-[#FFCB70] hover:text-[#F5F6F4] ${

@@ -14,7 +14,7 @@ export default function CartPage() {
   return (
     <div className="flex min-h-screen flex-col bg-[#D7F2FF] text-[#1f2937]">
       <Navbar />
-      <main className="flex-1 pb-16">
+      <main className="flex-1 pb-16 pt-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="rounded-[2rem] border-2 border-[#C82520] bg-white p-8 shadow-xl">
             <div className="space-y-6">

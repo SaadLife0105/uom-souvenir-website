@@ -80,7 +80,7 @@ export default function ShopPage() {
       <Navbar />
 
       <main className="flex-1 pb-32">
-        <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <section className="mx-auto max-w-7xl px-4 pb-16 pt-24 sm:px-6 lg:px-8">
           <div className="space-y-8">
             <div className="overflow-hidden rounded-[2rem] border-2 border-[#C82520] bg-white p-8 shadow-xl sm:p-10">
               <div className="mb-10">

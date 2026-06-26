@@ -110,7 +110,7 @@ export default function Hero() {
             }}
           >
             Browse premium UoM merchandise, reserve your favorites online, and
-            collect them with ease on campus.uui
+            collect them with ease on campus.
           </p>
         </div>
 
@@ -169,7 +169,7 @@ export default function Hero() {
 
           <p className="max-w-sm text-base leading-relaxed" style={{ color: whiteV }}>
             Browse premium UoM merchandise, reserve your favorites online, and
-            collect them with ease on campus.uui
+            collect them with ease on campus.
           </p>
         </div>
       </div>
