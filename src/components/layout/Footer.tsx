@@ -36,16 +36,26 @@ function FooterColumn({ title, titleColor, items }: { title: string; titleColor:
 export default function Footer() {
   return (
     <footer id="contact" className="relative" style={{ color: whiteV }}>
-      {/* Curved top edge — same polygon/path technique as the steps section.
-          Area above the curve is filled with paleBlueV to match the section above it. */}
+      {/* Curved top edge — same wavy polygon as the steps section.
+          Area above the wave is paleBlueV (matches the section above), the
+          gold band follows the wave, and darkBlueV fills the footer body. */}
       <svg
-        viewBox="0 0 1100 120"
+        viewBox="0 0 1100 200"
         preserveAspectRatio="none"
-        className="pointer-events-none block h-12 w-full sm:h-20"
+        className="pointer-events-none block h-24 w-full sm:h-40"
       >
-        <path d="M 0 0 L 1100 0 L 1100 50 C 760 110, 420 25, 0 68 Z" fill={paleBlueV} />
-        <path d="M 0 68 C 420 25, 760 110, 1100 50 L 1100 120 L 0 120 Z" fill={darkBlueV} />
-        <path d="M 0 68 C 420 25, 760 110, 1100 50" fill="none" stroke={goldV} strokeWidth={5} />
+        <path
+          d="M 0 0 C 200 180, 400 0, 650 5 C 850 15, 950 180, 1100 30 L 1100 0 Z"
+          fill={paleBlueV}
+        />
+        <path
+          d="M 0 0 C 200 180, 400 0, 650 5 C 850 15, 950 180, 1100 30 L 1100 30 C 950 200, 850 15, 650 7 C 400 10, 200 190, 0 30 Z"
+          fill={goldV}
+        />
+        <path
+          d="M 0 30 C 200 190, 400 10, 650 7 C 850 15, 950 200, 1100 30 L 1100 200 L 0 200 Z"
+          fill={darkBlueV}
+        />
       </svg>
 
       {/* Main body */}
@@ -68,11 +78,11 @@ export default function Footer() {
                 </div>
                 <div className="leading-tight">
                   <p className="font-bold tracking-wide" style={{ color: whiteV }}>UOM SOUVENIR</p>
-                  <p className="text-sm font-semibold tracking-[0.22em]" style={{ color: goldV }}>PORTAL</p>
+                  <p className="text-sm font-semibold tracking-[0.22em]" style={{ color: goldV }}>SHOP</p>
                 </div>
               </div>
               <p className="max-w-xs text-sm leading-7" style={{ color: paleBlueV }}>
-                Celebrating pride, tradition and excellence — delivered to you.
+                Celebrating pride, tradition and excellence delivered to you.
               </p>
             </div>
 
