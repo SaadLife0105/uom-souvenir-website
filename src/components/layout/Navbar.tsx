@@ -8,7 +8,7 @@ import { ShoppingBag, User, Menu, X } from "lucide-react";
 import uomLogo from "@/app/images/uom-logo.png";
 import { navLinks } from "@/data/store-data";
 import { useCart } from "@/context/CartContext";
-import { blackV, goldV, redV, creamV } from "@/constants/variables";
+import { blackV, goldV, redV, creamV, whiteV } from "@/constants/variables";
 
 const IconButton = ({ label, icon }: { label: string; icon: ReactNode }) => (
   <button
@@ -72,7 +72,8 @@ export default function Navbar() {
 
   return (
     <header className="fixed inset-x-0 top-6 z-50 px-4 bg-transparent">
-      <div className="mx-auto flex h-16 w-[95%] max-w-7xl items-center gap-4 rounded-3xl border border-white/25 bg-white/25 px-4 shadow-xl backdrop-blur-xl flex-wrap md:flex-nowrap">
+      <div className="relative mx-auto w-[95%] max-w-7xl">
+      <div className="flex h-[59px] md:h-16 w-full items-center gap-4 rounded-3xl border border-white/40 px-4 shadow-xl backdrop-blur-md flex-wrap md:flex-nowrap" style={{ backgroundColor: `${whiteV}BF` }}>
         {/* Mobile Menu Button */}
         <button
           type="button"
@@ -136,10 +137,11 @@ export default function Navbar() {
       </div>
 
       {/* Mobile Navigation Dropdown - Smooth Expansion */}
-      <nav 
-        className={`block md:hidden absolute top-20 left-4 right-4 w-[calc(100%-2rem)] bg-white/10 border border-white/25 rounded-2xl backdrop-blur-xl shadow-xl overflow-hidden transition-all duration-300 ease-out ${
+      <nav
+        className={`block md:hidden absolute top-[64px] left-0 right-0 w-full border border-white/40 rounded-2xl backdrop-blur-md shadow-xl overflow-hidden transition-all duration-300 ease-out ${
           isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0 pointer-events-none'
         }`}
+        style={{ backgroundColor: `${whiteV}BF` }}
       >
         <div className="flex flex-col gap-1 px-4 py-4">
           {navLinks.map((link) => (
@@ -155,6 +157,7 @@ export default function Navbar() {
           ))}
         </div>
       </nav>
+      </div>
     </header>
   );
 }
