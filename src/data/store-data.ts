@@ -209,11 +209,9 @@ export const workflowSteps: WorkflowStepItem[] = [
 ];
 
 export const footerLinks = {
-  contact: [
-    "University of Mauritius, Réduit",
-    "+230 1234 5678",
-    "souvenir@uom.ac.mu",
-  ],
+  shop: ["All Products", "Apparel", "Accessories", "Stationery", "Gift Items"],
+  support: ["How to Order", "Payment & Delivery", "Returns & Refunds", "FAQs", "Contact Us"],
+  company: ["About UoM", "The Portal", "Terms & Conditions", "Privacy Policy"],
 };
 
 export const shopProducts: ShopProduct[] = [
