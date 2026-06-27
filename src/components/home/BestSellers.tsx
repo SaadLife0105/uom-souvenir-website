@@ -36,8 +36,8 @@ export default function BestSellers() {
   };
 
   const btnBase =
-    "absolute top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-[#FFCB70] bg-[#FFCB70] transition-all duration-300 hover:bg-[#F8EEDE] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFCB70]";
-  const btnStyle = { color: blackV };
+    "absolute top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2";
+  const btnStyle = { color: blackV, backgroundColor: goldV, border: `1px solid ${goldV}`, outlineColor: goldV };
 
   return (
     <section id="best-sellers" className="w-full px-[15px] pb-2 md:px-[20px]">
