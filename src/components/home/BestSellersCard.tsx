@@ -29,7 +29,7 @@ export default function BestSellersCard({ campaign }: { campaign: BestSellerCamp
             <Link
               href={campaign.buttons[0].href}
               className="cursor-pointer rounded-full border px-4 py-1.5 text-[11px] font-semibold uppercase tracking-widest backdrop-blur-sm transition hover:bg-[#1E2019]/20 focus-visible:outline-2 focus-visible:outline-offset-2"
-              style={{ borderColor: `${whiteV}B3`, backgroundColor: `${blackV}40`, color: whiteV, outlineColor: whiteV }}
+              style={{ borderColor: `color-mix(in srgb, ${whiteV} 70%, transparent)`, backgroundColor: `color-mix(in srgb, ${blackV} 25%, transparent)`, color: whiteV, outlineColor: whiteV }}
             >
               Order Now
             </Link>

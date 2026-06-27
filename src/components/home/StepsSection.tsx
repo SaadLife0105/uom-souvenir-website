@@ -5,7 +5,7 @@ import { paleBlueV, goldV, darkBlueV, blackV, whiteV, redV } from "@/constants/v
 
 export default function WorkflowSteps() {
   return (
-    <section id="steps" className="px-[15px] pt-[40px] pb-[50px] md:px-[20px]">
+    <section id="steps" className="px-[15px] pt-[40px] pb-[50px] md:px-[20px]" style={{ backgroundColor: paleBlueV }}>
       <div className="relative rounded-b-3xl border-l-2 border-r-2 border-b-2" style={{ borderColor: goldV }}>
         <div className="overflow-hidden rounded-b-3xl" style={{ backgroundColor: whiteV }}>
           <div className="relative -top-[20px] flex flex-col gap-4 px-4 pb-4 pt-24 sm:gap-8 sm:p-10 sm:pt-44 md:flex-row md:items-start md:gap-12">
@@ -66,11 +66,11 @@ export default function WorkflowSteps() {
         >
           <path
             d="M 0 0 C 200 180, 400 0, 650 5 C 850 15, 950 180, 1100 30 L 1100 0 Z"
-            fill={paleBlueV}
+            style={{ fill: paleBlueV }}
           />
           <path
             d="M 0 0 C 200 180, 400 0, 650 5 C 850 15, 950 180, 1100 30 L 1100 30 C 950 200, 850 15, 650 7 C 400 10, 200 190, 0 30 Z"
-            fill={goldV}
+            style={{ fill: goldV }}
           />
         </svg>
       </div>

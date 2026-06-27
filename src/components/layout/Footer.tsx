@@ -17,7 +17,7 @@ const socials = [
 
 function FooterColumn({ title, titleColor, items, mobileDivider = false, className = "" }: { title: string; titleColor: string; items: string[]; mobileDivider?: boolean; className?: string }) {
   return (
-    <div className={`${mobileDivider ? "-ml-[20px] border-l pl-4 sm:ml-0 sm:border-l-0 sm:pl-0" : ""} lg:border-l lg:pl-8 ${className}`} style={{ borderColor: `${paleBlueV}26` }}>
+    <div className={`${mobileDivider ? "-ml-[20px] border-l pl-4 sm:ml-0 sm:border-l-0 sm:pl-0" : ""} lg:border-l lg:pl-8 ${className}`} style={{ borderColor: `color-mix(in srgb, ${paleBlueV} 15%, transparent)` }}>
       <h3 className="text-sm font-bold uppercase tracking-[0.18em]" style={{ color: titleColor }}>
         {title}
       </h3>
@@ -86,7 +86,7 @@ export default function Footer() {
                 </div>
 
                 {/* Managed by — Strategic Communications & Engagement Office */}
-                <div className="flex min-w-0 flex-1 items-center gap-3 border-l pl-4 sm:mt-[10px] sm:border-l-0 sm:border-t sm:pl-0 sm:pt-5" style={{ borderColor: `${paleBlueV}26` }}>
+                <div className="flex min-w-0 flex-1 items-center gap-3 border-l pl-4 sm:mt-[10px] sm:border-l-0 sm:border-t sm:pl-0 sm:pt-5" style={{ borderColor: `color-mix(in srgb, ${paleBlueV} 15%, transparent)` }}>
                   <div className="relative h-[46px] w-[46px] shrink-0 sm:h-11 sm:w-11">
                     <Image src={sceoLogo} alt="Strategic Communications & Engagement Office logo" className="h-full w-full object-contain" width={46} height={46} />
                   </div>
@@ -107,7 +107,7 @@ export default function Footer() {
             <FooterColumn title="Company" titleColor={goldV} items={footerLinks.company} mobileDivider />
 
             {/* Connect */}
-            <div className="col-span-3 text-center sm:col-span-1 sm:text-left lg:border-l lg:pl-8" style={{ borderColor: `${paleBlueV}26` }}>
+            <div className="col-span-3 text-center sm:col-span-1 sm:text-left lg:border-l lg:pl-8" style={{ borderColor: `color-mix(in srgb, ${paleBlueV} 15%, transparent)` }}>
               <h3 className="text-sm font-bold uppercase tracking-[0.18em]" style={{ color: goldV }}>
                 Connect With Us
               </h3>
@@ -128,7 +128,7 @@ export default function Footer() {
           </div>
 
           {/* Bottom copyright row */}
-          <div className="mt-[33px] border-t pt-6" style={{ borderColor: `${paleBlueV}26` }}>
+          <div className="mt-[33px] border-t pt-6" style={{ borderColor: `color-mix(in srgb, ${paleBlueV} 15%, transparent)` }}>
             <div className="flex flex-col items-center justify-between gap-3 text-sm sm:flex-row" style={{ color: paleBlueV }}>
               <p>© 2026 University of Mauritius. All rights reserved.</p>
               <p>Proudly serving the UoM community.</p>
@@ -138,7 +138,7 @@ export default function Footer() {
       </div>
 
       {/* Red band (kept for now) */}
-      <div className="relative -mt-[10px] px-4 py-[13.5px] sm:px-6 lg:px-8" style={{ backgroundColor: redV }}>
+      <div id="red-band" className="relative -mt-[10px] px-4 py-[13.5px] sm:px-6 lg:px-8" style={{ backgroundColor: redV }}>
         <div className="flex items-center justify-center text-sm" style={{ color: whiteV }}>
           <Image src={ccLogo} alt="" aria-hidden className="h-6 w-auto object-contain" style={{ marginRight: "1rem" }} />
           <p>Powered by UOM Computer Club (2024-2025)</p>

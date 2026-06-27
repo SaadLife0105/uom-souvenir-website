@@ -1,7 +1,7 @@
 import Image from "next/image";
 import heroBackground from "@/app/images/hero/herobackground.jpg";
 import uomLogo from "@/app/images/uom-logo.png";
-import { goldV, darkBlueV, whiteV, deepBlueV, lightBlueV } from "@/constants/variables";
+import { goldV, deepBlueV, whiteV, lightBlueV } from "@/constants/variables";
 
 // The hero artwork (polygon, dots, logo, text) is designed at this reference
 // width. Everything lives inside one "stage" whose size and every inner
@@ -51,14 +51,14 @@ export default function Hero() {
           <polyline
             points="729,444 875,422 1477,206"
             fill="none"
-            stroke={lightBlueV}
+            style={{ stroke: lightBlueV }}
             strokeWidth="4"
           />
 
           {/* Blue panel */}
           <polygon
             points="1477,179 1477,-400 1477,820 300,900 704,444 875,422 1477,206"
-            fill={deepBlueV}
+            style={{ fill: deepBlueV }}
             fillOpacity="0.90"
           />
 
@@ -66,7 +66,7 @@ export default function Hero() {
           <polyline
             points="300,900 704,444 925,421 1477,224"
             fill="none"
-            stroke={goldV}
+            style={{ stroke: goldV }}
             strokeWidth="2"
           />
         </svg>
@@ -153,9 +153,9 @@ export default function Hero() {
           preserveAspectRatio="none"
           className="absolute inset-0 h-full w-full"
         >
-          <polygon points="0,55 100,38 100,100 0,100" fill={darkBlueV} fillOpacity="0.92" />
-          <polyline points="0,55 100,38" fill="none" stroke={goldV} strokeWidth="0.35" />
-          <polyline points="0,58.5 100,41.5" fill="none" stroke={lightBlueV} strokeWidth="0.6" />
+          <polygon points="0,55 100,38 100,100 0,100" style={{ fill: deepBlueV }} fillOpacity="0.92" />
+          <polyline points="0,55 100,38" fill="none" style={{ stroke: goldV }} strokeWidth="0.35" />
+          <polyline points="0,58.5 100,41.5" fill="none" style={{ stroke: lightBlueV }} strokeWidth="0.6" />
         </svg>
 
         <div className="absolute inset-x-0 bottom-0 top-[50%] flex flex-col items-center justify-center gap-3 px-8 text-center">

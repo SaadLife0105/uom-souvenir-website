@@ -13,8 +13,8 @@ import { blackV, goldV, redV, creamV, whiteV } from "@/constants/variables";
 const IconButton = ({ label, icon }: { label: string; icon: ReactNode }) => (
   <button
     type="button"
-    className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/30 bg-transparent transition hover:bg-[#FFCB70] hover:text-[#F5F6F4]"
-    style={{ color: blackV }}
+    className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-transparent transition"
+    style={{ color: blackV, border: `1px solid color-mix(in srgb, ${whiteV} 30%, transparent)` }}
   >
     <span className="sr-only">{label}</span>
     {icon}
@@ -73,7 +73,7 @@ export default function Navbar() {
   return (
     <header className="fixed inset-x-0 top-6 z-50 px-4 bg-transparent">
       <div className="relative mx-auto w-[95%] max-w-7xl">
-      <div className="flex h-[59px] md:h-16 w-full items-center gap-4 rounded-3xl border border-white/40 px-4 shadow-xl backdrop-blur-md flex-nowrap" style={{ backgroundColor: `${whiteV}BF` }}>
+      <div className="flex h-[59px] md:h-16 w-full items-center gap-4 rounded-3xl px-4 shadow-xl backdrop-blur-md flex-nowrap" style={{ backgroundColor: `color-mix(in srgb, ${whiteV} 75%, transparent)`, border: `1px solid color-mix(in srgb, ${whiteV} 40%, transparent)` }}>
         {/* Mobile Menu Button */}
         <button
           type="button"
@@ -119,10 +119,10 @@ export default function Navbar() {
         <div className="ml-auto flex shrink-0 items-center gap-3 md:flex">
           <a
             href="/cart"
-            className={`relative inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/25 bg-transparent transition hover:bg-[#FFCB70] hover:text-[#F5F6F4] ${
-              isCartPage ? "border-[#E1423D]" : ""
+            className={`relative inline-flex h-12 w-12 items-center justify-center rounded-full bg-transparent transition ${
+              isCartPage ? "" : ""
             }`}
-            style={{ color: blackV }}
+            style={{ color: blackV, border: isCartPage ? `1px solid ${redV}` : `1px solid color-mix(in srgb, ${whiteV} 25%, transparent)` }}
             aria-label="Cart"
             onClick={() => setIsOpen(false)}
           >
@@ -137,17 +137,17 @@ export default function Navbar() {
 
       {/* Mobile Navigation Dropdown - Smooth Expansion */}
       <nav
-        className={`block md:hidden absolute top-[64px] left-0 right-0 w-full border border-white/40 rounded-2xl backdrop-blur-md shadow-xl overflow-hidden transition-all duration-300 ease-out ${
+        className={`block md:hidden absolute top-[64px] left-0 right-0 w-full rounded-2xl backdrop-blur-md shadow-xl overflow-hidden transition-all duration-300 ease-out ${
           isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0 pointer-events-none'
         }`}
-        style={{ backgroundColor: `${whiteV}BF` }}
+        style={{ backgroundColor: `color-mix(in srgb, ${whiteV} 75%, transparent)`, border: `1px solid color-mix(in srgb, ${whiteV} 40%, transparent)` }}
       >
         <div className="flex flex-col gap-1 px-4 py-4">
           {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="block px-4 py-3 text-sm font-medium transition hover:text-[#E1423D] hover:bg-white/10 rounded-lg"
+              className="block px-4 py-3 text-sm font-medium transition hover:text-[#E1423D] rounded-lg"
               style={{ color: blackV }}
               onClick={() => setIsOpen(false)}
             >
