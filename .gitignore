@@ -41,6 +41,8 @@ src/app/images/gifs
 
 #miscallaneous
 color-audits.txt
+src/constants/project-context.txt
+src/constants/project-instructions.txt
 
 # typescript
 *.tsbuildinfo
