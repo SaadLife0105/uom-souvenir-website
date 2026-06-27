@@ -69,6 +69,18 @@
   #contact > svg {
     --color-pale-blue: #0d1f33;
   }
+
+  /* Category cards render over coloured backgrounds — bubbles must never flip. */
+  #categories {
+    --color-white: #F5F6F4;
+  }
+
+  /* Best-seller cards render over photos — bubbles and button must never flip. */
+  #best-sellers {
+    --color-pale-blue: #B0E0F8;
+    --color-white: #F5F6F4;
+    --color-black: #1E2019;
+  }
 }
 
 html {
