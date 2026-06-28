@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
-import CartNoticeBanner from '@/components/shop/CartNoticeBanner';
 import { useCart } from '@/context/CartContext';
 
 export default function CartPage() {
@@ -147,9 +146,6 @@ export default function CartPage() {
               </div>
             )}
 
-            <div className="mt-10">
-              <CartNoticeBanner />
-            </div>
           </div>
         </div>
       </main>

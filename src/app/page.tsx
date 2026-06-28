@@ -25,7 +25,7 @@ export default function Home() {
                   <LayoutGrid className="h-9 w-9" style={{ color: darkBlueV }} strokeWidth={1.5} />
                 </div>
                 <div>
-                  <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl" style={{ color: blackV }}>
+                  <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl" style={{ color: darkBlueV }}>
                     Shop by <span style={{ color: redV }}>Category</span>
                   </h2>
                   <p className="mt-2 text-sm leading-7" style={{ color: darkBlueV }}>
