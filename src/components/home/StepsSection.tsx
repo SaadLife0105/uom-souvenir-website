@@ -1,24 +1,24 @@
 import { Fragment } from "react";
 import { ArrowRight } from "lucide-react";
 import { workflowSteps } from "@/data/store-data";
-import { goldV, darkBlueV, blackV, whiteV, redV, goldHex } from "@/constants/variables";
+import { goldHex, darkBlueHex, blackHex, whiteHex, redHex, paleBlueHex } from "@/constants/variables";
 // ponytail: wave bg uses .steps-wave-bg CSS class — a plain CSS fill is more
 // reliable than var() in SVG on Samsung Browser / Opera GX.
 
 export default function WorkflowSteps() {
   return (
-    <section id="steps" className="px-[15px] pt-[40px] pb-[50px] md:px-[20px]" style={{ backgroundColor: "var(--color-pale-blue)" }}>
-      <div className="relative rounded-b-3xl border-l-2 border-r-2 border-b-2" style={{ borderColor: goldV }}>
-        <div className="overflow-hidden rounded-b-3xl" style={{ backgroundColor: whiteV }}>
+    <section id="steps" className="px-[15px] pt-[40px] pb-[50px] md:px-[20px]" style={{ backgroundColor: paleBlueHex }}>
+      <div className="relative rounded-b-3xl border-l-2 border-r-2 border-b-2" style={{ borderColor: goldHex }}>
+        <div className="overflow-hidden rounded-b-3xl" style={{ backgroundColor: whiteHex }}>
           <div className="relative -top-[20px] flex flex-col gap-4 px-4 pb-4 pt-24 sm:gap-8 sm:p-10 sm:pt-44 md:flex-row md:items-start md:gap-12">
 
             {/* Left: heading + divider + description */}
             <div className="md:w-[360px] flex-shrink-0">
-              <h2 className="text-[1.8rem] font-bold leading-tight sm:text-[2.2rem] md:text-[2.52rem] lg:text-[3.08rem]" style={{ color: darkBlueV }}>
-                Reserve your souvenirs in 3 simple <span style={{ color: redV }}>steps</span>.
+              <h2 className="text-[1.8rem] font-bold leading-tight sm:text-[2.2rem] md:text-[2.52rem] lg:text-[3.08rem]" style={{ color: darkBlueHex }}>
+                Reserve your souvenirs in 3 simple <span style={{ color: redHex }}>steps</span>.
               </h2>
-              <hr className="my-4" style={{ borderColor: goldV }} />
-              <p className="text-sm leading-relaxed sm:text-base md:text-[1.09rem]" style={{ color: blackV }}>
+              <hr className="my-4" style={{ borderColor: goldHex }} />
+              <p className="text-sm leading-relaxed sm:text-base md:text-[1.09rem]" style={{ color: blackHex }}>
                 The portal reserves your items and prepares your order for collection at the UoM Finance Office.
               </p>
             </div>
@@ -29,30 +29,30 @@ export default function WorkflowSteps() {
                 <Fragment key={step.step}>
                   {/* Mobile: icon left, text right. Desktop: stacked centered */}
                   <div className="flex flex-row items-center gap-4 md:flex-1 md:flex-col md:items-center md:text-center">
-                    <div className="flex h-[74px] w-[74px] flex-shrink-0 items-center justify-center rounded-full shadow-md md:h-[94px] md:w-[94px]" style={{ backgroundColor: goldV }}>
+                    <div className="flex h-[74px] w-[74px] flex-shrink-0 items-center justify-center rounded-full shadow-md md:h-[94px] md:w-[94px]" style={{ backgroundColor: goldHex }}>
                       <ArrowRight
                         className="h-[32px] w-[32px] md:h-[36px] md:w-[36px]"
-                        style={{ color: whiteV }}
+                        style={{ color: whiteHex }}
                         strokeWidth={2.5}
                       />
                     </div>
                     <div className="flex flex-col md:items-center md:text-center">
                       <div className="flex items-center gap-2 md:flex-col md:items-center md:gap-0">
-                        <span className="text-[1.8rem] font-bold md:mt-3 md:text-[2.52rem]" style={{ color: goldV }}>
+                        <span className="text-[1.8rem] font-bold md:mt-3 md:text-[2.52rem]" style={{ color: goldHex }}>
                           {String(step.step).padStart(2, "0")}
                         </span>
-                        <h3 className="text-[1.05rem] font-bold md:mt-1 md:text-[1.4rem]" style={{ color: darkBlueV }}>
+                        <h3 className="text-[1.05rem] font-bold md:mt-1 md:text-[1.4rem]" style={{ color: darkBlueHex }}>
                           {step.title}
                         </h3>
                       </div>
-                      <p className="-mt-1 text-[0.78rem] leading-snug sm:text-[0.9rem] md:mt-2 md:text-[1.09rem] md:leading-relaxed" style={{ color: blackV }}>
+                      <p className="-mt-1 text-[0.78rem] leading-snug sm:text-[0.9rem] md:mt-2 md:text-[1.09rem] md:leading-relaxed" style={{ color: blackHex }}>
                         {step.description}
                       </p>
                     </div>
                   </div>
                   {i < 2 && (
                     <div className="hidden md:relative md:block md:mt-10 md:w-0 md:flex-shrink-0">
-                      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[28px] border-t-[4px] border-dashed lg:w-[140px]" style={{ borderColor: goldV }} />
+                      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[28px] border-t-[4px] border-dashed lg:w-[140px]" style={{ borderColor: goldHex }} />
                     </div>
                   )}
                 </Fragment>

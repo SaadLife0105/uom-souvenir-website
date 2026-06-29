@@ -97,7 +97,7 @@ export default function Hero() {
             <p
               style={{ fontSize: u(32), marginTop: u(8), color: lightBlueHex }}
             >
-              A piece of UoM
+              Carry a piece of UoM with you
             </p>
           </div>
 
@@ -111,8 +111,7 @@ export default function Hero() {
               lineHeight: u(36),
             }}
           >
-            Browse premium UoM merchandise, reserve your favorites online, and
-            collect them with ease on campus.
+            From your first lecture to graduation day and decades beyond, wear the colors that shaped your story. Welcome to the offcial Universit shop where school spirit never fades~
           </p>
         </div>
 

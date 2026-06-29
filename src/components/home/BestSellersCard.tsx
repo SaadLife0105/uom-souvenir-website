@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { BestSellerCampaign } from "@/data/store-data";
-import { paleBlueV, whiteHex, blackHex } from "@/constants/variables";
+import { whiteHex, blackHex } from "@/constants/variables";
 
 export default function BestSellersCard({ campaign }: { campaign: BestSellerCampaign }) {
   return (
@@ -16,15 +16,14 @@ export default function BestSellersCard({ campaign }: { campaign: BestSellerCamp
       />
 
       {/* Gradient overlay — darker at bottom for text legibility */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-black)]/75 via-[var(--color-black)]/20 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
 
       {/* Bottom content */}
       <div className="absolute bottom-0 left-0 right-0 flex flex-col gap-3 p-5">
         <h3 className="text-2xl leading-tight md:text-3xl">
-          {/* ponytail: --tag-bg lets Tailwind's /25 alpha modifier work on a CSS variable color */}
           <span
-            className="inline-block rounded-full px-4 pt-1 pb-2 font-bold bg-[var(--tag-bg)]/25 backdrop-blur-sm"
-            style={{ "--tag-bg": paleBlueV, color: whiteHex } as React.CSSProperties}
+            className="inline-block rounded-full px-4 pt-1 pb-2 font-bold bg-pale-blue/25 backdrop-blur-sm"
+            style={{ color: whiteHex }}
           >
             {campaign.title}
           </span>

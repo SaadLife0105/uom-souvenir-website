@@ -1,5 +1,5 @@
 import type { StaticImageData } from "next/image";
-import { goldV, redV } from "@/constants/variables";
+import { goldHex, redHex } from "@/constants/variables";
 import gownAndHat from "@/app/images/category/gownandhat-nobg.png";
 import notebookAndPen from "@/app/images/category/notebookandpen-nobg.png";
 import hoodieAndShoes from "@/app/images/category/hoodieandshoes-nobg.png";
@@ -73,15 +73,15 @@ export const categories: CategoryItem[] = [
     description: "Celebrate your milestone with signature graduation keepsakes.",
     image: gownAndHat,
     href: "/shop",
-    bgColor: goldV,
+    bgColor: goldHex,
     textColor: "white",
   },
   {
-    title: "Stationary",
+    title: "Stationery",
     description: "Notebooks, planners and writing essentials for every study session.",
     image: notebookAndPen,
     href: "/shop",
-    bgColor: redV,
+    bgColor: redHex,
     textColor: "white",
   },
   {
@@ -89,7 +89,7 @@ export const categories: CategoryItem[] = [
     description: "Campus-ready hoodies, tees and premium UoM apparel.",
     image: hoodieAndShoes,
     href: "/shop",
-    bgColor: goldV,
+    bgColor: goldHex,
     textColor: "white",
   },
   {
@@ -97,7 +97,7 @@ export const categories: CategoryItem[] = [
     description: "Stylish bags, cases and campus accessories for every day.",
     image: laptopAndCase,
     href: "/shop",
-    bgColor: redV,
+    bgColor: redHex,
     textColor: "white",
   },
 ];
@@ -204,14 +204,14 @@ export const workflowSteps: WorkflowStepItem[] = [
   {
     step: 3,
     title: "Pay and Pick Up",
-    description: "Pay at the UoM Finance Office and collect your reserved items when ready.",
+    description: "Pay and collect your items before the validation date on the invoice.",
   },
 ];
 
 export const footerLinks = {
-  shop: ["All Products", "Apparel", "Accessories", "Stationery", "Gift Items"],
-  support: ["How to Order", "Payment & Delivery", "Returns & Refunds", "FAQs", "Contact Us"],
-  company: ["About UoM", "The Portal", "Terms & Conditions", "Privacy Policy"],
+  shop: ["All Products", "Apparel", "Accessories", "Stationery"],
+  support: ["How to Order", "Payment", "FAQs", "Contact Us"],
+  company: ["About UoM", "Terms & Conditions", "Privacy Policy"],
 };
 
 export const shopProducts: ShopProduct[] = [

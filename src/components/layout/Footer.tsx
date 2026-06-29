@@ -6,7 +6,7 @@ import sceoLogo from "@/app/images/sceo-logo.png";
 import ccLogo from "@/app/images/cc-logo.png";
 import lineartUom from "@/app/images/footer/lineartuom.png";
 import { footerLinks } from "@/data/store-data";
-import { darkBlueHex as darkBlue, goldHex as gold, whiteHex as white, paleBlueHex as paleBlue, redHex as red } from "@/constants/variables";
+import { darkBlueHex as darkBlue, goldHex as gold, whiteHex as white, paleBlueHex as paleBlue, redHex as red, goldHex } from "@/constants/variables";
 // ponytail: Footer uses pinned hex exports (never var()) — Samsung Browser /
 // Opera GX don't resolve CSS custom properties reliably in SVG fill attributes
 // or inline styles on certain elements.
@@ -101,7 +101,7 @@ export default function Footer() {
               </div>
 
               <p className="mx-auto max-w-xs text-center text-sm leading-7 sm:mx-0 sm:text-left" style={{ color: paleBlue }}>
-                Celebrating pride, tradition and excellence delivered to you.
+                Officially licensed. Unofficially comfy.
               </p>
             </div>
 
@@ -134,14 +134,13 @@ export default function Footer() {
           <div className="mt-[33px] border-t pt-6" style={{ borderColor: `color-mix(in srgb, ${paleBlue} 15%, transparent)` }}>
             <div className="flex flex-col items-center justify-between gap-3 text-sm sm:flex-row" style={{ color: paleBlue }}>
               <p>© 2026 University of Mauritius. All rights reserved.</p>
-              <p>Proudly serving the UoM community.</p>
             </div>
           </div>
         </div>
       </div>
 
       {/* Red band (kept for now) */}
-      <div id="red-band" className="relative -mt-[10px] px-4 py-[13.5px] sm:px-6 lg:px-8" style={{ backgroundColor: red }}>
+      <div id="red-band" className="relative -mt-[10px] px-4 py-[13.5px] sm:px-6 lg:px-8" style={{ backgroundColor: goldHex }}>
         <div className="flex items-center justify-center text-sm" style={{ color: white }}>
           <Image src={ccLogo} alt="" aria-hidden className="h-6 w-auto object-contain" style={{ marginRight: "1rem" }} />
           <p>Powered by UOM Computer Club (2024-2025)</p>

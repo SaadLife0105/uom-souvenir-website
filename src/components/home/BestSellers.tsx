@@ -4,7 +4,7 @@ import { useRef, useState, useEffect, useCallback } from "react";
 import { ChevronLeft, ChevronRight, TrendingUp } from "lucide-react";
 import { bestSellers } from "@/data/store-data";
 import BestSellersCard from "./BestSellersCard";
-import { blackV, redV, darkBlueV, goldV, creamV } from "@/constants/variables";
+import { blackHex, redHex, darkBlueHex, goldHex, creamHex } from "@/constants/variables";
 
 export default function BestSellers() {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -37,20 +37,20 @@ export default function BestSellers() {
 
   const btnBase =
     "absolute top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2";
-  const btnStyle = { color: blackV, backgroundColor: goldV, border: `1px solid ${goldV}`, outlineColor: goldV };
+  const btnStyle = { color: blackHex, backgroundColor: goldHex, border: `1px solid ${goldHex}`, outlineColor: goldHex };
 
   return (
     <section id="best-sellers" className="w-full px-[15px] pb-2 md:px-[20px]">
       <div className="space-y-2">
         <div className="pt-6 pb-2 flex items-start gap-5">
-          <div className="flex h-18 w-18 shrink-0 items-center justify-center rounded-full border-2" style={{ borderColor: goldV, backgroundColor: creamV }}>
-            <TrendingUp className="h-9 w-9" style={{ color: darkBlueV }} strokeWidth={1.5} />
+          <div className="flex h-18 w-18 shrink-0 items-center justify-center rounded-full border-2" style={{ borderColor: goldHex, backgroundColor: creamHex }}>
+            <TrendingUp className="h-9 w-9" style={{ color: darkBlueHex }} strokeWidth={1.5} />
           </div>
           <div>
-            <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl" style={{ color: darkBlueV }}>
-              Discover our <span style={{ color: redV }}>Best Sellers</span>
+            <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl" style={{ color: darkBlueHex }}>
+              Discover our <span style={{ color: redHex }}>Best Sellers</span>
             </h2>
-            <p className="mt-2 text-sm leading-7" style={{ color: darkBlueV }}>
+            <p className="mt-2 text-sm leading-7" style={{ color: darkBlueHex }}>
               Our customers can&apos;t get enough of these.
             </p>
           </div>
