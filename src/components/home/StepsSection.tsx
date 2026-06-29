@@ -1,11 +1,12 @@
 import { Fragment } from "react";
 import { ArrowRight } from "lucide-react";
 import { workflowSteps } from "@/data/store-data";
-import { paleBlueV, goldV, darkBlueV, blackV, whiteV, redV } from "@/constants/variables";
+import { goldV, darkBlueV, blackV, whiteV, redV } from "@/constants/variables";
+// ponytail: wave bg uses .steps-wave-bg CSS class (not a var) for cross-browser dark mode.
 
 export default function WorkflowSteps() {
   return (
-    <section id="steps" className="px-[15px] pt-[40px] pb-[50px] md:px-[20px]" style={{ backgroundColor: paleBlueV }}>
+    <section id="steps" className="px-[15px] pt-[40px] pb-[50px] md:px-[20px]" style={{ backgroundColor: "var(--color-pale-blue)" }}>
       <div className="relative rounded-b-3xl border-l-2 border-r-2 border-b-2" style={{ borderColor: goldV }}>
         <div className="overflow-hidden rounded-b-3xl" style={{ backgroundColor: whiteV }}>
           <div className="relative -top-[20px] flex flex-col gap-4 px-4 pb-4 pt-24 sm:gap-8 sm:p-10 sm:pt-44 md:flex-row md:items-start md:gap-12">
@@ -64,13 +65,16 @@ export default function WorkflowSteps() {
           preserveAspectRatio="none"
           className="pointer-events-none absolute top-0 left-[0px] w-[calc(100%+2px)] h-24 sm:h-40 z-10"
         >
+          {/* Top path matches page background — needs both light and dark versions.
+              We use a CSS media query approach directly in the SVG since var() is
+              unreliable in SVG on Samsung Browser / Opera GX. */}
           <path
             d="M 0 0 C 200 180, 400 0, 650 5 C 850 15, 950 180, 1100 30 L 1100 0 Z"
-            style={{ fill: paleBlueV }}
+            className="steps-wave-bg"
           />
           <path
             d="M 0 0 C 200 180, 400 0, 650 5 C 850 15, 950 180, 1100 30 L 1100 30 C 950 200, 850 15, 650 7 C 400 10, 200 190, 0 30 Z"
-            style={{ fill: goldV }}
+            fill="#BF9E60"
           />
         </svg>
       </div>

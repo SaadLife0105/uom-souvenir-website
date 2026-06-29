@@ -6,7 +6,17 @@ import sceoLogo from "@/app/images/sceo-logo.png";
 import ccLogo from "@/app/images/cc-logo.png";
 import lineartUom from "@/app/images/footer/lineartuom.png";
 import { footerLinks } from "@/data/store-data";
-import { darkBlueV, goldV, redV, whiteV, paleBlueV } from "@/constants/variables";
+// ponytail: Footer colors are hardcoded hex — footer never flips with dark mode.
+// Samsung Browser / Opera GX don't reliably cascade var() inside @media scoped
+// to element IDs, so we bypass the variable system entirely here.
+
+const F = {
+  darkBlue: "#1A3C7D",
+  gold: "#BF9E60",
+  white: "#F5F6F4",
+  paleBlue: "#B0E0F8",
+  red: "#F23838",
+} as const;
 
 const socials = [
   { Icon: Instagram, label: "Instagram", href: "#" },
@@ -17,11 +27,11 @@ const socials = [
 
 function FooterColumn({ title, titleColor, items, mobileDivider = false, className = "" }: { title: string; titleColor: string; items: string[]; mobileDivider?: boolean; className?: string }) {
   return (
-    <div className={`${mobileDivider ? "-ml-[20px] border-l pl-4 sm:ml-0 sm:border-l-0 sm:pl-0" : ""} lg:border-l lg:pl-8 ${className}`} style={{ borderColor: `color-mix(in srgb, ${paleBlueV} 15%, transparent)` }}>
+    <div className={`${mobileDivider ? "-ml-[20px] border-l pl-4 sm:ml-0 sm:border-l-0 sm:pl-0" : ""} lg:border-l lg:pl-8 ${className}`} style={{ borderColor: `color-mix(in srgb, ${F.paleBlue} 15%, transparent)` }}>
       <h3 className="text-sm font-bold uppercase tracking-[0.18em]" style={{ color: titleColor }}>
         {title}
       </h3>
-      <ul className="mt-5 space-y-3 text-sm" style={{ color: paleBlueV }}>
+      <ul className="mt-5 space-y-3 text-sm" style={{ color: F.paleBlue }}>
         {items.map((item) => (
           <li key={item}>
             <Link href="#" className="transition-colors duration-200 hover:text-white">
@@ -36,7 +46,7 @@ function FooterColumn({ title, titleColor, items, mobileDivider = false, classNa
 
 export default function Footer() {
   return (
-    <footer id="contact" className="relative" style={{ color: whiteV }}>
+    <footer id="contact" className="relative" style={{ color: F.white }}>
       {/* Curved top edge — same wavy polygon as the steps section.
           Area above the wave is paleBlueV (matches the section above), the
           gold band follows the wave, and darkBlueV fills the footer body. */}
@@ -47,20 +57,20 @@ export default function Footer() {
       >
         <path
           d="M 0 0 C 200 180, 400 0, 650 5 C 850 15, 950 180, 1100 30 L 1100 0 Z"
-          fill={paleBlueV}
+          fill="#B0E0F8"
         />
         <path
           d="M 0 0 C 200 180, 400 0, 650 5 C 850 15, 950 180, 1100 30 L 1100 30 C 950 200, 850 15, 650 7 C 400 10, 200 190, 0 30 Z"
-          fill={goldV}
+          fill="#BF9E60"
         />
         <path
           d="M 0 30 C 200 190, 400 10, 650 7 C 850 15, 950 200, 1100 30 L 1100 200 L 0 200 Z"
-          fill={darkBlueV}
+          fill="#1A3C7D"
         />
       </svg>
 
       {/* Main body */}
-      <div className="relative -mt-px overflow-x-clip" style={{ backgroundColor: darkBlueV }}>
+      <div className="relative -mt-px overflow-x-clip" style={{ backgroundColor: F.darkBlue }}>
         {/* Faint building line-drawing (decorative) */}
         <Image
           src={lineartUom}
@@ -80,35 +90,35 @@ export default function Footer() {
                     <Image src={uomLogo} alt="University of Mauritius logo" className="h-auto w-auto object-contain" width={44} height={44} />
                   </div>
                   <div className="min-w-0 leading-tight">
-                    <p className="text-[10px] font-semibold uppercase tracking-[0.22em]" style={{ color: goldV }}>Brought to you by</p>
-                    <p className="text-sm font-bold tracking-wide" style={{ color: whiteV }}>University of Mauritius</p>
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.22em]" style={{ color: F.gold }}>Brought to you by</p>
+                    <p className="text-sm font-bold tracking-wide" style={{ color: F.white }}>University of Mauritius</p>
                   </div>
                 </div>
 
                 {/* Managed by — Strategic Communications & Engagement Office */}
-                <div className="flex min-w-0 flex-1 items-center gap-3 border-l pl-4 sm:mt-[10px] sm:border-l-0 sm:border-t sm:pl-0 sm:pt-5" style={{ borderColor: `color-mix(in srgb, ${paleBlueV} 15%, transparent)` }}>
+                <div className="flex min-w-0 flex-1 items-center gap-3 border-l pl-4 sm:mt-[10px] sm:border-l-0 sm:border-t sm:pl-0 sm:pt-5" style={{ borderColor: `color-mix(in srgb, ${F.paleBlue} 15%, transparent)` }}>
                   <div className="relative h-[46px] w-[46px] shrink-0 sm:h-11 sm:w-11">
                     <Image src={sceoLogo} alt="Strategic Communications & Engagement Office logo" className="h-full w-full object-contain" width={46} height={46} />
                   </div>
                   <div className="min-w-0 leading-tight">
-                    <p className="text-[10px] font-semibold uppercase tracking-[0.22em]" style={{ color: goldV }}>Managed by</p>
-                    <p className="text-sm font-bold leading-snug tracking-wide sm:max-w-[14rem]" style={{ color: whiteV }}>Strategic Communications &amp; Engagement Office</p>
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.22em]" style={{ color: F.gold }}>Managed by</p>
+                    <p className="text-sm font-bold leading-snug tracking-wide sm:max-w-[14rem]" style={{ color: F.white }}>Strategic Communications &amp; Engagement Office</p>
                   </div>
                 </div>
               </div>
 
-              <p className="mx-auto max-w-xs text-center text-sm leading-7 sm:mx-0 sm:text-left" style={{ color: paleBlueV }}>
+              <p className="mx-auto max-w-xs text-center text-sm leading-7 sm:mx-0 sm:text-left" style={{ color: F.paleBlue }}>
                 Celebrating pride, tradition and excellence delivered to you.
               </p>
             </div>
 
-            <FooterColumn title="Shop" titleColor={goldV} items={footerLinks.shop} className="ml-[5px] sm:ml-0" />
-            <FooterColumn title="Support" titleColor={goldV} items={footerLinks.support} mobileDivider />
-            <FooterColumn title="Company" titleColor={goldV} items={footerLinks.company} mobileDivider />
+            <FooterColumn title="Shop" titleColor={F.gold} items={footerLinks.shop} className="ml-[5px] sm:ml-0" />
+            <FooterColumn title="Support" titleColor={F.gold} items={footerLinks.support} mobileDivider />
+            <FooterColumn title="Company" titleColor={F.gold} items={footerLinks.company} mobileDivider />
 
             {/* Connect */}
-            <div className="col-span-3 text-center sm:col-span-1 sm:text-left lg:border-l lg:pl-8" style={{ borderColor: `color-mix(in srgb, ${paleBlueV} 15%, transparent)` }}>
-              <h3 className="text-sm font-bold uppercase tracking-[0.18em]" style={{ color: goldV }}>
+            <div className="col-span-3 text-center sm:col-span-1 sm:text-left lg:border-l lg:pl-8" style={{ borderColor: `color-mix(in srgb, ${F.paleBlue} 15%, transparent)` }}>
+              <h3 className="text-sm font-bold uppercase tracking-[0.18em]" style={{ color: F.gold }}>
                 Connect With Us
               </h3>
               <div className="mt-5 flex justify-center gap-3 sm:justify-start">
@@ -118,7 +128,7 @@ export default function Footer() {
                     href={href}
                     aria-label={label}
                     className="flex h-10 w-10 items-center justify-center rounded-full border transition-colors duration-200 hover:bg-white/10 cursor-pointer"
-                    style={{ borderColor: goldV, color: goldV }}
+                    style={{ borderColor: F.gold, color: F.gold }}
                   >
                     <Icon className="h-[18px] w-[18px]" strokeWidth={1.8} />
                   </a>
@@ -128,8 +138,8 @@ export default function Footer() {
           </div>
 
           {/* Bottom copyright row */}
-          <div className="mt-[33px] border-t pt-6" style={{ borderColor: `color-mix(in srgb, ${paleBlueV} 15%, transparent)` }}>
-            <div className="flex flex-col items-center justify-between gap-3 text-sm sm:flex-row" style={{ color: paleBlueV }}>
+          <div className="mt-[33px] border-t pt-6" style={{ borderColor: `color-mix(in srgb, ${F.paleBlue} 15%, transparent)` }}>
+            <div className="flex flex-col items-center justify-between gap-3 text-sm sm:flex-row" style={{ color: F.paleBlue }}>
               <p>© 2026 University of Mauritius. All rights reserved.</p>
               <p>Proudly serving the UoM community.</p>
             </div>
@@ -138,8 +148,8 @@ export default function Footer() {
       </div>
 
       {/* Red band (kept for now) */}
-      <div id="red-band" className="relative -mt-[10px] px-4 py-[13.5px] sm:px-6 lg:px-8" style={{ backgroundColor: redV }}>
-        <div className="flex items-center justify-center text-sm" style={{ color: whiteV }}>
+      <div id="red-band" className="relative -mt-[10px] px-4 py-[13.5px] sm:px-6 lg:px-8" style={{ backgroundColor: F.red }}>
+        <div className="flex items-center justify-center text-sm" style={{ color: F.white }}>
           <Image src={ccLogo} alt="" aria-hidden className="h-6 w-auto object-contain" style={{ marginRight: "1rem" }} />
           <p>Powered by UOM Computer Club (2024-2025)</p>
           <Image src={ccLogo} alt="" aria-hidden className="h-6 w-auto object-contain" style={{ marginLeft: "1rem" }} />

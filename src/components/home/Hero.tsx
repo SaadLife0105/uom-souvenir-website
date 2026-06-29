@@ -1,7 +1,9 @@
 import Image from "next/image";
 import heroBackground from "@/app/images/hero/herobackground.jpg";
 import uomLogo from "@/app/images/uom-logo.png";
-import { goldV, deepBlueV, whiteV, lightBlueV } from "@/constants/variables";
+// ponytail: Hero colors are hardcoded hex (not CSS vars) so they never flip
+// in Samsung Browser / Opera GX which don't reliably cascade var() overrides
+// inside @media (prefers-color-scheme: dark) on scoped elements.
 
 // The hero artwork (polygon, dots, logo, text) is designed at this reference
 // width. Everything lives inside one "stage" whose size and every inner
@@ -51,14 +53,14 @@ export default function Hero() {
           <polyline
             points="729,444 875,422 1477,206"
             fill="none"
-            style={{ stroke: lightBlueV }}
+            style={{ stroke: "#05AFF2" }}
             strokeWidth="4"
           />
 
           {/* Blue panel */}
           <polygon
             points="1477,179 1477,-400 1477,820 300,900 704,444 875,422 1477,206"
-            style={{ fill: deepBlueV }}
+            style={{ fill: "#072B57" }}
             fillOpacity="0.90"
           />
 
@@ -66,7 +68,7 @@ export default function Hero() {
           <polyline
             points="300,900 704,444 925,421 1477,224"
             fill="none"
-            style={{ stroke: goldV }}
+            style={{ stroke: "#BF9E60" }}
             strokeWidth="2"
           />
         </svg>
@@ -87,13 +89,13 @@ export default function Hero() {
           <div style={{ paddingLeft: u(82) }}>
             <h1
               className="font-bold leading-none"
-              style={{ fontSize: u(40), color: goldV }}
+              style={{ fontSize: u(40), color: "#BF9E60" }}
             >
               University of Mauritius
             </h1>
 
             <p
-              style={{ fontSize: u(32), marginTop: u(8), color: lightBlueV }}
+              style={{ fontSize: u(32), marginTop: u(8), color: "#05AFF2" }}
             >
               A piece of UoM
             </p>
@@ -102,7 +104,7 @@ export default function Hero() {
           <p
             className="absolute"
             style={{
-              color: whiteV,
+              color: "#F5F6F4",
               left: u(83),
               width: u(550),
               fontSize: u(18),
@@ -123,7 +125,7 @@ export default function Hero() {
             <div
               key={i}
               className="rounded-full"
-              style={{ backgroundColor: goldV, width: u(3), height: u(3) }}
+              style={{ backgroundColor: "#BF9E60", width: u(3), height: u(3) }}
             />
           ))}
         </div>
@@ -137,7 +139,7 @@ export default function Hero() {
             <div
               key={i}
               className="rounded-full"
-              style={{ backgroundColor: lightBlueV, width: u(3), height: u(3) }}
+              style={{ backgroundColor: "#05AFF2", width: u(3), height: u(3) }}
             />
           ))}
         </div>
@@ -153,21 +155,21 @@ export default function Hero() {
           preserveAspectRatio="none"
           className="absolute inset-0 h-full w-full"
         >
-          <polygon points="0,55 100,38 100,100 0,100" style={{ fill: deepBlueV }} fillOpacity="0.92" />
-          <polyline points="0,55 100,38" fill="none" style={{ stroke: goldV }} strokeWidth="0.35" />
-          <polyline points="0,58.5 100,41.5" fill="none" style={{ stroke: lightBlueV }} strokeWidth="0.6" />
+          <polygon points="0,55 100,38 100,100 0,100" style={{ fill: "#072B57" }} fillOpacity="0.92" />
+          <polyline points="0,55 100,38" fill="none" style={{ stroke: "#BF9E60" }} strokeWidth="0.35" />
+          <polyline points="0,58.5 100,41.5" fill="none" style={{ stroke: "#05AFF2" }} strokeWidth="0.6" />
         </svg>
 
         <div className="absolute inset-x-0 bottom-0 top-[50%] flex flex-col items-center justify-center gap-3 px-8 text-center">
           <Image src={uomLogo} alt="Logo" width={150} height={200} className="h-24 w-auto" />
 
-          <h1 className="text-3xl font-bold leading-tight" style={{ color: goldV }}>
+          <h1 className="text-3xl font-bold leading-tight" style={{ color: "#BF9E60" }}>
             University of Mauritius
           </h1>
 
-          <p className="text-xl" style={{ color: lightBlueV }}>A piece of UoM</p>
+          <p className="text-xl" style={{ color: "#05AFF2" }}>A piece of UoM</p>
 
-          <p className="max-w-sm text-base leading-relaxed" style={{ color: whiteV }}>
+          <p className="max-w-sm text-base leading-relaxed" style={{ color: "#F5F6F4" }}>
             Browse premium UoM merchandise, reserve your favorites online, and
             collect them with ease on campus.
           </p>

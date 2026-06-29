@@ -38,48 +38,15 @@
   }
 }
 
-/* Hero always renders over a dark photo — pin all tokens to light-mode values
-   so the polygon, dots, and text look correct regardless of OS theme. */
+/* StepsSection wave top path — must match the page background in both modes.
+   Uses a plain CSS class + media query instead of var() since SVG fill via
+   CSS custom properties is unreliable in Samsung Browser and Opera GX. */
+.steps-wave-bg {
+  fill: #B0E0F8;
+}
 @media (prefers-color-scheme: dark) {
-  #home {
-    --color-deep-blue: #072B57;
-    --color-light-blue: #05AFF2;
-    --color-white: #F5F6F4;
-    --color-gold: #BF9E60;
-  }
-
-  /* Red band always uses brand red + white — never flips. */
-  #red-band {
-    --color-red: #F23838;
-    --color-white: #F5F6F4;
-  }
-
-  /* Footer always uses dark navy + brand colors — never flips. */
-  #contact {
-    --color-pale-blue: #B0E0F8;
-    --color-dark-blue: #1A3C7D;
-    --color-deep-blue: #072B57;
-    --color-black: #1E2019;
-    --color-white: #F5F6F4;
-    --color-gold: #BF9E60;
-    --color-red: #F23838;
-  }
-
-  /* Footer top wave must match the page background above it, not the pinned footer palette. */
-  #contact > svg {
-    --color-pale-blue: #0d1f33;
-  }
-
-  /* Category cards render over coloured backgrounds — bubbles must never flip. */
-  #categories {
-    --color-white: #F5F6F4;
-  }
-
-  /* Best-seller cards render over photos — bubbles and button must never flip. */
-  #best-sellers {
-    --color-pale-blue: #B0E0F8;
-    --color-white: #F5F6F4;
-    --color-black: #1E2019;
+  .steps-wave-bg {
+    fill: #0d1f33;
   }
 }
 
