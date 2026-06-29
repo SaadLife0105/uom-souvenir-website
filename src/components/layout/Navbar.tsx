@@ -8,7 +8,7 @@ import { ShoppingBag, User, Menu, X } from "lucide-react";
 import uomLogo from "@/app/images/sceo-logo.png";
 import { navLinks } from "@/data/store-data";
 import { useCart } from "@/context/CartContext";
-import { blackV, goldV, redV, creamV, whiteV } from "@/constants/variables";
+import { blackV, redV, creamV, whiteV } from "@/constants/variables";
 
 const IconButton = ({ label, icon }: { label: string; icon: ReactNode }) => (
   <button
@@ -89,7 +89,7 @@ export default function Navbar() {
         </button>
 
         {/* Logo */}
-        <a href="#home" className="flex min-w-0 items-center gap-3 rounded-3xl bg-transparent pl-0 pr-4 py-2 transition hover:text-[#E1423D]" style={{ color: blackV }} onClick={() => setIsOpen(false)}>
+        <a href="#home" className="flex min-w-0 items-center gap-3 rounded-3xl bg-transparent pl-0 pr-4 py-2 transition hover:text-[var(--color-red)]" style={{ color: blackV }} onClick={() => setIsOpen(false)}>
           <div className="flex h-[48px] w-[48px] shrink-0 items-center justify-center translate-y-[2px]">
             <Image
               src={uomLogo}
@@ -108,7 +108,7 @@ export default function Navbar() {
         <div className="hidden flex-1 justify-center md:flex">
           <nav className="flex items-center gap-6 text-sm font-medium" style={{ color: blackV }}>
             {navLinks.map((link) => (
-              <a key={link.href} href={link.href} className="transition hover:text-[#E1423D]">
+              <a key={link.href} href={link.href} className="transition hover:text-[var(--color-red)]">
                 {link.label}
               </a>
             ))}
@@ -147,7 +147,7 @@ export default function Navbar() {
             <a
               key={link.href}
               href={link.href}
-              className="block px-4 py-3 text-sm font-medium transition hover:text-[#E1423D] rounded-lg"
+              className="block px-4 py-3 text-sm font-medium transition hover:text-[var(--color-red)] rounded-lg"
               style={{ color: blackV }}
               onClick={() => setIsOpen(false)}
             >

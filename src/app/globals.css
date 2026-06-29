@@ -3,7 +3,8 @@
 /* ─── Brand palette ────────────────────────────────────────────────────────
    Define tokens in @theme so Tailwind registers them as utility classes
    (bg-pale-blue, text-black, etc.) AND as CSS custom properties.
-   Light-mode values live here as the default.
+   These are the single source of truth — the site renders one fixed scheme
+   (no dark mode). color-scheme:light below forces it for every visitor.
    ───────────────────────────────────────────────────────────────────────── */
 @theme {
   --color-pale-blue: #B0E0F8;
@@ -15,22 +16,6 @@
   --color-white: #F5F6F4;
   --color-deep-blue: #072B57;
   --color-light-blue: #05AFF2;
-}
-
-/* ─── Dark mode overrides ──────────────────────────────────────────────────
-   Override only the tokens that change. Plain :root inside @media is the
-   correct CSS pattern — @theme cannot be nested inside @media in Tailwind v4.
-   ───────────────────────────────────────────────────────────────────────── */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-pale-blue: #0d1f33;
-    --color-cream: #1f3553;
-    --color-dark-blue: #B0E0F8;
-    --color-black: #eef3fb;
-    --color-white: #162c47;
-    --color-deep-blue: #05AFF2;
-    --color-light-blue: #B0E0F8;
-  }
 }
 
 /* Legacy tokens — used by shop/cart pages until rework removes them */
@@ -46,20 +31,18 @@
 }
 
 /* ─── StepsSection wave ────────────────────────────────────────────────────
-   Plain CSS class + @media for SVG fill — more reliable cross-browser than
-   var() in SVG attributes (Samsung Browser, Opera GX). Values mirror
-   paleBlueHex / pageDarkHex in variables.tsx — update both if palette changes.
+   Plain CSS class for the SVG fill — more reliable cross-browser than var()
+   in SVG attributes (Samsung Browser, Opera GX). Mirrors paleBlueHex /
+   --color-pale-blue in variables.tsx — update both if the palette changes.
    ───────────────────────────────────────────────────────────────────────── */
 .steps-wave-bg {
   fill: #B0E0F8; /* paleBlueHex */
 }
-@media (prefers-color-scheme: dark) {
-  .steps-wave-bg {
-    fill: #0d1f33; /* pageDarkHex */
-  }
-}
 
 html {
+  /* Force one fixed scheme for everyone — opt out of OS/browser dark mode so
+     UA-styled controls, scrollbars and form fields stay light too. */
+  color-scheme: light;
   scroll-behavior: smooth;
   scroll-padding-top: 7rem;
 }

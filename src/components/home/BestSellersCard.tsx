@@ -16,7 +16,7 @@ export default function BestSellersCard({ campaign }: { campaign: BestSellerCamp
       />
 
       {/* Gradient overlay — darker at bottom for text legibility */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#1E2019]/75 via-[#1E2019]/20 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-black)]/75 via-[var(--color-black)]/20 to-transparent" />
 
       {/* Bottom content */}
       <div className="absolute bottom-0 left-0 right-0 flex flex-col gap-3 p-5">

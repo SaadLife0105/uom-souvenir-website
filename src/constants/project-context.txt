@@ -1,0 +1,114 @@
+UOM Souvenir Website — Project Context
+======================================
+
+Overview
+--------
+An e-commerce website for selling University of Mauritius (UOM) souvenirs and
+merchandise — campus apparel, premium souvenirs, and university-branded
+products. The goal is a professional, trustworthy, institutional-feeling
+storefront with a product showcase, shopping cart, and (eventually) a full
+purchase flow. Live at https://uom-souvenir-website.vercel.app.
+
+Tech Stack
+----------
+Framework & Language
+- Next.js 16.2.7 (App Router) — note: this is a newer Next.js with breaking
+  changes vs. older versions
+- React 19.2.4 (with React Compiler / babel-plugin-react-compiler enabled)
+- TypeScript 5
+
+Styling & UI
+- Tailwind CSS v4 (via @tailwindcss/postcss) — utility classes only, minimal
+  custom CSS
+- GSAP 3 — scroll animations & page transitions
+- Lucide React — SVG icons (no emojis as icons)
+- Google Fonts: Geist (sans), Geist Mono, Playfair Display (serif display)
+- Design direction: "Soft UI" — soft shadows, subtle depth, institutional blue
+  palette (base bg #B0E0F8 pale blue, text #1E2019). Single fixed light scheme:
+  no dark mode — globals.css sets color-scheme:light to force it for everyone.
+
+Data & Backend
+- Neon — serverless Postgres (@neondatabase/serverless, connection pooling)
+- Drizzle ORM (drizzle-orm + drizzle-kit) — schema-first
+- State: React Context (CartContext) for the cart
+
+Tooling & Deployment
+- Vercel (hosting + env vars for Neon connection string)
+- Playwright (testing)
+- tsx, dotenv
+
+Current Structure
+-----------------
+- Routes: / (home), /shop, /cart
+- Home components: Hero, BestSellers, BestSellersCard, StepsSection,
+  FaqAccordion, CategoryCard
+- Shop page (src/app/shop/page.tsx): self-contained — product cards rendered
+  inline; no separate ProductCard component
+- Layout: Navbar, Footer
+- Reactbits (unused): PillNav (src/components/reactbits/) — GSAP pill navbar,
+  imported nowhere
+
+Conventions & Constraints (important for advice)
+------------------------------------------------
+- Server Components by default; "use client" only when needed
+- Always use Next.js <Image> (never raw <img>) and <Link> for internal nav
+- Tailwind utilities only — no inline styles / CSS modules unless forced
+- This Next.js version differs from training data — APIs may have changed;
+  verify against current Next 16 docs
+- "Lazy senior dev" philosophy: prefer the simplest solution, avoid unnecessary
+  dependencies/abstractions
+- Accessibility: 4.5:1 contrast, visible focus states, prefers-reduced-motion,
+  responsive at 375/768/1024/1440px
+
+Dead Code / To Be Deleted
+-------------------------
+Files:
+- src/components/reactbits/PillNav.jsx — GSAP pill navbar; nothing imports it
+- src/components/reactbits/PillNav.css — only used by PillNav.jsx (also dead)
+
+Exports in src/data/store-data.ts:
+- featuredProducts (ProductItem[]) — exported, never imported anywhere
+- features (FeatureItem[]) — exported, never imported anywhere
+- TestimonialItem interface — defined, no data array and no component uses it
+- ProductItem interface — only used by featuredProducts (also dead)
+- FeatureItem interface — only used by features (also dead)
+
+DB:
+- src/db/index.ts (exported db instance) — no page or server action imports
+  it; app reads all product data from static store-data.ts, not from Neon
+
+Image assets (not imported by any component):
+- src/app/images/hero/hero-background-blurred.png
+- src/app/images/hero/ogbackgroundpic.jpg
+- src/app/images/hero/previous-background.png
+- src/app/images/gifs/book.gif
+- src/app/images/gifs/graduationhat.gif
+- src/app/images/gifs/pen.gif
+
+Planned next steps
+------------------
+- Image storage: Cloudflare R2 (S3-compatible object bucket) — decided/in use;
+  product images not yet wired in code (shop still uses placeholder URLs)
+- Authentication: better-auth
+- Database: productDetails table schema exists (src/db/schema.ts) and seed
+  script is ready (src/db/seed.ts); app still reads from static store-data.ts —
+  next step is wiring pages to query Neon instead
+- Users (including admins / roles) — schema not yet designed
+- Downstream once the above lands: orders / checkout (no online payment —
+  payment is handled offline / out of scope for the site)
+
+Current gaps
+------------
+- No auth or order handling yet
+- User/admin schema not yet designed; productDetails schema exists but app
+  doesn't query it (still reads from static store-data.ts)
+- No CI/test coverage to speak of beyond Playwright being installed
+
+Last Updated
+------------
+- Date: 2026-06-29
+- Removed the dark mode feature entirely: deleted the prefers-color-scheme
+  overrides in globals.css, the dark-only/unused color exports (deepBlueV,
+  lightBlueV, creamHex, pageDarkHex), and forced a single light scheme via
+  color-scheme:light. Replaced remaining raw hex literals on the homepage and
+  shared components (Hero, Navbar, BestSellersCard) with the color variables.

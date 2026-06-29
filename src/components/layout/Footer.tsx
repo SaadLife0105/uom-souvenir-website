@@ -7,9 +7,9 @@ import ccLogo from "@/app/images/cc-logo.png";
 import lineartUom from "@/app/images/footer/lineartuom.png";
 import { footerLinks } from "@/data/store-data";
 import { darkBlueHex as darkBlue, goldHex as gold, whiteHex as white, paleBlueHex as paleBlue, redHex as red } from "@/constants/variables";
-// ponytail: Footer uses pinned hex exports (never var()) — footer never flips
-// with dark mode. Samsung Browser / Opera GX don't resolve CSS custom properties
-// reliably in SVG fill attributes or inline styles on certain elements.
+// ponytail: Footer uses pinned hex exports (never var()) — Samsung Browser /
+// Opera GX don't resolve CSS custom properties reliably in SVG fill attributes
+// or inline styles on certain elements.
 
 const socials = [
   { Icon: Instagram, label: "Instagram", href: "#" },

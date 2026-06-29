@@ -2,7 +2,7 @@ import { Fragment } from "react";
 import { ArrowRight } from "lucide-react";
 import { workflowSteps } from "@/data/store-data";
 import { goldV, darkBlueV, blackV, whiteV, redV, goldHex } from "@/constants/variables";
-// ponytail: wave bg uses .steps-wave-bg CSS class — plain CSS @media is more
+// ponytail: wave bg uses .steps-wave-bg CSS class — a plain CSS fill is more
 // reliable than var() in SVG on Samsung Browser / Opera GX.
 
 export default function WorkflowSteps() {
@@ -66,9 +66,9 @@ export default function WorkflowSteps() {
           preserveAspectRatio="none"
           className="pointer-events-none absolute top-0 left-[0px] w-[calc(100%+2px)] h-24 sm:h-40 z-10"
         >
-          {/* Top path matches page background — needs both light and dark versions.
-              We use a CSS media query approach directly in the SVG since var() is
-              unreliable in SVG on Samsung Browser / Opera GX. */}
+          {/* Top path matches the page background. Filled via the .steps-wave-bg
+              CSS class because var() is unreliable in SVG on Samsung Browser /
+              Opera GX. */}
           <path
             d="M 0 0 C 200 180, 400 0, 650 5 C 850 15, 950 180, 1100 30 L 1100 0 Z"
             className="steps-wave-bg"
