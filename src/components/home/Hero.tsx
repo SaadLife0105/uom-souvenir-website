@@ -61,7 +61,6 @@ export default function Hero() {
           <polygon
             points="1477,179 1477,-400 1477,820 300,900 704,444 875,422 1477,206"
             style={{ fill: deepBlueHex }}
-            fillOpacity="0.90"
           />
 
           {/* Gold outline */}
@@ -154,7 +153,7 @@ export default function Hero() {
           preserveAspectRatio="none"
           className="absolute inset-0 h-full w-full"
         >
-          <polygon points="0,55 100,38 100,100 0,100" style={{ fill: deepBlueHex }} fillOpacity="0.92" />
+          <polygon points="0,55 100,38 100,100 0,100" style={{ fill: deepBlueHex }} />
           <polyline points="0,55 100,38" fill="none" style={{ stroke: goldHex }} strokeWidth="0.35" />
           <polyline points="0,58.5 100,41.5" fill="none" style={{ stroke: lightBlueHex }} strokeWidth="0.6" />
         </svg>

@@ -6,17 +6,7 @@
    These are the single source of truth — the site renders one fixed scheme
    (no dark mode). color-scheme:light below forces it for every visitor.
    ───────────────────────────────────────────────────────────────────────── */
-@theme {
-  --color-pale-blue: #B0E0F8;
-  --color-gold: #BF9E60;
-  --color-cream: #F4E5CD;
-  --color-red: #F23838;
-  --color-dark-blue: #1A3C7D;
-  --color-black: #1E2019;
-  --color-white: #F5F6F4;
-  --color-deep-blue: #072B57;
-  --color-light-blue: #05AFF2;
-}
+
 
 /* Legacy tokens — used by shop/cart pages until rework removes them */
 :root {
@@ -40,18 +30,24 @@
 }
 
 html {
-  /* Force one fixed scheme for everyone — opt out of OS/browser dark mode so
-     UA-styled controls, scrollbars and form fields stay light too. */
+  /* Force one fixed light scheme for all visitors — opt out of OS/browser
+     dark mode so UA-styled controls, scrollbars and form fields stay light.
+     forced-color-adjust: none blocks Opera GX / Samsung Browser "Force Dark
+     Pages" which is a Chromium-level inversion that ignores color-scheme. */
   color-scheme: light;
+  forced-color-adjust: none;
   scroll-behavior: smooth;
   scroll-padding-top: 7rem;
 }
 
 body {
+  /* Repeat color-scheme on body — some browsers only read it here. */
+  color-scheme: light;
+  forced-color-adjust: none;
   margin: 0;
   min-height: 100vh;
-  background: var(--color-pale-blue);
-  color: var(--color-black);
+  background: #B0E0F8; /* paleBlueHex */
+  color: #1E2019; /* blackHex */
   font-family: var(--font-sans), system-ui, sans-serif;
   text-rendering: optimizeLegibility;
 }
@@ -61,8 +57,8 @@ body {
 }
 
 ::selection {
-  background: var(--color-light-blue);
-  color: var(--color-white);
+  background: #05AFF2; /* lightBlueHex */
+  color: #F5F6F4; /* whiteHex */
 }
 
 img {

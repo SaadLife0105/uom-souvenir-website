@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Playfair_Display } from "next/font/google";
 import { CartProvider } from "@/context/CartContext";
 import "./globals.css";
@@ -24,6 +24,10 @@ export const metadata: Metadata = {
   description: "Shop authentic University of Mauritius merchandise, campus apparel and premium souvenirs.",
 };
 
+export const viewport: Viewport = {
+  colorScheme: "only light",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -32,6 +36,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      style={{ colorScheme: "light" }}
       className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} h-full antialiased`}
       data-scroll-behavior="smooth"
     >
