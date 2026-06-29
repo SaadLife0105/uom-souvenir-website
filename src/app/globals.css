@@ -1,7 +1,11 @@
 @import "tailwindcss";
 
-:root {
-  /* Brand palette — light mode (source of truth: variables.tsx) */
+/* ─── Brand palette ────────────────────────────────────────────────────────
+   Define tokens in @theme so Tailwind registers them as utility classes
+   (bg-pale-blue, text-black, etc.) AND as CSS custom properties.
+   Light-mode values live here as the default.
+   ───────────────────────────────────────────────────────────────────────── */
+@theme {
   --color-pale-blue: #B0E0F8;
   --color-gold: #BF9E60;
   --color-cream: #F4E5CD;
@@ -11,8 +15,26 @@
   --color-white: #F5F6F4;
   --color-deep-blue: #072B57;
   --color-light-blue: #05AFF2;
+}
 
-  /* Legacy tokens (kept until shop/cart rework removes their last uses) */
+/* ─── Dark mode overrides ──────────────────────────────────────────────────
+   Override only the tokens that change. Plain :root inside @media is the
+   correct CSS pattern — @theme cannot be nested inside @media in Tailwind v4.
+   ───────────────────────────────────────────────────────────────────────── */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-pale-blue: #0d1f33;
+    --color-cream: #1f3553;
+    --color-dark-blue: #B0E0F8;
+    --color-black: #eef3fb;
+    --color-white: #162c47;
+    --color-deep-blue: #05AFF2;
+    --color-light-blue: #B0E0F8;
+  }
+}
+
+/* Legacy tokens — used by shop/cart pages until rework removes them */
+:root {
   --background: #8BDFF9;
   --foreground: #eef3fb;
   --surface: #162c47;
@@ -23,25 +45,11 @@
   --muted: #99a7c0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    /* Brand palette — dark mode */
-    --color-pale-blue: #0d1f33;
-    --color-gold: #BF9E60;
-    --color-cream: #1f3553;
-    --color-red: #F23838;
-    --color-dark-blue: #B0E0F8;
-    --color-black: #eef3fb;
-    --color-white: #162c47;
-    --color-deep-blue: #05AFF2;
-    --color-light-blue: #B0E0F8;
-  }
-}
-
-/* StepsSection wave top path — must match the page background in both modes.
-   Uses a plain CSS class + @media instead of var() in SVG — more reliable
-   cross-browser (Samsung Browser, Opera GX). Values mirror paleBlueHex and
-   pageDarkHex from variables.tsx — update both if the palette changes. */
+/* ─── StepsSection wave ────────────────────────────────────────────────────
+   Plain CSS class + @media for SVG fill — more reliable cross-browser than
+   var() in SVG attributes (Samsung Browser, Opera GX). Values mirror
+   paleBlueHex / pageDarkHex in variables.tsx — update both if palette changes.
+   ───────────────────────────────────────────────────────────────────────── */
 .steps-wave-bg {
   fill: #B0E0F8; /* paleBlueHex */
 }
