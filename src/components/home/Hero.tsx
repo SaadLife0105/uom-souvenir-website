@@ -1,9 +1,9 @@
 import Image from "next/image";
 import heroBackground from "@/app/images/hero/herobackground.jpg";
 import uomLogo from "@/app/images/uom-logo.png";
-// ponytail: Hero colors are hardcoded hex (not CSS vars) so they never flip
-// in Samsung Browser / Opera GX which don't reliably cascade var() overrides
-// inside @media (prefers-color-scheme: dark) on scoped elements.
+import { goldHex, deepBlueHex, whiteHex, lightBlueHex } from "@/constants/variables";
+// ponytail: Hero uses pinned hex exports (never var()) — Samsung Browser / Opera GX
+// don't resolve CSS custom properties reliably in SVG or inline styles.
 
 // The hero artwork (polygon, dots, logo, text) is designed at this reference
 // width. Everything lives inside one "stage" whose size and every inner
@@ -68,7 +68,7 @@ export default function Hero() {
           <polyline
             points="300,900 704,444 925,421 1477,224"
             fill="none"
-            style={{ stroke: "#BF9E60" }}
+            style={{ stroke: goldHex }}
             strokeWidth="2"
           />
         </svg>

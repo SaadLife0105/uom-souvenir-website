@@ -39,14 +39,15 @@
 }
 
 /* StepsSection wave top path — must match the page background in both modes.
-   Uses a plain CSS class + media query instead of var() since SVG fill via
-   CSS custom properties is unreliable in Samsung Browser and Opera GX. */
+   Uses a plain CSS class + @media instead of var() in SVG — more reliable
+   cross-browser (Samsung Browser, Opera GX). Values mirror paleBlueHex and
+   pageDarkHex from variables.tsx — update both if the palette changes. */
 .steps-wave-bg {
-  fill: #B0E0F8;
+  fill: #B0E0F8; /* paleBlueHex */
 }
 @media (prefers-color-scheme: dark) {
   .steps-wave-bg {
-    fill: #0d1f33;
+    fill: #0d1f33; /* pageDarkHex */
   }
 }
 

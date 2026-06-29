@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { BestSellerCampaign } from "@/data/store-data";
-import { paleBlueV, whiteV } from "@/constants/variables";
+import { paleBlueV, whiteHex, blackHex } from "@/constants/variables";
 
 export default function BestSellersCard({ campaign }: { campaign: BestSellerCampaign }) {
   return (
@@ -24,7 +24,7 @@ export default function BestSellersCard({ campaign }: { campaign: BestSellerCamp
           {/* ponytail: --tag-bg lets Tailwind's /25 alpha modifier work on a CSS variable color */}
           <span
             className="inline-block rounded-full px-4 pt-1 pb-2 font-bold bg-[var(--tag-bg)]/25 backdrop-blur-sm"
-            style={{ "--tag-bg": paleBlueV, color: whiteV } as React.CSSProperties}
+            style={{ "--tag-bg": paleBlueV, color: whiteHex } as React.CSSProperties}
           >
             {campaign.title}
           </span>
@@ -34,8 +34,13 @@ export default function BestSellersCard({ campaign }: { campaign: BestSellerCamp
           {campaign.buttons[0] && (
             <Link
               href={campaign.buttons[0].href}
-              className="cursor-pointer rounded-full border border-[var(--color-white)]/70 bg-[var(--color-black)]/25 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-widest backdrop-blur-sm transition hover:bg-[var(--color-black)]/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-white)]"
-              style={{ color: whiteV }}
+              className="cursor-pointer rounded-full border px-4 py-1.5 text-[11px] font-semibold uppercase tracking-widest backdrop-blur-sm transition focus-visible:outline-2 focus-visible:outline-offset-2"
+              style={{
+                color: whiteHex,
+                borderColor: `${whiteHex}B3`,
+                backgroundColor: `${blackHex}40`,
+                outlineColor: whiteHex,
+              }}
             >
               Order Now
             </Link>

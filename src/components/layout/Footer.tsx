@@ -6,17 +6,10 @@ import sceoLogo from "@/app/images/sceo-logo.png";
 import ccLogo from "@/app/images/cc-logo.png";
 import lineartUom from "@/app/images/footer/lineartuom.png";
 import { footerLinks } from "@/data/store-data";
-// ponytail: Footer colors are hardcoded hex — footer never flips with dark mode.
-// Samsung Browser / Opera GX don't reliably cascade var() inside @media scoped
-// to element IDs, so we bypass the variable system entirely here.
-
-const F = {
-  darkBlue: "#1A3C7D",
-  gold: "#BF9E60",
-  white: "#F5F6F4",
-  paleBlue: "#B0E0F8",
-  red: "#F23838",
-} as const;
+import { darkBlueHex as darkBlue, goldHex as gold, whiteHex as white, paleBlueHex as paleBlue, redHex as red } from "@/constants/variables";
+// ponytail: Footer uses pinned hex exports (never var()) — footer never flips
+// with dark mode. Samsung Browser / Opera GX don't resolve CSS custom properties
+// reliably in SVG fill attributes or inline styles on certain elements.
 
 const socials = [
   { Icon: Instagram, label: "Instagram", href: "#" },
@@ -128,7 +121,7 @@ export default function Footer() {
                     href={href}
                     aria-label={label}
                     className="flex h-10 w-10 items-center justify-center rounded-full border transition-colors duration-200 hover:bg-white/10 cursor-pointer"
-                    style={{ borderColor: F.gold, color: F.gold }}
+                    style={{ borderColor: gold, color: gold }}
                   >
                     <Icon className="h-[18px] w-[18px]" strokeWidth={1.8} />
                   </a>

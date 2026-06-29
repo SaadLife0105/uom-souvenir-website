@@ -1,8 +1,9 @@
 import { Fragment } from "react";
 import { ArrowRight } from "lucide-react";
 import { workflowSteps } from "@/data/store-data";
-import { goldV, darkBlueV, blackV, whiteV, redV } from "@/constants/variables";
-// ponytail: wave bg uses .steps-wave-bg CSS class (not a var) for cross-browser dark mode.
+import { goldV, darkBlueV, blackV, whiteV, redV, goldHex } from "@/constants/variables";
+// ponytail: wave bg uses .steps-wave-bg CSS class — plain CSS @media is more
+// reliable than var() in SVG on Samsung Browser / Opera GX.
 
 export default function WorkflowSteps() {
   return (
@@ -74,7 +75,7 @@ export default function WorkflowSteps() {
           />
           <path
             d="M 0 0 C 200 180, 400 0, 650 5 C 850 15, 950 180, 1100 30 L 1100 30 C 950 200, 850 15, 650 7 C 400 10, 200 190, 0 30 Z"
-            fill="#BF9E60"
+            fill={goldHex}
           />
         </svg>
       </div>

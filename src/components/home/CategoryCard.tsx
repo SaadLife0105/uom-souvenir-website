@@ -1,6 +1,6 @@
 import Image, { type StaticImageData } from "next/image";
 import Link from "next/link";
-import { whiteV } from "@/constants/variables";
+import { whiteHex, blackHex } from "@/constants/variables";
 
 interface CategoryCardProps {
   title: string;
@@ -41,12 +41,20 @@ export default function CategoryCard({
             {/* ponytail: --tag-bg lets Tailwind's /30 alpha modifier work on a runtime color */}
             <span
               className="inline-block rounded-full px-3 sm:px-4 pt-0.5 pb-1.5 sm:pt-1 sm:pb-2 text-lg sm:text-2xl md:text-4xl font-bold bg-[var(--tag-bg)]/30 backdrop-blur-sm"
-              style={{ "--tag-bg": bgColor, color: whiteV } as React.CSSProperties}
+              style={{ "--tag-bg": bgColor, color: whiteHex } as React.CSSProperties}
             >
               {title}
             </span>
           </h3>
-          <span className="pointer-events-none opacity-0 cursor-pointer rounded-full border border-[var(--color-white)]/70 bg-[var(--color-black)]/25 px-4 sm:px-6 py-1.5 text-[11px] font-semibold uppercase tracking-widest backdrop-blur-sm transition-all duration-300 group-hover:opacity-100 group-hover:pointer-events-auto focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-white)]" style={{ color: whiteV }}>
+          <span
+            className="pointer-events-none opacity-0 cursor-pointer rounded-full border px-4 sm:px-6 py-1.5 text-[11px] font-semibold uppercase tracking-widest backdrop-blur-sm transition-all duration-300 group-hover:opacity-100 group-hover:pointer-events-auto focus-visible:outline-2 focus-visible:outline-offset-2"
+            style={{
+              color: whiteHex,
+              borderColor: `${whiteHex}B3`,
+              backgroundColor: `${blackHex}40`,
+              outlineColor: whiteHex,
+            }}
+          >
             Shop Now
           </span>
         </div>
