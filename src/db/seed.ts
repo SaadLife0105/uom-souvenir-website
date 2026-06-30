@@ -1,64 +1,131 @@
+import 'dotenv/config';
 import { neon } from '@neondatabase/serverless';
 import { drizzle } from 'drizzle-orm/neon-http';
-import { productDetails } from './schema';
-import 'dotenv/config';
+import * as schema from './schema';
 
-// 1. Initialize database connection
-if (!process.env.DIRECT_URL) {
-  throw new Error('DIRECT_URL is missing from .env.local');
+const sql = neon(process.env.DATABASE_URL!);
+const db = drizzle(sql, { schema });
+
+async function main() {
+  console.log('🌱 Seeding...');
+
+  // ---------------------------------------------------------------------------
+  // Roles
+  // ---------------------------------------------------------------------------
+  const [adminRole, userRole] = await db
+    .insert(schema.roles)
+    .values([
+      { name: 'admin' },
+      { name: 'user' },
+    ])
+    .returning();
+
+  console.log('✓ Roles');
+
+  // ---------------------------------------------------------------------------
+  // Affiliations
+  // ---------------------------------------------------------------------------
+  await db.insert(schema.affiliations).values([
+    { code: 'STU', name: 'Student',  type: 'student'  },
+    { code: 'STF', name: 'Staff',    type: 'staff'    },
+    { code: 'ALU', name: 'Alumni',   type: 'alumni'   },
+    { code: 'EXT', name: 'External', type: 'external' },
+  ]);
+
+  console.log('✓ Affiliations');
+
+  // ---------------------------------------------------------------------------
+  // Categories
+  // ---------------------------------------------------------------------------
+  const [drinkware, apparel, stationery] = await db
+    .insert(schema.productCategories)
+    .values([
+      { name: 'Drinkware',   description: 'Mugs, bottles and cups' },
+      { name: 'Apparel',     description: 'Clothing and wearables' },
+      { name: 'Stationery',  description: 'Pens, notebooks and desk items' },
+    ])
+    .returning();
+
+  console.log('✓ Categories');
+
+  // ---------------------------------------------------------------------------
+  // Products
+  // ---------------------------------------------------------------------------
+  const [mug, shirt, pen] = await db
+    .insert(schema.products)
+    .values([
+      {
+        sku:           'UOM-MUG-001',
+        name:          'UOM Souvenir Mug',
+        description:   'Ceramic mug featuring the University of Mauritius crest. Microwave and dishwasher safe.',
+        categoryId:    drinkware.id,
+        priceCents:    50000, // MUR 500.00
+        stock:         50,
+        isDisplayItem: true,
+        isActive:      true,
+      },
+      {
+        sku:           'UOM-SHT-001',
+        name:          'UOM Souvenir Shirt',
+        description:   'Classic cotton t-shirt with embroidered University of Mauritius logo on the chest.',
+        categoryId:    apparel.id,
+        priceCents:    80000, // MUR 800.00
+        stock:         30,
+        isDisplayItem: true,
+        isActive:      true,
+      },
+      {
+        sku:           'UOM-PEN-001',
+        name:          'UOM Souvenir Pen',
+        description:   'Ballpoint pen engraved with the University of Mauritius name. Smooth ink, metal clip.',
+        categoryId:    stationery.id,
+        priceCents:    10000, // MUR 100.00
+        stock:         200,
+        isDisplayItem: false,
+        isActive:      true,
+      },
+    ])
+    .returning();
+
+  console.log('✓ Products');
+
+  // ---------------------------------------------------------------------------
+  // Colors
+  // ---------------------------------------------------------------------------
+  await db.insert(schema.productColors).values([
+    // Mug
+    { productId: mug.id,   name: 'White', hexCode: '#FFFFFF', isActive: true },
+    { productId: mug.id,   name: 'Black', hexCode: '#1A1A1A', isActive: true },
+    // Shirt
+    { productId: shirt.id, name: 'White', hexCode: '#FFFFFF', isActive: true },
+    { productId: shirt.id, name: 'Black', hexCode: '#1A1A1A', isActive: true },
+    { productId: shirt.id, name: 'Navy',  hexCode: '#1B2A4A', isActive: true },
+    // Pen
+    { productId: pen.id,   name: 'Blue',  hexCode: '#1D4ED8', isActive: true },
+  ]);
+
+  console.log('✓ Colors');
+
+  // ---------------------------------------------------------------------------
+  // Images (placeholder — swap for real URLs later)
+  // ---------------------------------------------------------------------------
+  await db.insert(schema.productImages).values([
+    // Mug — 2 images
+    { productId: mug.id,   url: 'https://placehold.co/600x600/e6f1fb/0c447c?text=UOM+Mug',       isPrimary: true,  sortOrder: 0 },
+    { productId: mug.id,   url: 'https://placehold.co/600x600/1a1a1a/ffffff?text=UOM+Mug+Black', isPrimary: false, sortOrder: 1 },
+    // Shirt — 2 images
+    { productId: shirt.id, url: 'https://placehold.co/600x600/e6f1fb/0c447c?text=UOM+Shirt',      isPrimary: true,  sortOrder: 0 },
+    { productId: shirt.id, url: 'https://placehold.co/600x600/1b2a4a/ffffff?text=UOM+Shirt+Navy', isPrimary: false, sortOrder: 1 },
+    // Pen — 1 image
+    { productId: pen.id,   url: 'https://placehold.co/600x600/e6f1fb/0c447c?text=UOM+Pen',        isPrimary: true,  sortOrder: 0 },
+  ]);
+
+  console.log('✓ Images');
+  console.log('✅ Seed complete');
+  process.exit(0);
 }
-const sql = neon(process.env.DIRECT_URL);
-const db = drizzle(sql);
 
-// 2. Helper function to generate SSXxxxx IDs
-function generateReferenceID() {
-  const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  const randomLetter = letters[Math.floor(Math.random() * letters.length)];
-  const randomNumbers = Math.floor(1000 + Math.random() * 9000); // 4 digit number
-  return `SS${randomLetter}${randomNumbers}`;
-}
-
-// 3. The categorized product data
-const inventory = [
-  { name: "Mug", description: "Branded customised mug", category: "Drinkware", colors: "White", price: 225, stock: 8, isDisplayItem: false },
-  { name: "Cap", description: "Gabardine cap", category: "Apparel", colors: "Blue, White", price: 275, stock: 27, isDisplayItem: false },
-  { name: "Pen", description: "Corporate pen", category: "Stationery", colors: "Blue, Red, Black", price: 50, stock: 76, isDisplayItem: false },
-  { name: "Insulated Water Bottle", description: "Insulated bottle", category: "Drinkware", colors: "Red, Green, Black", price: 550, stock: 1, isDisplayItem: true },
-  { name: "Jute Bag", description: "60th Anniversary Edition", category: "Bags", colors: "Natural Jute Beige", price: null, stock: 29, isDisplayItem: false },
-  { name: "Keyring", description: "60th Anniversary Edition", category: "Accessories", colors: "Silver", price: 150, stock: 16, isDisplayItem: false },
-  { name: "Notebook A6", description: "Includes sticker notes", category: "Stationery", colors: "Assorted", price: 150, stock: 1, isDisplayItem: true },
-  { name: "Notebook A5", description: "60th Anniversary Edition", category: "Stationery", colors: "Navy Blue, Black", price: 200, stock: 9, isDisplayItem: false },
-  { name: "Paperweight", description: "Recycled glass, round design", category: "Stationery", colors: "Clear Glass", price: 400, stock: 1, isDisplayItem: true },
-  { name: "Dodo Paperweight", description: "Recycled glass Dodo design", category: "Stationery", colors: "Clear Glass", price: 520, stock: 1, isDisplayItem: true },
-  { name: "Pen Drive", description: "32GB USB drive", category: "Tech", colors: "White", price: 500, stock: 14, isDisplayItem: false },
-  { name: "Pen Holder", description: "60th Anniversary Edition", category: "Stationery", colors: "Assorted", price: null, stock: 17, isDisplayItem: false },
-  { name: "Pin", description: "60th Anniversary Edition", category: "Accessories", colors: "Gold", price: 150, stock: 20, isDisplayItem: false },
-  { name: "Polo Shirt", description: "University polo shirt", category: "Apparel", colors: "Navy Blue, Black", price: 500, stock: 27, isDisplayItem: false },
-  { name: "Sweatshirt", description: "University sweatshirt", category: "Apparel", colors: "Navy Blue, Black", price: 545, stock: 39, isDisplayItem: false },
-  { name: "Tie", description: "Pure silk with UoM tag", category: "Apparel", colors: "Blue, Beige, Maroon", price: 500, stock: 10, isDisplayItem: false },
-  { name: "T-Shirt", description: "University t-shirt", category: "Apparel", colors: "Black, White", price: 285, stock: 80, isDisplayItem: false },
-  { name: "Tote Bag (Small)", description: "Features University logo", category: "Bags", colors: "Natural Beige", price: 120, stock: 2, isDisplayItem: false },
-  { name: "Tote Bag (Large)", description: "Features University logo", category: "Bags", colors: "Natural Beige", price: 145, stock: 10, isDisplayItem: false },
-  { name: "Umbrella", description: "University branded umbrella", category: "Accessories", colors: "Navy Blue", price: 520, stock: 2, isDisplayItem: false }
-];
-
-async function seed() {
-  console.log("🌱 Seeding database...");
-  
-  try {
-    for (const item of inventory) {
-      const newItem = {
-        ...item,
-        id: generateReferenceID(), // Injects the custom SSXxxxx ID
-      };
-      
-      await db.insert(productDetails).values(newItem);
-      console.log(`✅ Inserted: ${newItem.name} (${newItem.id})`);
-    }
-    console.log("🎉 Seeding complete!");
-  } catch (error) {
-    console.error("❌ Seeding failed:", error);
-  }
-}
-
-seed();
+main().catch((err) => {
+  console.error('❌ Seed failed:', err);
+  process.exit(1);
+});

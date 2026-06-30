@@ -45,3 +45,6 @@ color-audits.txt
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# important docs for explanation of the project
+docs/
