@@ -1,4 +1,5 @@
 import 'dotenv/config';
+import { eq } from 'drizzle-orm';
 import { neon } from '@neondatabase/serverless';
 import { drizzle } from 'drizzle-orm/neon-http';
 import * as schema from './schema';
@@ -61,7 +62,7 @@ async function main() {
         categoryId:    drinkware.id,
         priceCents:    50000, // MUR 500.00
         stock:         50,
-        isDisplayItem: true,
+        isDisplayItem: false,
         isActive:      true,
       },
       {
@@ -71,7 +72,7 @@ async function main() {
         categoryId:    apparel.id,
         priceCents:    80000, // MUR 800.00
         stock:         30,
-        isDisplayItem: true,
+        isDisplayItem: false,
         isActive:      true,
       },
       {
@@ -121,6 +122,37 @@ async function main() {
   ]);
 
   console.log('✓ Images');
+
+  // ---------------------------------------------------------------------------
+  // Guest user (temporary)
+  // ---------------------------------------------------------------------------
+  // ponytail: placeholder identity for reservations until better-auth lands.
+  // reservations.userId / userAffiliationId are NOT NULL and there's no auth
+  // system yet, so every reservation references this fixed guest record. Kept
+  // greppable via the 'guest@uom-souvenir.local' email — swap out for real
+  // session users once auth exists.
+  const [externalAffiliation] = await db
+    .select()
+    .from(schema.affiliations)
+    .where(eq(schema.affiliations.code, 'EXT'));
+
+  const [guestUser] = await db
+    .insert(schema.users)
+    .values({
+      email:        'guest@uom-souvenir.local',
+      name:         'Guest',
+      passwordHash: 'GUEST_NO_LOGIN', // placeholder — guest never authenticates
+      roleId:       userRole.id,
+    })
+    .returning();
+
+  await db.insert(schema.userAffiliations).values({
+    userId:        guestUser.id,
+    affiliationId: externalAffiliation.id,
+    isPrimary:     true,
+  });
+
+  console.log('✓ Guest user');
   console.log('✅ Seed complete');
   process.exit(0);
 }

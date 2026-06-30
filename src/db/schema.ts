@@ -128,6 +128,9 @@ export const reservations = pgTable('reservations', {
   // Snapshot of which affiliation the buyer held at checkout time
   userAffiliationId: uuid('user_affiliation_id').notNull().references(() => userAffiliations.id),
   receiptNumber:     varchar('receipt_number', { length: 50 }).notNull().unique(),
+  // Customer-entered at checkout (e.g. bank transfer reference). Optional —
+  // not all payment methods produce one.
+  paymentReferenceNumber: text('payment_reference_number'),
   status:            reservationStatusEnum('status').notNull().default('pending'),
   // ponytail: stored in cents — matches priceCents on products
   totalAmountCents:  integer('total_amount_cents').notNull(),
@@ -146,6 +149,10 @@ export const reservationItems = pgTable('reservation_items', {
   quantity:        integer('quantity').notNull(),
   // Locked at purchase time — never recalculated from products.priceCents
   unitPriceCents:  integer('unit_price_cents').notNull(),
+  // ponytail: snapshot of the line's display string at purchase time — same
+  // locked-at-purchase pattern as unitPriceCents above; never recomputed from
+  // the live product/color. Size is folded into this text, not a separate column.
+  itemLabel:       text('item_label').notNull(),
   // Nullable: only set when the product has color variants
   selectedColorId: uuid('selected_color_id').references(() => productColors.id, { onDelete: 'set null' }),
   unitTotalCents:  integer('unit_total_cents').notNull(),
