@@ -9,7 +9,7 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import { useCart } from '@/context/CartContext';
 import { submitReservation } from './actions';
-import { darkBlueHex, whiteHex, goldHex, creamHex, redHex } from '@/constants/variables';
+import { darkBlueHex, whiteHex, goldHex, creamHex, redHex, blackHex } from '@/constants/variables';
 
 const PLACEHOLDER_IMAGE = 'https://placehold.co/200x200/e6f1fb/0c447c?text=UOM';
 
@@ -57,7 +57,7 @@ export default function CartPage() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col" style={{ ["--ink"]: blackHex } as React.CSSProperties}>
       <Navbar />
 
       <main className="flex-1 pb-20 pt-28" style={{ backgroundColor: creamHex }}>
@@ -146,7 +146,7 @@ export default function CartPage() {
                             aria-label={`Decrease quantity of ${item.name}`}
                             onClick={() => updateQuantity(item.id, item.selectedQuantity - 1, item.selectedColor, item.selectedSize)}
                             disabled={item.selectedQuantity <= 1}
-                            className="inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-l-xl transition hover:bg-black/5 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
+                            className="inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-l-xl transition hover:bg-[var(--ink)]/5 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
                             style={{ color: darkBlueHex, outlineColor: goldHex }}
                           >
                             <Minus className="h-4 w-4" />
@@ -159,7 +159,7 @@ export default function CartPage() {
                             aria-label={`Increase quantity of ${item.name}`}
                             onClick={() => updateQuantity(item.id, item.selectedQuantity + 1, item.selectedColor, item.selectedSize)}
                             disabled={item.selectedQuantity >= item.quantity}
-                            className="inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-r-xl transition hover:bg-black/5 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
+                            className="inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-r-xl transition hover:bg-[var(--ink)]/5 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
                             style={{ color: darkBlueHex, outlineColor: goldHex }}
                           >
                             <Plus className="h-4 w-4" />
@@ -170,7 +170,7 @@ export default function CartPage() {
                           type="button"
                           aria-label={`Remove ${item.name} from cart`}
                           onClick={() => removeFromCart(item.id, item.selectedColor, item.selectedSize)}
-                          className="inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl transition hover:bg-black/5 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2"
+                          className="inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl transition hover:bg-[var(--ink)]/5 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2"
                           style={{ color: MUTED, outlineColor: goldHex }}
                         >
                           <Trash2 className="h-5 w-5" />
@@ -185,7 +185,7 @@ export default function CartPage() {
               <div className="mt-6 flex flex-wrap gap-3">
                 <Link
                   href="/shop"
-                  className="inline-flex cursor-pointer items-center gap-2 rounded-full border px-5 py-3 text-sm font-semibold transition hover:bg-black/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+                  className="inline-flex cursor-pointer items-center gap-2 rounded-full border px-5 py-3 text-sm font-semibold transition hover:bg-[var(--ink)]/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
                   style={{ borderColor: darkBlueHex, color: darkBlueHex, outlineColor: goldHex }}
                 >
                   <ShoppingBag className="h-4 w-4" />
@@ -194,7 +194,7 @@ export default function CartPage() {
                 <button
                   type="button"
                   onClick={clearCart}
-                  className="inline-flex cursor-pointer items-center gap-2 rounded-full border px-5 py-3 text-sm font-semibold transition hover:bg-black/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+                  className="inline-flex cursor-pointer items-center gap-2 rounded-full border px-5 py-3 text-sm font-semibold transition hover:bg-[var(--ink)]/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
                   style={{ borderColor: subtleBorder, color: MUTED, outlineColor: goldHex }}
                 >
                   <Trash2 className="h-4 w-4" />

@@ -1,24 +1,13 @@
 @import "tailwindcss";
 
 /* ─── Brand palette ────────────────────────────────────────────────────────
-   Define tokens in @theme so Tailwind registers them as utility classes
-   (bg-pale-blue, text-black, etc.) AND as CSS custom properties.
-   These are the single source of truth — the site renders one fixed scheme
-   (no dark mode). color-scheme:light below forces it for every visitor.
+   There is no @theme block: the palette lives in src/constants/variables.tsx
+   as hex exports, consumed via inline styles / color-mix(). The few literals
+   below (body/html, ::selection, the steps wave) mirror those tokens by hand
+   for the cases CSS needs the value directly. The site renders one fixed scheme
+   (no dark mode); color-scheme:light below forces it for every visitor.
    ───────────────────────────────────────────────────────────────────────── */
 
-
-/* Legacy tokens — used by shop/cart pages until rework removes them */
-:root {
-  --background: #8BDFF9;
-  --foreground: #eef3fb;
-  --surface: #162c47;
-  --surface-soft: #1f3553;
-  --accent: #faa153;
-  --accent-soft: #6bb1ff;
-  --border: #3f5a80;
-  --muted: #99a7c0;
-}
 
 /* ─── StepsSection wave ────────────────────────────────────────────────────
    Plain CSS class for the SVG fill — more reliable cross-browser than var()

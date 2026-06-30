@@ -27,7 +27,7 @@ function FooterColumn({ title, titleColor, items, mobileDivider = false, classNa
       <ul className="mt-5 space-y-3 text-sm" style={{ color: paleBlue }}>
         {items.map((item) => (
           <li key={item}>
-            <Link href="#" className="transition-colors duration-200 hover:text-white">
+            <Link href="#" className="transition-colors duration-200 hover:text-[var(--paper)]">
               {item}
             </Link>
           </li>
@@ -39,7 +39,7 @@ function FooterColumn({ title, titleColor, items, mobileDivider = false, classNa
 
 export default function Footer() {
   return (
-    <footer id="contact" className="relative" style={{ color: white }}>
+    <footer id="contact" className="relative" style={{ color: white, ["--paper"]: white } as React.CSSProperties}>
       {/* Curved top edge — same wavy polygon as the steps section.
           Area above the wave is paleBlue (matches the section above),
           the gold band follows the wave, and darkBlue fills the footer body. */}
@@ -120,7 +120,7 @@ export default function Footer() {
                     key={label}
                     href={href}
                     aria-label={label}
-                    className="flex h-10 w-10 items-center justify-center rounded-full border transition-colors duration-200 hover:bg-white/10 cursor-pointer"
+                    className="flex h-10 w-10 items-center justify-center rounded-full border transition-colors duration-200 hover:bg-[var(--paper)]/10 cursor-pointer"
                     style={{ borderColor: gold, color: gold }}
                   >
                     <Icon className="h-[18px] w-[18px]" strokeWidth={1.8} />

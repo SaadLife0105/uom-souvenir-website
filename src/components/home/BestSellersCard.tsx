@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { BestSellerCampaign } from "@/data/store-data";
-import { whiteHex, blackHex } from "@/constants/variables";
+import { whiteHex, blackHex, paleBlueHex } from "@/constants/variables";
 
 export default function BestSellersCard({ campaign }: { campaign: BestSellerCampaign }) {
   return (
@@ -16,14 +16,19 @@ export default function BestSellersCard({ campaign }: { campaign: BestSellerCamp
       />
 
       {/* Gradient overlay — darker at bottom for text legibility */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
+      <div
+        className="absolute inset-0"
+        style={{
+          backgroundImage: `linear-gradient(to top, color-mix(in srgb, ${blackHex} 75%, transparent), color-mix(in srgb, ${blackHex} 20%, transparent), transparent)`,
+        }}
+      />
 
       {/* Bottom content */}
       <div className="absolute bottom-0 left-0 right-0 flex flex-col gap-3 p-5">
         <h3 className="text-2xl leading-tight md:text-3xl">
           <span
-            className="inline-block rounded-full px-4 pt-1 pb-2 font-bold bg-pale-blue/25 backdrop-blur-sm"
-            style={{ color: whiteHex }}
+            className="inline-block rounded-full px-4 pt-1 pb-2 font-bold backdrop-blur-sm"
+            style={{ color: whiteHex, backgroundColor: `color-mix(in srgb, ${paleBlueHex} 25%, transparent)` }}
           >
             {campaign.title}
           </span>

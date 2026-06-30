@@ -9,7 +9,6 @@ import { darkBlueHex, goldHex, creamHex, redHex, lightBlueHex } from '@/constant
 import ReceiptView, { type ReceiptViewModel } from './ReceiptView';
 
 const MUTED = '#5b6b86'; // shared muted slate used across the rebuilt shop pages
-const RECEIPT_INK = '#1A1A1A';
 
 // ponytail: formats in the server's local timezone — fine for a single-campus
 // shop. Formatting happens here (server) so the client component receives plain

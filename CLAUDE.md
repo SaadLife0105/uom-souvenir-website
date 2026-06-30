@@ -128,7 +128,17 @@ Between tasks, review against the plan:
 Key decisions and project state are stored in:
 - `src/constants/project-context.txt` — stack, structure, roadmap
 
-Read both at session start before making any decisions.
+Read this file at the start of every session, before making any decisions.
+
+At the end of every session (after finishing changes), update the file with:
+- A short summary of everything added/changed/fixed in this session.
+- The hash and message of the most recent git commit at the time of this update (run
+  `git log -1 --oneline` to get it — don't guess or rely on memory of what was committed).
+- A timestamp (date and time) of this update.
+
+Remove the previous summary/commit/timestamp block before adding the new one — this section
+should always reflect only the most recent session, not a running log of every session ever.
+
 
 ---
 
@@ -142,4 +152,4 @@ Read both at session start before making any decisions.
 
 ---
 
-*Last updated: June 2026*
+*Last updated: 30 June 2026*

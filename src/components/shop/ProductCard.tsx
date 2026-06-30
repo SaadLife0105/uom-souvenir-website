@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import type { ShopProductData } from '@/db/queries';
 import { formatPrice } from '@/lib/price';
-import { darkBlueHex, whiteHex, redHex } from '@/constants/variables';
+import { darkBlueHex, whiteHex, redHex, creamHex, blackHex } from '@/constants/variables';
 
 const PLACEHOLDER_IMAGE =
   'https://placehold.co/600x600/e6f1fb/0c447c?text=UOM+Souvenir';
@@ -16,7 +16,7 @@ export default function ProductCard({ product }: { product: ShopProductData }) {
       className="group flex h-full cursor-pointer flex-col overflow-hidden rounded-3xl shadow-md transition hover:-translate-y-1 hover:shadow-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
       style={{ backgroundColor: whiteHex, outlineColor: darkBlueHex }}
     >
-      <div className="relative aspect-square w-full overflow-hidden bg-[#F4E5CD]/40">
+      <div className="relative aspect-square w-full overflow-hidden" style={{ backgroundColor: `color-mix(in srgb, ${creamHex} 40%, transparent)` }}>
         <Image
           src={product.imageUrl ?? PLACEHOLDER_IMAGE}
           alt={product.name}
@@ -60,8 +60,8 @@ export default function ProductCard({ product }: { product: ShopProductData }) {
                   key={color.name}
                   title={color.name}
                   aria-hidden
-                  className="h-5 w-5 rounded-full border border-black/10"
-                  style={{ backgroundColor: color.hexCode }}
+                  className="h-5 w-5 rounded-full border"
+                  style={{ backgroundColor: color.hexCode, borderColor: `color-mix(in srgb, ${blackHex} 10%, transparent)` }}
                 />
               ))}
             </div>

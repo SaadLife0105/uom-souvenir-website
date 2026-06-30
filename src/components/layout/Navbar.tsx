@@ -71,7 +71,7 @@ export default function Navbar() {
   const cartQuantity = cartItems.reduce((count, item) => count + item.selectedQuantity, 0);
 
   return (
-    <header className="fixed inset-x-0 top-6 z-50 px-4 bg-transparent">
+    <header className="fixed inset-x-0 top-6 z-50 px-4 bg-transparent" style={{ ["--nav-hover"]: redHex } as React.CSSProperties}>
       <div className="relative mx-auto w-[95%] max-w-7xl">
       <div className="flex h-[59px] md:h-16 w-full items-center gap-4 rounded-3xl px-4 shadow-xl backdrop-blur-md flex-nowrap" style={{ backgroundColor: `color-mix(in srgb, ${whiteHex} 75%, transparent)`, border: `1px solid color-mix(in srgb, ${whiteHex} 40%, transparent)` }}>
         {/* Mobile Menu Button */}
@@ -89,7 +89,7 @@ export default function Navbar() {
         </button>
 
         {/* Logo */}
-        <a href="#home" className="flex min-w-0 items-center gap-3 rounded-3xl bg-transparent pl-0 pr-4 py-2 transition hover:text-red" style={{ color: blackHex }} onClick={() => setIsOpen(false)}>
+        <a href="#home" className="flex min-w-0 items-center gap-3 rounded-3xl bg-transparent pl-0 pr-4 py-2 transition hover:text-[var(--nav-hover)]" style={{ color: blackHex }} onClick={() => setIsOpen(false)}>
           <div className="flex h-[48px] w-[48px] shrink-0 items-center justify-center translate-y-[2px]">
             <Image
               src={uomLogo}
@@ -108,7 +108,7 @@ export default function Navbar() {
         <div className="hidden flex-1 justify-center md:flex">
           <nav className="flex items-center gap-6 text-sm font-medium" style={{ color: blackHex }}>
             {navLinks.map((link) => (
-              <a key={link.href} href={link.href} className="transition hover:text-red">
+              <a key={link.href} href={link.href} className="transition hover:text-[var(--nav-hover)]">
                 {link.label}
               </a>
             ))}
@@ -147,7 +147,7 @@ export default function Navbar() {
             <a
               key={link.href}
               href={link.href}
-              className="block px-4 py-3 text-sm font-medium transition hover:text-red rounded-lg"
+              className="block px-4 py-3 text-sm font-medium transition hover:text-[var(--nav-hover)] rounded-lg"
               style={{ color: blackHex }}
               onClick={() => setIsOpen(false)}
             >
