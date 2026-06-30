@@ -46,7 +46,9 @@ export default function CartPage() {
     });
 
     if (result.ok) {
-      clearCart();
+      // ponytail: clearCart() happens on the receipt page (ClearCartOnMount), not
+      // here — clearing before navigation re-renders this page as an empty cart
+      // for a frame before the route swap, which flashes the empty state.
       router.push(`/shop/receipt/${result.reservationId}`);
       return; // leave the button disabled through navigation
     }

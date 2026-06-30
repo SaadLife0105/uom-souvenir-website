@@ -7,6 +7,7 @@ import { getReservationById, type ReservationData } from '@/db/queries';
 import { formatPrice } from '@/lib/price';
 import { darkBlueHex, goldHex, creamHex, redHex, lightBlueHex } from '@/constants/variables';
 import ReceiptView, { type ReceiptViewModel } from './ReceiptView';
+import ClearCartOnMount from './ClearCartOnMount';
 
 const MUTED = '#5b6b86'; // shared muted slate used across the rebuilt shop pages
 
@@ -26,9 +27,17 @@ const STATUS_TOKEN: Record<ReservationData['status'], string> = {
   cancelled: redHex,
 };
 
+// ponytail: deliberate UX delay, not a real loading dependency — keeps
+// loading.tsx's skeleton on screen for at least 2s even when the DB fetch
+// resolves faster, so the transition never feels like a flash/glitch. Run in
+// parallel with the fetch (Promise.all) so total wait is max(fetch, 2000ms),
+// not fetch + 2000ms.
+const MIN_LOADING_MS = 2000;
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
 export default async function ReceiptPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const reservation = await getReservationById(id);
+  const [reservation] = await Promise.all([getReservationById(id), delay(MIN_LOADING_MS)]);
 
   if (!reservation) {
     notFound();
@@ -59,6 +68,7 @@ export default async function ReceiptPage({ params }: { params: Promise<{ id: st
 
   return (
     <div className="flex min-h-screen flex-col">
+      <ClearCartOnMount />
       <Navbar />
 
       <main className="flex-1 pb-20 pt-28" style={{ backgroundColor: creamHex }}>

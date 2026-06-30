@@ -39,14 +39,25 @@ Tooling & Deployment
 
 Current Structure
 -----------------
-- Routes: / (home), /shop, /cart
+- Routes: / (home), /shop, /shop/[id] (product detail), /shop/receipt/[id]
+  (reservation receipt), /cart
 - Home components: Hero, BestSellers, BestSellersCard, StepsSection,
   FaqAccordion, CategoryCard
-- Shop page (src/app/shop/page.tsx): self-contained — product cards rendered
-  inline; no separate ProductCard component
+- Shop: ShopContent (client-side filter/sort/search) renders ProductCard;
+  product detail uses ProductGallery + ProductBuyPanel; CartSummary is shared.
+  All product data is DB-backed via src/db/queries.ts — NOT static anymore.
+- Cart: CartContext (localStorage-persisted) + /cart page. Checkout calls the
+  submitReservation server action (src/app/cart/actions.ts -> src/db/mutations.ts),
+  which creates a reservation inside a row-locked transaction (src/db/tx.ts),
+  then redirects to the receipt page.
 - Layout: Navbar, Footer
-- Reactbits (unused): PillNav (src/components/reactbits/) — GSAP pill navbar,
-  imported nowhere
+- src/data/store-data.ts: now ONLY home-page static content (navLinks,
+  categories, bestSellers, workflowSteps, footerLinks) plus the ShopProduct type
+  used by the cart — it is no longer the product catalog.
+- Colors: the palette lives as hex exports in src/constants/variables.tsx,
+  consumed via inline styles / color-mix(). There is NO Tailwind @theme block,
+  so bare utilities like bg-pale-blue / text-red generate nothing — don't use
+  them (use inline token styles, or an inline CSS var + hover:bg-[var(--x)]).
 
 Conventions & Constraints (important for advice)
 ------------------------------------------------
@@ -62,53 +73,53 @@ Conventions & Constraints (important for advice)
 
 Dead Code / To Be Deleted
 -------------------------
-Files:
-- src/components/reactbits/PillNav.jsx — GSAP pill navbar; nothing imports it
-- src/components/reactbits/PillNav.css — only used by PillNav.jsx (also dead)
+Code-level dead code was removed in commit d3bd2f0 (see Last Updated):
+- src/components/reactbits/PillNav.jsx + PillNav.css — DELETED (dir removed too)
+- src/data/store-data.ts — DELETED the unused featuredProducts, features,
+  ProductItem, FeatureItem and TestimonialItem exports
+- Misc dead lines: legacy :root color vars in globals.css, an unused React
+  import, an unused RECEIPT_INK const in the receipt page
 
-Exports in src/data/store-data.ts:
-- featuredProducts (ProductItem[]) — exported, never imported anywhere
-- features (FeatureItem[]) — exported, never imported anywhere
-- TestimonialItem interface — defined, no data array and no component uses it
-- ProductItem interface — only used by featuredProducts (also dead)
-- FeatureItem interface — only used by features (also dead)
+CORRECTION: the old claim that src/db/index.ts was dead was WRONG — queries.ts
+imports its `db` instance and the whole shop/cart/receipt flow is DB-backed.
 
-DB:
-- src/db/index.ts (exported db instance) — no page or server action imports
-  it; app reads all product data from static store-data.ts, not from Neon
-
-Image assets (not imported by any component):
+Still pending (image assets — confirmed unused, not yet removed):
 - src/app/images/hero/hero-background-blurred.png
 - src/app/images/hero/ogbackgroundpic.jpg
 - src/app/images/hero/previous-background.png
-- src/app/images/gifs/book.gif
-- src/app/images/gifs/graduationhat.gif
-- src/app/images/gifs/pen.gif
+- src/app/images/gifs/{book,graduationhat,pen}.gif  (note: gifs dir is gitignored)
+(herobackground.jpg IS used by Hero.tsx — keep it.)
 
 Planned next steps
 ------------------
 - Image storage: Cloudflare R2 (S3-compatible object bucket) — decided/in use;
-  product images not yet wired in code (shop still uses placeholder URLs)
-- Authentication: better-auth
-- Database: productDetails table schema exists (src/db/schema.ts) and seed
-  script is ready (src/db/seed.ts); app still reads from static store-data.ts —
-  next step is wiring pages to query Neon instead
+  product images not yet wired in code (shop still uses placehold.co URLs)
+- Authentication: better-auth — the reservation flow currently attributes every
+  order to a seeded guest user; signed-in users replace the guest once this lands
 - Users (including admins / roles) — schema not yet designed
-- Downstream once the above lands: orders / checkout (no online payment —
-  payment is handled offline / out of scope for the site)
+- Order lifecycle beyond reservation (confirm / collect / cancel status changes,
+  admin tooling). No online payment — payment is handled offline / out of scope.
 
 Current gaps
 ------------
-- No auth or order handling yet
-- User/admin schema not yet designed; productDetails schema exists but app
-  doesn't query it (still reads from static store-data.ts)
+- No auth yet — reservations are tied to a seeded guest user
+- No admin/role schema or tooling
+- Product images are still placehold.co placeholders (R2 not wired in code)
 - No CI/test coverage to speak of beyond Playwright being installed
 
 Last Updated
 ------------
-- Date: 2026-06-29
-- Removed the dark mode feature entirely: deleted the prefers-color-scheme
-  overrides in globals.css, the dark-only/unused color exports (deepBlueV,
-  lightBlueV, creamHex, pageDarkHex), and forced a single light scheme via
-  color-scheme:light. Replaced remaining raw hex literals on the homepage and
-  shared components (Hero, Navbar, BestSellersCard) with the color variables.
+- Date: 2026-06-30
+- Commit: d3bd2f0 "project cleanup"
+- Full project audit (dead code + color-token compliance). Deleted the unused
+  PillNav reactbits files and the unused store-data exports (featuredProducts,
+  features, ProductItem, FeatureItem, TestimonialItem); removed dead lines
+  (legacy :root vars in globals.css, an unused React import, an unused
+  RECEIPT_INK const). Color pass: routed hardcoded/arbitrary colors through the
+  variables.tsx tokens (creamHex bg, blackHex/whiteHex for scrims/borders/hover
+  tints, redHex/paleBlueHex for the previously-broken text-red / bg-pale-blue
+  utilities) using inline styles + inline CSS-var hover pattern. Discovered there
+  is no @theme block, so those bare utilities were dead — corrected the misleading
+  comments in variables.tsx/globals.css. Left #5b6b86 muted slate hardcoded (by
+  decision) and the receipt template colors as their documented locked exception.
+  typecheck + build both pass.
