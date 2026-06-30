@@ -1,11 +1,16 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Instagram, Facebook, Twitter, Mail } from "lucide-react";
+import { Instagram, Facebook, Twitter, Mail, Phone } from "lucide-react";
 import uomLogo from "@/app/images/uom-logo.png";
 import sceoLogo from "@/app/images/sceo-logo.png";
 import ccLogo from "@/app/images/cc-logo.png";
 import lineartUom from "@/app/images/footer/lineartuom.png";
-import { footerLinks } from "@/data/store-data";
+import { footerLinks, type FooterLink } from "@/data/store-data";
+import { useSectionScroll } from "@/hooks/useSectionScroll";
+import ComingSoonModal from "./ComingSoonModal";
 import { darkBlueHex as darkBlue, goldHex as gold, whiteHex as white, paleBlueHex as paleBlue, redHex as red, goldHex } from "@/constants/variables";
 // ponytail: Footer uses pinned hex exports (never var()) — Samsung Browser /
 // Opera GX don't resolve CSS custom properties reliably in SVG fill attributes
@@ -18,26 +23,96 @@ const socials = [
   { Icon: Mail, label: "Email", href: "#" },
 ];
 
-function FooterColumn({ title, titleColor, items, mobileDivider = false, className = "" }: { title: string; titleColor: string; items: string[]; mobileDivider?: boolean; className?: string }) {
+// ponytail: placeholder contact details — swap for the real SCEO phone/email when available.
+const CONTACT_PHONE = "+230 403 7400";
+const CONTACT_EMAIL = "sceo@uom.ac.mu";
+
+function FooterColumn({
+  title,
+  titleColor,
+  items,
+  mobileDivider = false,
+  className = "",
+  onOpenModal,
+}: {
+  title: string;
+  titleColor: string;
+  items: FooterLink[];
+  mobileDivider?: boolean;
+  className?: string;
+  onOpenModal: (modalId: "payment" | "terms" | "privacy") => void;
+}) {
+  const { navigateToSection, isHome } = useSectionScroll();
+
   return (
     <div className={`${mobileDivider ? "-ml-[20px] border-l pl-4 sm:ml-0 sm:border-l-0 sm:pl-0" : ""} lg:border-l lg:pl-8 ${className}`} style={{ borderColor: `color-mix(in srgb, ${paleBlue} 15%, transparent)` }}>
       <h3 className="text-sm font-bold uppercase tracking-[0.18em]" style={{ color: titleColor }}>
         {title}
       </h3>
       <ul className="mt-5 space-y-3 text-sm" style={{ color: paleBlue }}>
-        {items.map((item) => (
-          <li key={item}>
-            <Link href="#" className="transition-colors duration-200 hover:text-[var(--paper)]">
-              {item}
-            </Link>
-          </li>
-        ))}
+        {items.map((item) => {
+          if (item.type === "link") {
+            return (
+              <li key={item.label}>
+                <Link href={item.href} className="transition-colors duration-200 hover:text-[var(--paper)]">
+                  {item.label}
+                </Link>
+              </li>
+            );
+          }
+
+          if (item.type === "external") {
+            return (
+              <li key={item.label}>
+                <a
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-colors duration-200 hover:text-[var(--paper)]"
+                >
+                  {item.label}
+                </a>
+              </li>
+            );
+          }
+
+          if (item.type === "modal") {
+            return (
+              <li key={item.label}>
+                <button
+                  type="button"
+                  onClick={() => onOpenModal(item.modalId)}
+                  className="cursor-pointer text-left transition-colors duration-200 hover:text-[var(--paper)]"
+                >
+                  {item.label}
+                </button>
+              </li>
+            );
+          }
+
+          const href = isHome ? `#${item.sectionId}` : `/#${item.sectionId}`;
+          return (
+            <li key={item.label}>
+              <Link
+                href={href}
+                onClick={navigateToSection(item.sectionId)}
+                className="transition-colors duration-200 hover:text-[var(--paper)]"
+              >
+                {item.label}
+              </Link>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );
 }
 
 export default function Footer() {
+  const [openModal, setOpenModal] = useState<"payment" | "terms" | "privacy" | null>(null);
+
+  const modalTitles = { payment: "Payment", terms: "Terms & Conditions", privacy: "Privacy Policy" };
+
   return (
     <footer id="contact" className="relative" style={{ color: white, ["--paper"]: white } as React.CSSProperties}>
       {/* Curved top edge — same wavy polygon as the steps section.
@@ -101,19 +176,33 @@ export default function Footer() {
               </div>
 
               <p className="mx-auto max-w-xs text-center text-sm leading-7 sm:mx-0 sm:text-left" style={{ color: paleBlue }}>
-                Officially licensed. Unofficially comfy.
+                Inform. Involve. Impact.
               </p>
             </div>
 
-            <FooterColumn title="Shop" titleColor={gold} items={footerLinks.shop} className="ml-[5px] sm:ml-0" />
-            <FooterColumn title="Support" titleColor={gold} items={footerLinks.support} mobileDivider />
-            <FooterColumn title="Company" titleColor={gold} items={footerLinks.company} mobileDivider />
+            <FooterColumn title="Shop" titleColor={gold} items={footerLinks.shop} className="ml-[5px] sm:ml-0" onOpenModal={setOpenModal} />
+            <FooterColumn title="Support" titleColor={gold} items={footerLinks.support} mobileDivider onOpenModal={setOpenModal} />
+            <FooterColumn title="Company" titleColor={gold} items={footerLinks.company} mobileDivider onOpenModal={setOpenModal} />
 
             {/* Connect */}
             <div className="col-span-3 text-center sm:col-span-1 sm:text-left lg:border-l lg:pl-8" style={{ borderColor: `color-mix(in srgb, ${paleBlue} 15%, transparent)` }}>
               <h3 className="text-sm font-bold uppercase tracking-[0.18em]" style={{ color: gold }}>
                 Connect With Us
               </h3>
+              <ul className="mt-5 space-y-3 text-sm" style={{ color: paleBlue }}>
+                <li className="flex items-center justify-center gap-2 sm:justify-start">
+                  <Phone className="h-4 w-4 shrink-0" style={{ color: gold }} aria-hidden />
+                  <a href={`tel:${CONTACT_PHONE.replace(/\s+/g, "")}`} className="transition-colors duration-200 hover:text-[var(--paper)]">
+                    {CONTACT_PHONE}
+                  </a>
+                </li>
+                <li className="flex items-center justify-center gap-2 sm:justify-start">
+                  <Mail className="h-4 w-4 shrink-0" style={{ color: gold }} aria-hidden />
+                  <a href={`mailto:${CONTACT_EMAIL}`} className="transition-colors duration-200 hover:text-[var(--paper)]">
+                    {CONTACT_EMAIL}
+                  </a>
+                </li>
+              </ul>
               <div className="mt-5 flex justify-center gap-3 sm:justify-start">
                 {socials.map(({ Icon, label, href }) => (
                   <a
@@ -147,6 +236,12 @@ export default function Footer() {
           <Image src={ccLogo} alt="" aria-hidden className="h-6 w-auto object-contain" style={{ marginLeft: "1rem" }} />
         </div>
       </div>
+
+      <ComingSoonModal
+        title={openModal ? modalTitles[openModal] : ""}
+        open={openModal !== null}
+        onClose={() => setOpenModal(null)}
+      />
     </footer>
   );
 }

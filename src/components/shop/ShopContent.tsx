@@ -1,7 +1,8 @@
 'use client';
 
-import { useMemo, useState } from 'react';
-import { Search, SlidersHorizontal } from 'lucide-react';
+import { useEffect, useMemo, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { ArrowLeft, Search, SlidersHorizontal } from 'lucide-react';
 import type { ShopProductData } from '@/db/queries';
 import ProductCard from './ProductCard';
 import CartSummary from './CartSummary';
@@ -41,10 +42,37 @@ function matchesPriceBucket(priceCents: number, bucket: PriceBucket) {
 }
 
 export default function ShopContent({ products }: { products: ShopProductData[] }) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const categoryParam = searchParams.get('category');
+
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(ALL_CATEGORIES);
   const [priceBucket, setPriceBucket] = useState<PriceBucket>('all');
   const [sortBy, setSortBy] = useState<SortOption>('newest');
+
+  // Reacts to the URL's `category` param on every navigation, including from
+  // the footer while already on /shop — a plain useState initial value only
+  // applies on first mount, so it missed same-page param changes.
+  useEffect(() => {
+    if (!categoryParam) {
+      setSelectedCategory(ALL_CATEGORIES);
+      return;
+    }
+    const matched = products.find((p) => p.category.toLowerCase() === categoryParam.toLowerCase());
+    setSelectedCategory(matched?.category ?? ALL_CATEGORIES);
+  }, [categoryParam, products]);
+
+  const handleBack = () => {
+    // ponytail: history.length is a rough heuristic for "arrived via in-app
+    // navigation" — good enough here since the only failure mode is an
+    // unnecessary router.back() vs push("/"), not a broken page.
+    if (window.history.length > 1) {
+      router.back();
+    } else {
+      router.push('/');
+    }
+  };
 
   const categories = useMemo(
     () => [ALL_CATEGORIES, ...Array.from(new Set(products.map((p) => p.category)))],
@@ -95,7 +123,17 @@ export default function ShopContent({ products }: { products: ShopProductData[] 
       {/* Hero */}
       <section className="pb-10 pt-28" style={{ backgroundColor: paleBlueHex }}>
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h1 className="text-5xl font-bold tracking-tight" style={{ color: darkBlueHex, fontFamily: 'var(--font-playfair)' }}>
+          <button
+            type="button"
+            onClick={handleBack}
+            className="mb-4 inline-flex cursor-pointer items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold shadow-md transition hover:opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+            style={{ backgroundColor: whiteHex, color: darkBlueHex, outlineColor: goldHex }}
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Back
+          </button>
+
+          <h1 className="text-5xl font-bold tracking-tight" style={{ color: darkBlueHex }}>
             Shop
           </h1>
           <p className="mt-2 text-base" style={{ color: darkBlueHex }}>

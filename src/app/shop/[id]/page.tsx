@@ -94,7 +94,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
               </span>
 
               <div>
-                <h1 className="text-3xl font-bold" style={{ color: darkBlueHex, fontFamily: 'var(--font-playfair)' }}>
+                <h1 className="text-3xl font-bold" style={{ color: darkBlueHex }}>
                   {product.name}
                 </h1>
                 {/* ponytail: static tagline — no DB field for it. */}

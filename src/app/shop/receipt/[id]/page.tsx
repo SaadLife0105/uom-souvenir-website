@@ -86,7 +86,7 @@ export default async function ReceiptPage({ params }: { params: Promise<{ id: st
           {/* Heading */}
           <h1
             className="mt-4 text-4xl font-bold tracking-tight sm:text-5xl"
-            style={{ color: darkBlueHex, fontFamily: 'var(--font-playfair)' }}
+            style={{ color: darkBlueHex }}
           >
             Your Receipt
           </h1>

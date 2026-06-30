@@ -11,7 +11,7 @@ export default function BestSellersCard({ campaign }: { campaign: BestSellerCamp
         src={campaign.image}
         alt={campaign.title}
         fill
-        className="object-cover transition duration-500 group-hover:scale-105"
+        className="object-cover transition duration-700 group-hover:scale-[1.15]"
         sizes="(max-width: 768px) 90vw, 33vw"
       />
 

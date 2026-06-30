@@ -110,16 +110,38 @@ Current gaps
 Last Updated
 ------------
 - Date: 2026-06-30
-- Commit: d3bd2f0 "project cleanup"
-- Full project audit (dead code + color-token compliance). Deleted the unused
-  PillNav reactbits files and the unused store-data exports (featuredProducts,
-  features, ProductItem, FeatureItem, TestimonialItem); removed dead lines
-  (legacy :root vars in globals.css, an unused React import, an unused
-  RECEIPT_INK const). Color pass: routed hardcoded/arbitrary colors through the
-  variables.tsx tokens (creamHex bg, blackHex/whiteHex for scrims/borders/hover
-  tints, redHex/paleBlueHex for the previously-broken text-red / bg-pale-blue
-  utilities) using inline styles + inline CSS-var hover pattern. Discovered there
-  is no @theme block, so those bare utilities were dead — corrected the misleading
-  comments in variables.tsx/globals.css. Left #5b6b86 muted slate hardcoded (by
-  decision) and the receipt template colors as their documented locked exception.
-  typecheck + build both pass.
+- Commit: 60613a7 "loading screen before receipt page" (changes below are
+  uncommitted working-tree edits made after this commit)
+- Follow-up fixes on top of the navbar/footer/shop wiring pass:
+  - Root cause of "footer category links do nothing while already on /shop":
+    ShopContent previously seeded `selectedCategory` from an `initialCategory`
+    prop via useState's initial value, which only applies on first mount. Since
+    /shop -> /shop (same route, different `category` search param) is a
+    client-side transition that reuses the mounted ShopContent instance, the
+    prop changed but the state never re-derived from it.
+  - Fix: ShopContent now reads `category` reactively via `useSearchParams()`
+    and syncs it into state with a `useEffect` keyed on the param (not just on
+    mount). This fixes same-page footer clicks AND keeps working for
+    cross-page navigation (home/product/receipt -> /shop?category=...).
+    ShopPage (src/app/shop/page.tsx) no longer reads searchParams server-side
+    at all — it just renders <Suspense><ShopContent products={...} /></Suspense>
+    (Suspense required because useSearchParams is now a client hook). This
+    also let /shop go back to fully static (○) in the build output.
+  - Added a Back button to ShopContent's hero (src/components/shop/ShopContent.tsx):
+    Lucide ArrowLeft, rounded-full white pill with shadow-md (matches the
+    existing soft-UI look), router.back() with a window.history.length > 1
+    fallback to router.push('/'). ponytail-flagged: history.length is a known
+    coarse heuristic — verified the true "no history" branch by stubbing
+    history.length in a Playwright addInitScript (Playwright's own
+    browser.newPage() always seeds about:blank first, so it can't represent a
+    truly fresh tab's history.length=1 directly).
+  - Navbar profile IconButton (src/components/layout/Navbar.tsx) now uses the
+    same border as the cart icon's default state — `1px solid ${blackHex}` —
+    replacing its old `color-mix(... whiteHex 30% ...)` border, for visual
+    parity between the two circular icon buttons.
+  - No new dependencies. Verified with a throwaway Playwright script (project
+    has `playwright`, not `@playwright/test`) against the dev server: same-page
+    footer category clicks on /shop, cross-page footer clicks from home and a
+    product detail page, back button (real back-nav + stubbed no-history
+    fallback), and cart/profile border equality via getComputedStyle — all
+    passed, zero console errors. typecheck + `next build` both pass.

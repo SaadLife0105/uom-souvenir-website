@@ -36,12 +36,15 @@ export interface WorkflowStepItem {
   description: string;
 }
 
-export const navLinks = [
-  { label: "Browse", href: "#shop" },
-  { label: "Categories", href: "#categories" },
-  { label: "How-to", href: "#steps" },
-  { label: "Contact", href: "#contact" },
-  { label: "FAQ", href: "#faq" },
+export type NavLink =
+  | { label: string; type: "route"; href: string }
+  | { label: string; type: "scroll"; sectionId: string };
+
+export const navLinks: NavLink[] = [
+  { label: "Shop", type: "route", href: "/shop" },
+  { label: "Best Seller", type: "scroll", sectionId: "best-sellers" },
+  { label: "FAQ", type: "scroll", sectionId: "faq" },
+  { label: "Contact Us", type: "scroll", sectionId: "contact" },
 ];
 
 export const categories: CategoryItem[] = [
@@ -137,8 +140,31 @@ export const workflowSteps: WorkflowStepItem[] = [
   },
 ];
 
-export const footerLinks = {
-  shop: ["All Products", "Apparel", "Accessories", "Stationery"],
-  support: ["How to Order", "Payment", "FAQs", "Contact Us"],
-  company: ["About UoM", "Terms & Conditions", "Privacy Policy"],
+export type FooterLink =
+  | { label: string; type: "link"; href: string }
+  | { label: string; type: "external"; href: string }
+  | { label: string; type: "scroll"; sectionId: string }
+  | { label: string; type: "modal"; modalId: "payment" | "terms" | "privacy" };
+
+export const footerLinks: { shop: FooterLink[]; support: FooterLink[]; company: FooterLink[] } = {
+  shop: [
+    { label: "All Products", type: "link", href: "/shop" },
+    { label: "Apparel", type: "link", href: "/shop?category=apparel" },
+    { label: "Drinkware", type: "link", href: "/shop?category=drinkware" },
+    { label: "Stationery", type: "link", href: "/shop?category=stationery" },
+  ],
+  support: [
+    { label: "How to Order", type: "scroll", sectionId: "steps" },
+    { label: "Payment", type: "modal", modalId: "payment" },
+    { label: "FAQs", type: "scroll", sectionId: "faq" },
+  ],
+  company: [
+    {
+      label: "About UoM",
+      type: "external",
+      href: "https://www.uom.ac.mu/images/Files/FactSheets/factsheetjuly2015.pdf",
+    },
+    { label: "Terms & Conditions", type: "modal", modalId: "terms" },
+    { label: "Privacy Policy", type: "modal", modalId: "privacy" },
+  ],
 };

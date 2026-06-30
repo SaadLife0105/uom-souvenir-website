@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import ShopContent from '@/components/shop/ShopContent';
@@ -10,7 +11,11 @@ export default async function ShopPage() {
     <div className="flex min-h-screen flex-col">
       <Navbar />
       <main className="flex-1">
-        <ShopContent products={products} />
+        {/* ShopContent reads the category filter via useSearchParams, which requires
+            a Suspense boundary so the rest of the route can still prerender. */}
+        <Suspense>
+          <ShopContent products={products} />
+        </Suspense>
       </main>
       <Footer />
     </div>

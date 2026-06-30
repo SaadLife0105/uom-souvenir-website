@@ -65,7 +65,7 @@ export default function CartPage() {
       <main className="flex-1 pb-20 pt-28" style={{ backgroundColor: creamHex }}>
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           {/* Hero */}
-          <h1 className="text-4xl font-bold tracking-tight sm:text-5xl" style={{ color: darkBlueHex, fontFamily: 'var(--font-playfair)' }}>
+          <h1 className="text-4xl font-bold tracking-tight sm:text-5xl" style={{ color: darkBlueHex }}>
             Your Cart
           </h1>
           <p className="mt-2 text-base" style={{ color: MUTED }}>
