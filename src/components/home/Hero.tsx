@@ -94,7 +94,7 @@ export default function Hero() {
             </h1>
 
             <p
-              style={{ fontSize: u(32), marginTop: u(8), color: lightBlueHex }}
+              style={{ fontSize: u(32), marginTop: u(4), color: lightBlueHex }}
             >
               Carry a piece of UoM with you
             </p>
@@ -105,9 +105,9 @@ export default function Hero() {
             style={{
               color: whiteHex,
               left: u(83),
-              width: u(550),
-              fontSize: u(18),
-              lineHeight: u(36),
+              width: u(547),
+              fontSize: u(15),
+              lineHeight: u(27),
             }}
           >
             From your first lecture to graduation day and decades beyond, wear the colors that shaped your story. Welcome to the offcial Universit shop where school spirit never fades~
