@@ -1,6 +1,14 @@
 import { eq, inArray } from 'drizzle-orm';
 import { db } from './index';
-import { products, productCategories, productColors, productImages } from './schema';
+import {
+  products,
+  productCategories,
+  productColors,
+  productImages,
+  reservations,
+  reservationItems,
+  reservationStatusEnum,
+} from './schema';
 
 export interface ShopProductData {
   id: string;
@@ -13,6 +21,7 @@ export interface ShopProductData {
   imageUrl: string | null;
   images: string[];
   colors: { name: string; hexCode: string }[];
+  createdAt: Date;
 }
 
 async function attachVariants(rows: (typeof products.$inferSelect & { category: string })[]): Promise<ShopProductData[]> {
@@ -44,6 +53,7 @@ async function attachVariants(rows: (typeof products.$inferSelect & { category: 
       colors: colors
         .filter((color) => color.productId === row.id && color.isActive)
         .map((color) => ({ name: color.name, hexCode: color.hexCode })),
+      createdAt: row.createdAt,
     };
   });
 }
@@ -93,4 +103,58 @@ export async function getProductById(id: string): Promise<ShopProductData | null
 
   const [result] = await attachVariants(rows);
   return result ?? null;
+}
+
+// ---------------------------------------------------------------------------
+// Reservations
+// ---------------------------------------------------------------------------
+
+export interface ReservationItemData {
+  id: string;
+  quantity: number;
+  unitPriceCents: number;
+  // Purchase-time snapshot string — color/size already folded in (see
+  // reservationItems.itemLabel in schema.ts), so no productColors join needed.
+  itemLabel: string;
+  unitTotalCents: number;
+}
+
+export interface ReservationData {
+  id: string;
+  // Not surfaced as visible UI text (a deliberate project decision) — used only
+  // for the download-as-image filename.
+  receiptNumber: string;
+  status: (typeof reservationStatusEnum.enumValues)[number];
+  paymentReferenceNumber: string | null;
+  totalAmountCents: number;
+  reservedAt: Date;
+  expiresAt: Date;
+  items: ReservationItemData[];
+}
+
+export async function getReservationById(id: string): Promise<ReservationData | null> {
+  const [reservation] = await db.select().from(reservations).where(eq(reservations.id, id));
+  if (!reservation) return null;
+
+  const items = await db
+    .select()
+    .from(reservationItems)
+    .where(eq(reservationItems.reservationId, id));
+
+  return {
+    id: reservation.id,
+    receiptNumber: reservation.receiptNumber,
+    status: reservation.status,
+    paymentReferenceNumber: reservation.paymentReferenceNumber,
+    totalAmountCents: reservation.totalAmountCents,
+    reservedAt: reservation.reservedAt,
+    expiresAt: reservation.expiresAt,
+    items: items.map((item) => ({
+      id: item.id,
+      quantity: item.quantity,
+      unitPriceCents: item.unitPriceCents,
+      itemLabel: item.itemLabel,
+      unitTotalCents: item.unitTotalCents,
+    })),
+  };
 }

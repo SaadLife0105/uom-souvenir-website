@@ -2,12 +2,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 import type { ShopProductData } from '@/db/queries';
 import { formatPrice } from '@/lib/price';
-import { darkBlueHex, whiteHex } from '@/constants/variables';
+import { darkBlueHex, whiteHex, redHex } from '@/constants/variables';
 
 const PLACEHOLDER_IMAGE =
   'https://placehold.co/600x600/e6f1fb/0c447c?text=UOM+Souvenir';
 
 export default function ProductCard({ product }: { product: ShopProductData }) {
+  const outOfStock = product.stock <= 0;
+
   return (
     <Link
       href={`/shop/${product.id}`}
@@ -25,6 +27,16 @@ export default function ProductCard({ product }: { product: ShopProductData }) {
           // optimizer rejects by default — drop once real product photos replace them
           unoptimized
         />
+        {outOfStock && (
+          <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
+            <span
+              className="absolute left-[-30%] top-[14%] flex w-[160%] -rotate-45 items-center justify-center py-1.5 text-xs font-bold uppercase tracking-widest shadow-md"
+              style={{ backgroundColor: redHex, color: whiteHex }}
+            >
+              Sold Out
+            </span>
+          </div>
+        )}
       </div>
 
       <div className="flex flex-1 flex-col gap-3 p-5">

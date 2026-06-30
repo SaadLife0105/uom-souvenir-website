@@ -1,25 +1,53 @@
 'use client';
 
 import { useState } from 'react';
-import { Ruler, Check, ShoppingBag } from 'lucide-react';
+import { Ruler, Check, ShoppingBag, Minus, Plus, AlertTriangle } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import type { ShopProductData } from '@/db/queries';
 import type { ShopProduct } from '@/data/store-data';
-import { darkBlueHex, whiteHex, goldHex } from '@/constants/variables';
+import { darkBlueHex, whiteHex, goldHex, redHex } from '@/constants/variables';
 
 // ponytail: sizes are UI-only — the schema has no sizes table/column. Standard
 // apparel run, hardcoded client-side. A real sizes table would be needed to vary
 // per product or track stock by size.
 const APPAREL_SIZES = ['S', 'M', 'L', 'XL', 'XXL'];
 
+// Below this stock count, show urgent ("Only N left") styling instead of plain text.
+const LOW_STOCK_THRESHOLD = 5;
+
 export default function ProductBuyPanel({ product }: { product: ShopProductData }) {
-  const { addToCart } = useCart();
+  const { cartItems, addToCart } = useCart();
   const isApparel = product.category === 'Apparel';
   const [selectedColor, setSelectedColor] = useState<string | undefined>(product.colors[0]?.name);
   const [selectedSize, setSelectedSize] = useState<string | undefined>(isApparel ? 'M' : undefined);
+  const [quantity, setQuantity] = useState(1);
   const [added, setAdded] = useState(false);
+  const [stockWarning, setStockWarning] = useState(false);
+
+  const outOfStock = product.stock <= 0;
+  const lowStock = !outOfStock && product.stock < LOW_STOCK_THRESHOLD;
+
+  const inCartQuantity = cartItems.find(
+    (item) => item.id === product.id && item.selectedColor === selectedColor && item.selectedSize === selectedSize
+  )?.selectedQuantity ?? 0;
+  const cartAtMax = !outOfStock && inCartQuantity >= product.stock;
+  const remainingForCart = Math.max(product.stock - inCartQuantity, 0);
+
+  const handleIncrement = () => {
+    if (quantity >= remainingForCart) {
+      setStockWarning(true);
+      return;
+    }
+    setStockWarning(false);
+    setQuantity((q) => q + 1);
+  };
 
   const handleAddToCart = () => {
+    if (cartAtMax) {
+      setStockWarning(true);
+      return;
+    }
+
     // Map the DB shape onto the cart's ShopProduct shape (price in whole rupees).
     const cartProduct: ShopProduct = {
       id: product.id,
@@ -31,8 +59,10 @@ export default function ProductBuyPanel({ product }: { product: ShopProductData 
       isDisplayOnly: product.isDisplayItem,
       image: product.imageUrl ?? '',
     };
-    addToCart(cartProduct, 1, selectedColor, selectedSize);
+    addToCart(cartProduct, quantity, selectedColor, selectedSize);
     setAdded(true);
+    setStockWarning(false);
+    setQuantity(1);
     setTimeout(() => setAdded(false), 1500);
   };
 
@@ -57,7 +87,11 @@ export default function ProductBuyPanel({ product }: { product: ShopProductData 
                   title={color.name}
                   aria-label={color.name}
                   aria-pressed={active}
-                  onClick={() => setSelectedColor(color.name)}
+                  onClick={() => {
+                    setSelectedColor(color.name);
+                    setQuantity(1);
+                    setStockWarning(false);
+                  }}
                   className="h-9 w-9 cursor-pointer rounded-full border-2 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
                   style={{
                     backgroundColor: color.hexCode,
@@ -84,7 +118,11 @@ export default function ProductBuyPanel({ product }: { product: ShopProductData 
                   key={size}
                   type="button"
                   aria-pressed={active}
-                  onClick={() => setSelectedSize(size)}
+                  onClick={() => {
+                    setSelectedSize(size);
+                    setQuantity(1);
+                    setStockWarning(false);
+                  }}
                   className="inline-flex h-11 min-w-[2.75rem] cursor-pointer items-center justify-center rounded-xl border px-3 text-sm font-medium transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
                   style={{
                     borderColor: active ? darkBlueHex : `color-mix(in srgb, ${darkBlueHex} 25%, transparent)`,
@@ -106,11 +144,65 @@ export default function ProductBuyPanel({ product }: { product: ShopProductData 
         </div>
       )}
 
+      {/* Stock level */}
+      {!product.isDisplayItem && (
+        <p className="text-sm font-semibold" style={{ color: outOfStock || lowStock ? redHex : '#5b6b86' }}>
+          {outOfStock ? 'Out of stock' : lowStock ? `Only ${product.stock} left` : `${product.stock} in stock`}
+        </p>
+      )}
+
+      {/* Quantity stepper */}
+      {!product.isDisplayItem && !outOfStock && (
+        <div>
+          <p className="mb-3 text-sm font-semibold" style={{ color: darkBlueHex }}>Quantity</p>
+          <div className="inline-flex items-center gap-3 rounded-full border px-2 py-1.5" style={{ borderColor: subtleBorder }}>
+            <button
+              type="button"
+              aria-label="Decrease quantity"
+              onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+              disabled={quantity <= 1}
+              className="inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-full transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
+              style={{ color: darkBlueHex, outlineColor: goldHex }}
+            >
+              <Minus className="h-4 w-4" />
+            </button>
+            <span className="w-6 text-center text-sm font-semibold" style={{ color: darkBlueHex }}>
+              {quantity}
+            </span>
+            <button
+              type="button"
+              aria-label="Increase quantity"
+              onClick={handleIncrement}
+              disabled={quantity >= remainingForCart}
+              className="inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-full transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
+              style={{ color: darkBlueHex, outlineColor: goldHex }}
+            >
+              <Plus className="h-4 w-4" />
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Stock warning */}
+      {stockWarning && (
+        <div
+          className="flex items-start gap-2 rounded-xl border px-4 py-3 text-sm font-medium"
+          style={{
+            borderColor: `color-mix(in srgb, ${redHex} 40%, transparent)`,
+            backgroundColor: `color-mix(in srgb, ${redHex} 8%, transparent)`,
+            color: redHex,
+          }}
+        >
+          <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />
+          <span>Only {product.stock} {product.name} left in stock.</span>
+        </div>
+      )}
+
       {/* Add to cart */}
       <button
         type="button"
         onClick={handleAddToCart}
-        disabled={product.isDisplayItem}
+        disabled={product.isDisplayItem || outOfStock || cartAtMax}
         className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
         style={{ backgroundColor: darkBlueHex, color: whiteHex, outlineColor: goldHex }}
       >
@@ -121,6 +213,10 @@ export default function ProductBuyPanel({ product }: { product: ShopProductData 
           </>
         ) : product.isDisplayItem ? (
           'Display Only'
+        ) : outOfStock ? (
+          'Out of Stock'
+        ) : cartAtMax ? (
+          'Max Stock in Cart'
         ) : (
           <>
             <ShoppingBag className="h-4 w-4" />

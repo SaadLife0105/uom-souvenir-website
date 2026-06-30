@@ -43,7 +43,6 @@ function matchesPriceBucket(priceCents: number, bucket: PriceBucket) {
 export default function ShopContent({ products }: { products: ShopProductData[] }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(ALL_CATEGORIES);
-  const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [priceBucket, setPriceBucket] = useState<PriceBucket>('all');
   const [sortBy, setSortBy] = useState<SortOption>('newest');
 
@@ -52,16 +51,8 @@ export default function ShopContent({ products }: { products: ShopProductData[] 
     [products]
   );
 
-  const colors = useMemo(() => {
-    const seen = new Map<string, string>();
-    products.forEach((product) =>
-      product.colors.forEach((color) => seen.set(color.name, color.hexCode))
-    );
-    return Array.from(seen, ([name, hexCode]) => ({ name, hexCode }));
-  }, [products]);
-
   const hasActiveFilters =
-    searchQuery !== '' || selectedCategory !== ALL_CATEGORIES || selectedColor !== null || priceBucket !== 'all';
+    searchQuery !== '' || selectedCategory !== ALL_CATEGORIES || priceBucket !== 'all';
 
   const visibleProducts = useMemo(() => {
     const query = searchQuery.trim().toLowerCase();
@@ -72,8 +63,7 @@ export default function ShopContent({ products }: { products: ShopProductData[] 
         product.name.toLowerCase().includes(query) ||
         (product.description?.toLowerCase().includes(query) ?? false);
       const matchesCategory = selectedCategory === ALL_CATEGORIES || product.category === selectedCategory;
-      const matchesColor = selectedColor === null || product.colors.some((c) => c.name === selectedColor);
-      return matchesQuery && matchesCategory && matchesColor && matchesPriceBucket(product.priceCents, priceBucket);
+      return matchesQuery && matchesCategory && matchesPriceBucket(product.priceCents, priceBucket);
     });
 
     const sorted = [...filtered];
@@ -87,17 +77,16 @@ export default function ShopContent({ products }: { products: ShopProductData[] 
       case 'name':
         sorted.sort((a, b) => a.name.localeCompare(b.name));
         break;
-      default:
-        // ponytail: "Newest" keeps DB insertion order — no createdAt sort needed at this scale
+      case 'newest':
+        sorted.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
         break;
     }
     return sorted;
-  }, [products, searchQuery, selectedCategory, selectedColor, priceBucket, sortBy]);
+  }, [products, searchQuery, selectedCategory, priceBucket, sortBy]);
 
   const clearFilters = () => {
     setSearchQuery('');
     setSelectedCategory(ALL_CATEGORIES);
-    setSelectedColor(null);
     setPriceBucket('all');
   };
 
@@ -160,25 +149,6 @@ export default function ShopContent({ products }: { products: ShopProductData[] 
                       />
                       {category}
                     </label>
-                  ))}
-                </div>
-              </div>
-
-              <div>
-                <p className="mb-3 text-sm font-semibold" style={{ color: darkBlueHex }}>Colors</p>
-                <div className="flex flex-wrap gap-2">
-                  {colors.map((color) => (
-                    <button
-                      key={color.name}
-                      type="button"
-                      title={color.name}
-                      onClick={() => setSelectedColor((prev) => (prev === color.name ? null : color.name))}
-                      className="h-6 w-6 cursor-pointer rounded-full border-2 transition"
-                      style={{
-                        backgroundColor: color.hexCode,
-                        borderColor: selectedColor === color.name ? goldHex : 'transparent',
-                      }}
-                    />
                   ))}
                 </div>
               </div>

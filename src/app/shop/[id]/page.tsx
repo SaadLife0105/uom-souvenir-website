@@ -21,10 +21,6 @@ const INFO_SECTIONS = [
     title: 'Shipping & Delivery',
     body: 'Reserve online and collect from the UoM Finance Office. You will receive a receipt to present at pickup.',
   },
-  {
-    title: 'Returns & Exchanges',
-    body: 'Unused items in original condition can be exchanged at the Finance Office within 7 days of collection.',
-  },
 ];
 
 // ponytail: static trust badges — not DB-backed.

@@ -1,11 +1,14 @@
 'use client';
 
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ShoppingBag, Trash2, Minus, Plus, Info, Receipt } from 'lucide-react';
+import { ShoppingBag, Trash2, Minus, Plus, Info, Receipt, Loader2, AlertTriangle } from 'lucide-react';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import { useCart } from '@/context/CartContext';
+import { submitReservation } from './actions';
 import { darkBlueHex, whiteHex, goldHex, creamHex, redHex } from '@/constants/variables';
 
 const PLACEHOLDER_IMAGE = 'https://placehold.co/200x200/e6f1fb/0c447c?text=UOM';
@@ -14,9 +17,44 @@ const MUTED = '#5b6b86'; // shared muted slate used across the rebuilt shop page
 
 export default function CartPage() {
   const { cartItems, updateQuantity, removeFromCart, getTotalPrice, clearCart } = useCart();
+  const router = useRouter();
   const itemCount = cartItems.reduce((count, item) => count + item.selectedQuantity, 0);
   const subtotal = getTotalPrice();
   const subtleBorder = `color-mix(in srgb, ${darkBlueHex} 12%, transparent)`;
+
+  const [paymentRef, setPaymentRef] = useState('');
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [insufficient, setInsufficient] = useState<
+    { productId: string; name: string; available: number; requested: number }[]
+  >([]);
+
+  const handleGenerateReceipt = async () => {
+    if (submitting) return; // disabled-on-click double-submit guard
+    setSubmitting(true);
+    setError(null);
+    setInsufficient([]);
+
+    const result = await submitReservation({
+      items: cartItems.map((item) => ({
+        id: item.id,
+        selectedColor: item.selectedColor,
+        selectedSize: item.selectedSize,
+        selectedQuantity: item.selectedQuantity,
+      })),
+      paymentReferenceNumber: paymentRef.trim() || undefined,
+    });
+
+    if (result.ok) {
+      clearCart();
+      router.push(`/shop/receipt/${result.reservationId}`);
+      return; // leave the button disabled through navigation
+    }
+
+    setError(result.error);
+    setInsufficient(result.insufficientItems ?? []);
+    setSubmitting(false);
+  };
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -183,19 +221,75 @@ export default function CartPage() {
                   </div>
                 </div>
 
-                <div className="flex flex-col gap-3 rounded-3xl p-6 shadow-md" style={{ backgroundColor: whiteHex }}>
+                <div className="flex flex-col gap-4 rounded-3xl p-6 shadow-md" style={{ backgroundColor: whiteHex }}>
                   <div className="flex items-center justify-between">
                     <span className="text-sm font-medium" style={{ color: MUTED }}>Subtotal</span>
                     <span className="text-2xl font-bold" style={{ color: darkBlueHex }}>Rs {subtotal.toLocaleString()}</span>
                   </div>
-                  {/* ponytail: non-functional CTA — receipt generation is a separate task. */}
+
+                  {/* Payment reference — optional */}
+                  <div>
+                    <label htmlFor="payment-ref" className="block text-sm font-medium" style={{ color: darkBlueHex }}>
+                      Payment Reference Number <span style={{ color: MUTED }}>(optional)</span>
+                    </label>
+                    <input
+                      id="payment-ref"
+                      type="text"
+                      value={paymentRef}
+                      onChange={(e) => setPaymentRef(e.target.value)}
+                      disabled={submitting}
+                      placeholder="e.g. bank transfer reference"
+                      className="mt-1.5 w-full rounded-xl border px-3 py-2.5 text-sm transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-60"
+                      style={{ borderColor: subtleBorder, color: darkBlueHex, outlineColor: goldHex }}
+                    />
+                    <p className="mt-1 text-xs" style={{ color: MUTED }}>Leave blank if paying on collection.</p>
+                  </div>
+
+                  {/* Error / insufficient-stock surface */}
+                  {error && (
+                    <div
+                      role="alert"
+                      className="flex gap-2 rounded-xl border p-3 text-sm"
+                      style={{
+                        borderColor: `color-mix(in srgb, ${redHex} 40%, transparent)`,
+                        backgroundColor: `color-mix(in srgb, ${redHex} 8%, transparent)`,
+                        color: darkBlueHex,
+                      }}
+                    >
+                      <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" style={{ color: redHex }} />
+                      <div>
+                        <p className="font-semibold">{error}</p>
+                        {insufficient.length > 0 && (
+                          <ul className="mt-1 list-disc pl-4">
+                            {insufficient.map((it) => (
+                              <li key={it.productId}>
+                                Only {it.available} left of {it.name} (you requested {it.requested}).
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </div>
+                    </div>
+                  )}
+
                   <button
                     type="button"
-                    className="inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl px-6 py-4 text-base font-semibold transition hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+                    onClick={handleGenerateReceipt}
+                    disabled={submitting}
+                    className="inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl px-6 py-4 text-base font-semibold transition hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-70"
                     style={{ backgroundColor: redHex, color: whiteHex, outlineColor: goldHex }}
                   >
-                    <Receipt className="h-5 w-5" />
-                    Generate Receipt
+                    {submitting ? (
+                      <>
+                        <Loader2 className="h-5 w-5 animate-spin" />
+                        Generating…
+                      </>
+                    ) : (
+                      <>
+                        <Receipt className="h-5 w-5" />
+                        Generate Receipt
+                      </>
+                    )}
                   </button>
                   <p className="text-center text-xs" style={{ color: MUTED }}>
                     Taxes and delivery fees will be calculated on the next step.
