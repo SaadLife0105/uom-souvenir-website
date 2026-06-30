@@ -6,13 +6,17 @@ import type { ShopProduct } from '@/data/store-data';
 export interface CartItem extends ShopProduct {
   selectedQuantity: number;
   selectedColor?: string;
+  // ponytail: UI-only — no sizes table in the schema. Carried for display in the
+  // cart; doesn't affect stock/price. A real sizes table would be needed to vary
+  // per product or track stock by size.
+  selectedSize?: string;
 }
 
 interface CartContextType {
   cartItems: CartItem[];
-  addToCart: (product: ShopProduct, quantity: number, color?: string) => void;
-  removeFromCart: (productId: string, color?: string) => void;
-  updateQuantity: (productId: string, quantity: number, color?: string) => void;
+  addToCart: (product: ShopProduct, quantity: number, color?: string, size?: string) => void;
+  removeFromCart: (productId: string, color?: string, size?: string) => void;
+  updateQuantity: (productId: string, quantity: number, color?: string, size?: string) => void;
   clearCart: () => void;
   getTotalPrice: () => number;
 }
@@ -43,12 +47,12 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }
   }, [cartItems, isLoaded]);
 
-  const addToCart = (product: ShopProduct, quantity: number, color?: string) => {
+  const addToCart = (product: ShopProduct, quantity: number, color?: string, size?: string) => {
     if (product.isDisplayOnly || quantity <= 0) return;
 
     setCartItems((prevItems) => {
       const existingItem = prevItems.find(
-        (item) => item.id === product.id && item.selectedColor === color
+        (item) => item.id === product.id && item.selectedColor === color && item.selectedSize === size
       );
 
       if (existingItem) {
@@ -57,7 +61,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
           product.quantity
         );
         return prevItems.map((item) =>
-          item.id === product.id && item.selectedColor === color
+          item.id === product.id && item.selectedColor === color && item.selectedSize === size
             ? { ...item, selectedQuantity: newQuantity }
             : item
         );
@@ -69,15 +73,16 @@ export function CartProvider({ children }: { children: ReactNode }) {
           ...product,
           selectedQuantity: Math.min(quantity, product.quantity),
           selectedColor: color || (product.colors[0] ?? undefined),
+          selectedSize: size,
         },
       ];
     });
   };
 
-  const removeFromCart = (productId: string, color?: string) => {
+  const removeFromCart = (productId: string, color?: string, size?: string) => {
     setCartItems((prevItems) =>
       prevItems.filter(
-        (item) => item.id !== productId || item.selectedColor !== color
+        (item) => item.id !== productId || item.selectedColor !== color || item.selectedSize !== size
       )
     );
   };
@@ -85,11 +90,12 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const updateQuantity = (
     productId: string,
     quantity: number,
-    color?: string
+    color?: string,
+    size?: string
   ) => {
     setCartItems((prevItems) =>
       prevItems.flatMap((item) => {
-        if (item.id !== productId || item.selectedColor !== color) {
+        if (item.id !== productId || item.selectedColor !== color || item.selectedSize !== size) {
           return [item];
         }
 

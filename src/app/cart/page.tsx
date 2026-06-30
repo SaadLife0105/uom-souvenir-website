@@ -1,154 +1,212 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
+import { ShoppingBag, Trash2, Minus, Plus, Info, Receipt } from 'lucide-react';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import { useCart } from '@/context/CartContext';
+import { darkBlueHex, whiteHex, goldHex, creamHex, redHex } from '@/constants/variables';
+
+const PLACEHOLDER_IMAGE = 'https://placehold.co/200x200/e6f1fb/0c447c?text=UOM';
+
+const MUTED = '#5b6b86'; // shared muted slate used across the rebuilt shop pages
 
 export default function CartPage() {
   const { cartItems, updateQuantity, removeFromCart, getTotalPrice, clearCart } = useCart();
-  const hasContactFinance = cartItems.some((item) => item.price === null);
-  const totalPrice = getTotalPrice();
+  const itemCount = cartItems.reduce((count, item) => count + item.selectedQuantity, 0);
+  const subtotal = getTotalPrice();
+  const subtleBorder = `color-mix(in srgb, ${darkBlueHex} 12%, transparent)`;
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#D7F2FF] text-[#1f2937]">
+    <div className="flex min-h-screen flex-col">
       <Navbar />
-      <main className="flex-1 pb-16 pt-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="rounded-[2rem] border-2 border-[#C82520] bg-white p-8 shadow-xl">
-            <div className="space-y-6">
-              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#E99C19]">Cart</p>
-              <h1 className="text-4xl font-semibold tracking-tight text-[#7F0906]">Your reserved items</h1>
-              <p className="text-sm leading-7 text-[#1f2937]">
-                Review your selected souvenirs, adjust quantities, or remove items before generating your receipt for UoM Finance Office collection.
-              </p>
-            </div>
 
-            {cartItems.length === 0 ? (
-              <div className="mt-10 rounded-[2rem] border-2 border-[#C82520] bg-[#D7F2FF] p-10 text-center">
-                <p className="text-lg font-semibold text-[#7F0906]">Your cart is empty.</p>
-                <p className="mt-3 text-sm text-[#7F0906]">
-                  Browse the UoM souvenir collection and add items to your cart to begin.
-                </p>
-                <Link
-                  href="/shop"
-                  className="mt-6 inline-flex rounded-full bg-[#C82520] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#7F0906]"
-                >
-                  Continue Shopping
-                </Link>
+      <main className="flex-1 pb-20 pt-28" style={{ backgroundColor: creamHex }}>
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          {/* Hero */}
+          <h1 className="text-4xl font-bold tracking-tight sm:text-5xl" style={{ color: darkBlueHex, fontFamily: 'var(--font-playfair)' }}>
+            Your Cart
+          </h1>
+          <p className="mt-2 text-base" style={{ color: MUTED }}>
+            Review your items before checkout.
+          </p>
+
+          {cartItems.length === 0 ? (
+            /* Empty state */
+            <div className="mt-10 rounded-3xl p-12 text-center shadow-md" style={{ backgroundColor: whiteHex }}>
+              <ShoppingBag className="mx-auto h-10 w-10" style={{ color: goldHex }} />
+              <p className="mt-4 text-lg font-semibold" style={{ color: darkBlueHex }}>Your cart is empty.</p>
+              <p className="mt-1 text-sm" style={{ color: MUTED }}>
+                Browse the UoM souvenir collection and add items to begin.
+              </p>
+              <Link
+                href="/shop"
+                className="mt-6 inline-flex cursor-pointer items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+                style={{ backgroundColor: darkBlueHex, color: whiteHex, outlineColor: goldHex }}
+              >
+                <ShoppingBag className="h-4 w-4" />
+                Continue Shopping
+              </Link>
+            </div>
+          ) : (
+            <>
+              {/* Items header */}
+              <div className="mt-8 flex items-center gap-2">
+                <ShoppingBag className="h-5 w-5" style={{ color: darkBlueHex }} />
+                <h2 className="text-lg font-bold" style={{ color: darkBlueHex }}>
+                  Cart Items ({itemCount})
+                </h2>
               </div>
-            ) : (
-              <div className="mt-10 grid gap-8 xl:grid-cols-[1.6fr_0.9fr]">
-                <div className="space-y-6">
-                  {cartItems.map((item) => (
-                    <div
-                      key={`${item.id}-${item.selectedColor ?? 'default'}`}
-                      className="rounded-[2rem] border-2 border-[#C82520] bg-[#F8FCFF] p-6 shadow-sm"
+
+              {/* Item rows */}
+              <ul className="mt-4 flex flex-col gap-4">
+                {cartItems.map((item) => {
+                  const meta = [item.selectedColor, item.selectedSize && `Size ${item.selectedSize}`]
+                    .filter(Boolean)
+                    .join(' • ');
+                  const imageSrc =
+                    item.image && item.image.startsWith('http') ? item.image : PLACEHOLDER_IMAGE;
+                  const priceLabel = item.price === null ? 'Contact Finance' : `Rs ${item.price.toLocaleString()}`;
+
+                  return (
+                    <li
+                      key={`${item.id}-${item.selectedColor ?? 'default'}-${item.selectedSize ?? 'default'}`}
+                      className="flex flex-col gap-4 rounded-3xl p-4 shadow-md sm:flex-row sm:items-center sm:gap-6 sm:p-5"
+                      style={{ backgroundColor: whiteHex }}
                     >
-                      <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-                        <div className="space-y-2">
-                          <p className="text-lg font-semibold text-[#7F0906]">{item.name}</p>
-                          {item.selectedColor ? (
-                            <p className="text-xs text-[#7F0906]">Color: {item.selectedColor}</p>
-                          ) : null}
-                          <p className="text-xs text-[#7F0906]">Available: {item.quantity}</p>
+                      {/* Thumbnail + identity */}
+                      <div className="flex flex-1 items-center gap-4">
+                        <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-2xl" style={{ backgroundColor: creamHex }}>
+                          <Image
+                            src={imageSrc}
+                            alt={item.name}
+                            fill
+                            sizes="80px"
+                            className="object-cover"
+                            unoptimized
+                          />
                         </div>
-                        <div className="flex items-center gap-3">
+                        <div className="min-w-0">
+                          <p className="text-base font-semibold" style={{ color: darkBlueHex }}>{item.name}</p>
+                          {meta && <p className="mt-0.5 text-sm" style={{ color: MUTED }}>{meta}</p>}
+                          <p className="mt-1 text-base font-bold" style={{ color: darkBlueHex }}>{priceLabel}</p>
+                        </div>
+                      </div>
+
+                      {/* Unit price */}
+                      <div className="hidden w-28 shrink-0 lg:block">
+                        <p className="text-xs" style={{ color: MUTED }}>Unit Price</p>
+                        <p className="mt-0.5 text-base font-bold" style={{ color: darkBlueHex }}>{priceLabel}</p>
+                      </div>
+
+                      {/* Stepper + delete */}
+                      <div className="flex shrink-0 items-center gap-4">
+                        <div className="inline-flex items-center rounded-xl border" style={{ borderColor: subtleBorder }}>
                           <button
                             type="button"
-                            onClick={() =>
-                              updateQuantity(
-                                item.id,
-                                item.selectedQuantity - 1,
-                                item.selectedColor
-                              )
-                            }
-                            className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[#E99C19] text-xl font-semibold text-[#7F0906] transition hover:bg-[#C82520] disabled:cursor-not-allowed disabled:opacity-40"
-                            disabled={item.selectedQuantity <= 0}
+                            aria-label={`Decrease quantity of ${item.name}`}
+                            onClick={() => updateQuantity(item.id, item.selectedQuantity - 1, item.selectedColor, item.selectedSize)}
+                            disabled={item.selectedQuantity <= 1}
+                            className="inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-l-xl transition hover:bg-black/5 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
+                            style={{ color: darkBlueHex, outlineColor: goldHex }}
                           >
-                            −
+                            <Minus className="h-4 w-4" />
                           </button>
-                          <span className="min-w-[2rem] text-center text-lg font-semibold text-[#7F0906]">
+                          <span className="min-w-[2.5rem] text-center text-sm font-semibold" style={{ color: darkBlueHex }}>
                             {item.selectedQuantity}
                           </span>
                           <button
                             type="button"
-                            onClick={() =>
-                              updateQuantity(
-                                item.id,
-                                item.selectedQuantity + 1,
-                                item.selectedColor
-                              )
-                            }
-                            className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[#E99C19] text-xl font-semibold text-[#7F0906] transition hover:bg-[#C82520]"
+                            aria-label={`Increase quantity of ${item.name}`}
+                            onClick={() => updateQuantity(item.id, item.selectedQuantity + 1, item.selectedColor, item.selectedSize)}
                             disabled={item.selectedQuantity >= item.quantity}
+                            className="inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-r-xl transition hover:bg-black/5 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
+                            style={{ color: darkBlueHex, outlineColor: goldHex }}
                           >
-                            +
+                            <Plus className="h-4 w-4" />
                           </button>
                         </div>
-                      </div>
 
-                      <div className="mt-6 grid gap-4 sm:grid-cols-[1fr_auto] sm:items-center">
-                        <div className="space-y-2">
-                          {item.price === null ? (
-                            <p className="text-sm font-semibold text-[#E99C19]">Price: Contact Finance</p>
-                          ) : (
-                            <p className="text-sm text-[#7F0906]">Unit price: Rs {item.price}</p>
-                          )}
-                          <p className="text-sm font-semibold text-[#7F0906]">
-                            Subtotal:{' '}
-                            {item.price === null
-                              ? 'Contact Finance'
-                              : `Rs ${item.price * item.selectedQuantity}`}
-                          </p>
-                        </div>
                         <button
                           type="button"
-                          onClick={() => removeFromCart(item.id, item.selectedColor)}
-                          className="inline-flex items-center justify-center rounded-full bg-[#C82520] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#7F0906]"
+                          aria-label={`Remove ${item.name} from cart`}
+                          onClick={() => removeFromCart(item.id, item.selectedColor, item.selectedSize)}
+                          className="inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl transition hover:bg-black/5 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2"
+                          style={{ color: MUTED, outlineColor: goldHex }}
                         >
-                          Remove
+                          <Trash2 className="h-5 w-5" />
                         </button>
                       </div>
-                    </div>
-                  ))}
+                    </li>
+                  );
+                })}
+              </ul>
+
+              {/* Secondary actions */}
+              <div className="mt-6 flex flex-wrap gap-3">
+                <Link
+                  href="/shop"
+                  className="inline-flex cursor-pointer items-center gap-2 rounded-full border px-5 py-3 text-sm font-semibold transition hover:bg-black/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+                  style={{ borderColor: darkBlueHex, color: darkBlueHex, outlineColor: goldHex }}
+                >
+                  <ShoppingBag className="h-4 w-4" />
+                  Continue Shopping
+                </Link>
+                <button
+                  type="button"
+                  onClick={clearCart}
+                  className="inline-flex cursor-pointer items-center gap-2 rounded-full border px-5 py-3 text-sm font-semibold transition hover:bg-black/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+                  style={{ borderColor: subtleBorder, color: MUTED, outlineColor: goldHex }}
+                >
+                  <Trash2 className="h-4 w-4" />
+                  Clear Cart
+                </button>
+              </div>
+
+              {/* Disclaimer + checkout */}
+              <div className="mt-6 grid gap-6 lg:grid-cols-[1fr_minmax(0,420px)] lg:items-start">
+                <div className="flex gap-3 rounded-3xl p-6 shadow-md" style={{ backgroundColor: whiteHex }}>
+                  <Info className="mt-0.5 h-5 w-5 shrink-0" style={{ color: goldHex }} />
+                  <div className="text-sm leading-6" style={{ color: MUTED }}>
+                    <p className="font-bold" style={{ color: darkBlueHex }}>Disclaimer</p>
+                    {/* ponytail: static copy — not DB-backed. */}
+                    <p className="mt-1">All products are official UOM souvenirs. Colors may vary slightly from images.</p>
+                    <p>We are not responsible for any delays caused by delivery partners.</p>
+                    <p>
+                      By proceeding, you agree to our{' '}
+                      <Link href="#" className="cursor-pointer font-semibold underline underline-offset-2" style={{ color: darkBlueHex }}>
+                        Terms &amp; Conditions
+                      </Link>
+                      .
+                    </p>
+                  </div>
                 </div>
 
-                <div className="space-y-6 rounded-[2rem] border-2 border-[#C82520] bg-white p-8 shadow-xl">
-                  <div className="space-y-4">
-                    <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#E99C19]">Order summary</p>
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm text-[#7F0906]">Total</span>
-                      <span className="text-3xl font-semibold text-[#7F0906]">Rs {totalPrice}</span>
-                    </div>
-                    {hasContactFinance && (
-                      <p className="text-sm leading-6 text-[#E99C19]">
-                        One or more items require finance pricing. Contact UoM Finance for the final receipt.
-                      </p>
-                    )}
+                <div className="flex flex-col gap-3 rounded-3xl p-6 shadow-md" style={{ backgroundColor: whiteHex }}>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-medium" style={{ color: MUTED }}>Subtotal</span>
+                    <span className="text-2xl font-bold" style={{ color: darkBlueHex }}>Rs {subtotal.toLocaleString()}</span>
                   </div>
-
+                  {/* ponytail: non-functional CTA — receipt generation is a separate task. */}
                   <button
                     type="button"
-                    className="w-full rounded-full bg-[#C82520] px-6 py-4 text-base font-semibold text-white transition hover:bg-[#7F0906]"
+                    className="inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl px-6 py-4 text-base font-semibold transition hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+                    style={{ backgroundColor: redHex, color: whiteHex, outlineColor: goldHex }}
                   >
+                    <Receipt className="h-5 w-5" />
                     Generate Receipt
                   </button>
-
-                  <button
-                    type="button"
-                    onClick={clearCart}
-                    className="w-full rounded-full border-2 border-[#C82520] bg-transparent px-6 py-4 text-sm font-semibold text-[#7F0906] transition hover:bg-[#E99C19]/20"
-                  >
-                    Clear Cart
-                  </button>
+                  <p className="text-center text-xs" style={{ color: MUTED }}>
+                    Taxes and delivery fees will be calculated on the next step.
+                  </p>
                 </div>
               </div>
-            )}
-
-          </div>
+            </>
+          )}
         </div>
       </main>
+
       <Footer />
     </div>
   );
