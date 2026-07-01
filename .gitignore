@@ -42,6 +42,7 @@ src/app/images/gifs
 #miscallaneous
 color-audits.txt
 mockups/
+products/
 
 # typescript
 *.tsbuildinfo

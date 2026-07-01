@@ -11,6 +11,7 @@ import lineartUom from "@/app/images/footer/lineartuom.png";
 import { footerLinks, type FooterLink } from "@/data/store-data";
 import { useSectionScroll } from "@/hooks/useSectionScroll";
 import ComingSoonModal from "./ComingSoonModal";
+import LegalModal from "./LegalModal";
 import { darkBlueHex as darkBlue, goldHex as gold, whiteHex as white, paleBlueHex as paleBlue, redHex as red, goldHex } from "@/constants/variables";
 // ponytail: Footer uses pinned hex exports (never var()) — Samsung Browser /
 // Opera GX don't resolve CSS custom properties reliably in SVG fill attributes
@@ -111,7 +112,7 @@ function FooterColumn({
 export default function Footer() {
   const [openModal, setOpenModal] = useState<"payment" | "terms" | "privacy" | null>(null);
 
-  const modalTitles = { payment: "Payment", terms: "Terms & Conditions", privacy: "Privacy Policy" };
+  const modalTitles = { payment: "Payment" };
 
   return (
     <footer id="contact" className="relative" style={{ color: white, ["--paper"]: white } as React.CSSProperties}>
@@ -238,10 +239,17 @@ export default function Footer() {
       </div>
 
       <ComingSoonModal
-        title={openModal ? modalTitles[openModal] : ""}
-        open={openModal !== null}
+        title={openModal === "payment" ? modalTitles.payment : ""}
+        open={openModal === "payment"}
         onClose={() => setOpenModal(null)}
       />
+      {(openModal === "terms" || openModal === "privacy") && (
+        <LegalModal
+          type={openModal}
+          open={openModal === "terms" || openModal === "privacy"}
+          onClose={() => setOpenModal(null)}
+        />
+      )}
     </footer>
   );
 }

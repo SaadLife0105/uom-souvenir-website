@@ -18,6 +18,25 @@
   fill: #B0E0F8; /* paleBlueHex */
 }
 
+/* ─── Legal modal scrollbar ─────────────────────────────────────────────────
+   Subtle thin scrollbar for the scrollable body of LegalModal. Mirrors
+   goldHex / deepBlueHex from variables.tsx — update both if palette changes.
+   ───────────────────────────────────────────────────────────────────────── */
+.scrollbar-thin-gold {
+  scrollbar-width: thin;
+  scrollbar-color: #BF9E60 transparent; /* goldHex track thumb */
+}
+.scrollbar-thin-gold::-webkit-scrollbar {
+  width: 8px;
+}
+.scrollbar-thin-gold::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scrollbar-thin-gold::-webkit-scrollbar-thumb {
+  background-color: #BF9E60; /* goldHex */
+  border-radius: 9999px;
+}
+
 html {
   /* Force one fixed light scheme for all visitors — opt out of OS/browser
      dark mode so UA-styled controls, scrollbars and form fields stay light.
