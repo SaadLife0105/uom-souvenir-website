@@ -2,7 +2,6 @@ import { Fragment } from "react";
 import { ArrowRight } from "lucide-react";
 import { workflowSteps } from "@/data/store-data";
 import { goldHex, darkBlueHex, blackHex, whiteHex, redHex, paleBlueHex } from "@/constants/variables";
-// ponytail: wave bg uses .steps-wave-bg CSS class — a plain CSS fill is more
 // reliable than var() in SVG on Samsung Browser / Opera GX.
 
 export default function WorkflowSteps() {
@@ -66,12 +65,9 @@ export default function WorkflowSteps() {
           preserveAspectRatio="none"
           className="pointer-events-none absolute top-0 left-[0px] w-[calc(100%+2px)] h-24 sm:h-40 z-10"
         >
-          {/* Top path matches the page background. Filled via the .steps-wave-bg
-              CSS class because var() is unreliable in SVG on Samsung Browser /
-              Opera GX. */}
           <path
             d="M 0 0 C 200 180, 400 0, 650 5 C 850 15, 950 180, 1100 30 L 1100 0 Z"
-            className="steps-wave-bg"
+            fill={paleBlueHex}
           />
           <path
             d="M 0 0 C 200 180, 400 0, 650 5 C 850 15, 950 180, 1100 30 L 1100 30 C 950 200, 850 15, 650 7 C 400 10, 200 190, 0 30 Z"

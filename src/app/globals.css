@@ -8,16 +8,6 @@
    (no dark mode); color-scheme:light below forces it for every visitor.
    ───────────────────────────────────────────────────────────────────────── */
 
-
-/* ─── StepsSection wave ────────────────────────────────────────────────────
-   Plain CSS class for the SVG fill — more reliable cross-browser than var()
-   in SVG attributes (Samsung Browser, Opera GX). Mirrors paleBlueHex /
-   --color-pale-blue in variables.tsx — update both if the palette changes.
-   ───────────────────────────────────────────────────────────────────────── */
-.steps-wave-bg {
-  fill: #B0E0F8; /* paleBlueHex */
-}
-
 /* ─── Legal modal scrollbar ─────────────────────────────────────────────────
    Subtle thin scrollbar for the scrollable body of LegalModal. Mirrors
    goldHex / deepBlueHex from variables.tsx — update both if palette changes.
