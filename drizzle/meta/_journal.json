@@ -15,6 +15,13 @@
       "when": 1782811008853,
       "tag": "0001_reflective_vulcan",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1783419183601,
+      "tag": "0002_overjoyed_catseye",
+      "breakpoints": true
     }
   ]
 }

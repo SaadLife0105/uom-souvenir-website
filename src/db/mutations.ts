@@ -4,7 +4,6 @@ import {
   products,
   productColors,
   users,
-  userAffiliations,
   reservations,
   reservationItems,
 } from './schema';
@@ -40,12 +39,6 @@ export async function createReservation(
       // 1. Resolve the guest identity by email (never trust a client-supplied user).
       const [guest] = await tx.select().from(users).where(eq(users.email, GUEST_EMAIL));
       if (!guest) throw new Error('Guest user not found — seed the guest record.');
-      const [guestAff] = await tx
-        .select()
-        .from(userAffiliations)
-        .where(eq(userAffiliations.userId, guest.id))
-        .limit(1);
-      if (!guestAff) throw new Error('Guest affiliation not found.');
 
       // 2. Load + LOCK every involved product row (FOR UPDATE) so a concurrent
       //    checkout can't oversell between our read and our stock decrement.
@@ -129,7 +122,7 @@ export async function createReservation(
         id: reservationId,
         receiptNumber: reservationId,
         userId: guest.id,
-        userAffiliationId: guestAff.id,
+        affiliation: guest.affiliation,
         paymentReferenceNumber: paymentReferenceNumber?.trim() || null,
         status: 'pending',
         totalAmountCents,

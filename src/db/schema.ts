@@ -8,7 +8,9 @@ import {
   uuid,
   timestamp,
   unique,
+  index,
 } from 'drizzle-orm/pg-core';
+import { relations } from 'drizzle-orm';
 
 // ---------------------------------------------------------------------------
 // Enums
@@ -19,13 +21,6 @@ export const reservationStatusEnum = pgEnum('reservation_status', [
   'confirmed',
   'collected',
   'cancelled',
-]);
-
-export const affiliationTypeEnum = pgEnum('affiliation_type', [
-  'student',
-  'staff',
-  'alumni',
-  'external',
 ]);
 
 // ---------------------------------------------------------------------------
@@ -39,41 +34,105 @@ const timestamps = {
 };
 
 // ---------------------------------------------------------------------------
-// Access control
-// ---------------------------------------------------------------------------
-
-export const roles = pgTable('roles', {
-  id:   uuid('id').primaryKey().defaultRandom(),
-  name: varchar('name', { length: 50 }).notNull().unique(),
-});
-
-// ---------------------------------------------------------------------------
-// Users & affiliations
+// Users
 // ---------------------------------------------------------------------------
 
 export const users = pgTable('users', {
-  id:           uuid('id').primaryKey().defaultRandom(),
-  email:        text('email').notNull().unique(),
-  name:         text('name').notNull(),
-  passwordHash: text('password_hash').notNull(),
-  roleId:       uuid('role_id').notNull().references(() => roles.id),
+  id:            text('id').primaryKey(),
+  email:         text('email').notNull().unique(),
+  name:          text('name').notNull(),
+  emailVerified: boolean('email_verified').notNull().default(false),
+  image:         text('image'),
+  role:          text('role').notNull().default('user'),
+  banned:        boolean('banned').default(false),
+  banReason:     text('ban_reason'),
+  banExpires:    timestamp('ban_expires'),
+  affiliation:   text('affiliation').notNull().default('none'),
   ...timestamps,
 });
 
-export const affiliations = pgTable('affiliations', {
-  id:   uuid('id').primaryKey().defaultRandom(),
-  code: varchar('code', { length: 50 }).notNull().unique(),
-  name: text('name').notNull(),
-  type: affiliationTypeEnum('type').notNull(),
-});
+// ---------------------------------------------------------------------------
+// Auth (better-auth managed)
+// ---------------------------------------------------------------------------
 
-export const userAffiliations = pgTable('user_affiliations', {
-  id:            uuid('id').primaryKey().defaultRandom(),
-  userId:        uuid('user_id').notNull().references(() => users.id, { onDelete: 'cascade' }),
-  affiliationId: uuid('affiliation_id').notNull().references(() => affiliations.id),
-  isPrimary:     boolean('is_primary').notNull().default(false),
-  ...timestamps,
-});
+export const sessions = pgTable(
+  "sessions",
+  {
+    id: text("id").primaryKey(),
+    expiresAt: timestamp("expires_at").notNull(),
+    token: text("token").notNull().unique(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at")
+      .$onUpdate(() => /* @__PURE__ */ new Date())
+      .notNull(),
+    ipAddress: text("ip_address"),
+    userAgent: text("user_agent"),
+    userId: text("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    impersonatedBy: text("impersonated_by"),
+  },
+  (table) => [index("sessions_userId_idx").on(table.userId)],
+);
+
+export const accounts = pgTable(
+  "accounts",
+  {
+    id: text("id").primaryKey(),
+    accountId: text("account_id").notNull(),
+    providerId: text("provider_id").notNull(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    accessToken: text("access_token"),
+    refreshToken: text("refresh_token"),
+    idToken: text("id_token"),
+    accessTokenExpiresAt: timestamp("access_token_expires_at"),
+    refreshTokenExpiresAt: timestamp("refresh_token_expires_at"),
+    scope: text("scope"),
+    password: text("password"),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at")
+      .$onUpdate(() => /* @__PURE__ */ new Date())
+      .notNull(),
+  },
+  (table) => [index("accounts_userId_idx").on(table.userId)],
+);
+
+export const verifications = pgTable(
+  "verifications",
+  {
+    id: text("id").primaryKey(),
+    identifier: text("identifier").notNull(),
+    value: text("value").notNull(),
+    expiresAt: timestamp("expires_at").notNull(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at")
+      .defaultNow()
+      .$onUpdate(() => /* @__PURE__ */ new Date())
+      .notNull(),
+  },
+  (table) => [index("verifications_identifier_idx").on(table.identifier)],
+);
+
+export const usersRelations = relations(users, ({ many }) => ({
+  sessionss: many(sessions),
+  accountss: many(accounts),
+}));
+
+export const sessionsRelations = relations(sessions, ({ one }) => ({
+  users: one(users, {
+    fields: [sessions.userId],
+    references: [users.id],
+  }),
+}));
+
+export const accountsRelations = relations(accounts, ({ one }) => ({
+  users: one(users, {
+    fields: [accounts.userId],
+    references: [users.id],
+  }),
+}));
 
 // ---------------------------------------------------------------------------
 // Products & catalog
@@ -124,9 +183,9 @@ export const productColors = pgTable('product_colors', {
 
 export const reservations = pgTable('reservations', {
   id:                uuid('id').primaryKey().defaultRandom(),
-  userId:            uuid('user_id').notNull().references(() => users.id),
-  // Snapshot of which affiliation the buyer held at checkout time
-  userAffiliationId: uuid('user_affiliation_id').notNull().references(() => userAffiliations.id),
+  userId:            text('user_id').notNull().references(() => users.id),
+  // Snapshot of the buyer's affiliation at reservation time — never re-read from users table
+  affiliation:       text('affiliation').notNull(),
   receiptNumber:     varchar('receipt_number', { length: 50 }).notNull().unique(),
   // Customer-entered at checkout (e.g. bank transfer reference). Optional —
   // not all payment methods produce one.
@@ -138,7 +197,7 @@ export const reservations = pgTable('reservations', {
   expiresAt:         timestamp('expires_at').notNull(),
   collectedAt:       timestamp('collected_at'),
   // SET NULL so the reservation row survives if the staff account is deleted
-  collectedBy:       uuid('collected_by').references(() => users.id, { onDelete: 'set null' }),
+  collectedBy:       text('collected_by').references(() => users.id, { onDelete: 'set null' }),
   notes:             text('notes'),
 });
 
@@ -165,7 +224,7 @@ export const reservationItems = pgTable('reservation_items', {
 export const auditLogs = pgTable('audit_logs', {
   id:         uuid('id').primaryKey().defaultRandom(),
   // SET NULL so logs survive if an admin account is deleted
-  adminId:    uuid('admin_id').references(() => users.id, { onDelete: 'set null' }),
+  adminId:    text('admin_id').references(() => users.id, { onDelete: 'set null' }),
   action:     varchar('action', { length: 100 }).notNull(), // e.g. 'product.update', 'reservation.cancel'
   targetType: varchar('target_type', { length: 50 }).notNull(), // e.g. 'product', 'reservation'
   targetId:   uuid('target_id').notNull(), // no FK — logs must survive target deletion
@@ -177,11 +236,11 @@ export const auditLogs = pgTable('audit_logs', {
 // Inferred types
 // ---------------------------------------------------------------------------
 
-export type Role               = typeof roles.$inferSelect;
 export type User               = typeof users.$inferSelect;
 export type NewUser            = typeof users.$inferInsert;
-export type Affiliation        = typeof affiliations.$inferSelect;
-export type UserAffiliation    = typeof userAffiliations.$inferSelect;
+export type Session            = typeof sessions.$inferSelect;
+export type Account            = typeof accounts.$inferSelect;
+export type Verification       = typeof verifications.$inferSelect;
 export type Product            = typeof products.$inferSelect;
 export type NewProduct         = typeof products.$inferInsert;
 export type ProductCategory    = typeof productCategories.$inferSelect;

@@ -1,5 +1,4 @@
 import 'dotenv/config';
-import { eq } from 'drizzle-orm';
 import { neon } from '@neondatabase/serverless';
 import { drizzle } from 'drizzle-orm/neon-http';
 import * as schema from './schema';
@@ -9,31 +8,6 @@ const db = drizzle(sql, { schema });
 
 async function main() {
   console.log('🌱 Seeding...');
-
-  // ---------------------------------------------------------------------------
-  // Roles
-  // ---------------------------------------------------------------------------
-  const [adminRole, userRole] = await db
-    .insert(schema.roles)
-    .values([
-      { name: 'admin' },
-      { name: 'user' },
-    ])
-    .returning();
-
-  console.log('✓ Roles');
-
-  // ---------------------------------------------------------------------------
-  // Affiliations
-  // ---------------------------------------------------------------------------
-  await db.insert(schema.affiliations).values([
-    { code: 'STU', name: 'Student',  type: 'student'  },
-    { code: 'STF', name: 'Staff',    type: 'staff'    },
-    { code: 'ALU', name: 'Alumni',   type: 'alumni'   },
-    { code: 'EXT', name: 'External', type: 'external' },
-  ]);
-
-  console.log('✓ Affiliations');
 
   // ---------------------------------------------------------------------------
   // Categories
@@ -126,30 +100,17 @@ async function main() {
   // ---------------------------------------------------------------------------
   // Guest user (temporary)
   // ---------------------------------------------------------------------------
-  // ponytail: placeholder identity for reservations until better-auth lands.
-  // reservations.userId / userAffiliationId are NOT NULL and there's no auth
-  // system yet, so every reservation references this fixed guest record. Kept
-  // greppable via the 'guest@uom-souvenir.local' email — swap out for real
-  // session users once auth exists.
-  const [externalAffiliation] = await db
-    .select()
-    .from(schema.affiliations)
-    .where(eq(schema.affiliations.code, 'EXT'));
-
-  const [guestUser] = await db
-    .insert(schema.users)
-    .values({
-      email:        'guest@uom-souvenir.local',
-      name:         'Guest',
-      passwordHash: 'GUEST_NO_LOGIN', // placeholder — guest never authenticates
-      roleId:       userRole.id,
-    })
-    .returning();
-
-  await db.insert(schema.userAffiliations).values({
-    userId:        guestUser.id,
-    affiliationId: externalAffiliation.id,
-    isPrimary:     true,
+  // ponytail: placeholder identity for reservations until real login lands
+  // (Step 6 of our plan). reservations.userId is NOT NULL and there's no
+  // session-based auth wired up yet, so every reservation references this
+  // fixed guest record. Kept greppable via the 'guest@uom-souvenir.local'
+  // email — swap out for real session users once login exists.
+  await db.insert(schema.users).values({
+    id:          crypto.randomUUID(),
+    email:       'guest@uom-souvenir.local',
+    name:        'Guest',
+    role:        'user',
+    affiliation: 'none',
   });
 
   console.log('✓ Guest user');
