@@ -116,27 +116,28 @@ export default function Footer() {
 
   return (
     <footer id="contact" className="relative" style={{ color: white, ["--paper"]: white } as React.CSSProperties}>
-      {/* Curved top edge — same wavy polygon as the steps section.
-          Area above the wave is paleBlue (matches the section above),
-          the gold band follows the wave, and darkBlue fills the footer body. */}
-      <svg
-        viewBox="0 0 1100 200"
-        preserveAspectRatio="none"
-        className="pointer-events-none block h-24 w-full sm:h-40"
-      >
-        <path
-          d="M 0 0 C 200 180, 400 0, 650 5 C 850 15, 950 180, 1100 30 L 1100 0 Z"
-          fill={paleBlue}
-        />
-        <path
-          d="M 0 0 C 200 180, 400 0, 650 5 C 850 15, 950 180, 1100 30 L 1100 30 C 950 200, 850 15, 650 7 C 400 10, 200 190, 0 30 Z"
-          fill={gold}
-        />
-        <path
-          d="M 0 30 C 200 190, 400 10, 650 7 C 850 15, 950 200, 1100 30 L 1100 200 L 0 200 Z"
-          fill={darkBlue}
-        />
+      {/* Curved top edge — clipPath refactor (mirrors StepsSection): the
+          dark-blue body edge is genuinely wave-shaped via SVG clips instead of
+          a painted overlay polygon. paleBlue fills above the crest, a gold band
+          rides the wave, darkBlue fills below. Same viewBox 1100x200 wave as
+          before mapped to a fixed-height strip, so geometry is identical at
+          both breakpoints. Two objectBoundingBox curves an offset apart: the
+          gold shows in the band between them. */}
+      <svg width="0" height="0" aria-hidden="true" style={{ position: "absolute" }}>
+        <defs>
+          <clipPath id="footer-wave-gold" clipPathUnits="objectBoundingBox">
+            <path d="M 0 0 C 0.1818 0.9, 0.3636 0, 0.5909 0.025 C 0.7727 0.075, 0.8636 0.9, 1 0.15 L 1 1 L 0 1 Z" />
+          </clipPath>
+          <clipPath id="footer-wave-dark" clipPathUnits="objectBoundingBox">
+            <path d="M 0 0.15 C 0.1818 0.95, 0.3636 0.05, 0.5909 0.035 C 0.7727 0.075, 0.8636 1, 1 0.15 L 1 1 L 0 1 Z" />
+          </clipPath>
+        </defs>
       </svg>
+
+      <div className="relative block h-24 w-full sm:h-40" style={{ backgroundColor: paleBlue }}>
+        <div className="absolute inset-0" style={{ backgroundColor: gold, clipPath: "url(#footer-wave-gold)" }} />
+        <div className="absolute inset-0" style={{ backgroundColor: darkBlue, clipPath: "url(#footer-wave-dark)" }} />
+      </div>
 
       {/* Main body */}
       <div className="relative -mt-px overflow-x-clip" style={{ backgroundColor: darkBlue }}>

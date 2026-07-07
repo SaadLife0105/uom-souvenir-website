@@ -7,8 +7,22 @@ import { goldHex, darkBlueHex, blackHex, whiteHex, redHex, paleBlueHex } from "@
 export default function WorkflowSteps() {
   return (
     <section id="steps" className="px-[15px] pt-[40px] pb-[50px] md:px-[20px]" style={{ backgroundColor: paleBlueHex }}>
+      {/* objectBoundingBox clips: derived from the old overlay's viewBox 1100x200 wave,
+          mapped against the box's rendered size (h-40 wave over the full box height).
+          Two curves an offset apart form the gold stroke band between them. */}
+      <svg width="0" height="0" aria-hidden="true" style={{ position: "absolute" }}>
+        <defs>
+          <clipPath id="steps-wave-gold" clipPathUnits="objectBoundingBox">
+            <path d="M 0 0 C 0.1818 0.2722, 0.3636 0, 0.5909 0.0076 C 0.7727 0.0227, 0.8636 0.2722, 1 0.0454 L 1 1 L 0 1 Z" />
+          </clipPath>
+          <clipPath id="steps-wave-clip" clipPathUnits="objectBoundingBox">
+            <path d="M 0 0.0454 C 0.1818 0.2873, 0.3636 0.0151, 0.5909 0.0106 C 0.7727 0.0227, 0.8636 0.3025, 1 0.0454 L 1 1 L 0 1 Z" />
+          </clipPath>
+        </defs>
+      </svg>
       <div className="relative rounded-b-3xl border-l-2 border-r-2 border-b-2" style={{ borderColor: goldHex }}>
-        <div className="overflow-hidden rounded-b-3xl" style={{ backgroundColor: whiteHex }}>
+        <div className="absolute inset-0 rounded-b-3xl" style={{ backgroundColor: goldHex, clipPath: "url(#steps-wave-gold)" }} />
+        <div className="relative z-10 overflow-hidden rounded-b-3xl" style={{ backgroundColor: whiteHex, clipPath: "url(#steps-wave-clip)" }}>
           <div className="relative -top-[20px] flex flex-col gap-4 px-4 pb-4 pt-24 sm:gap-8 sm:p-10 sm:pt-44 md:flex-row md:items-start md:gap-12">
 
             {/* Left: heading + divider + description */}
@@ -59,21 +73,6 @@ export default function WorkflowSteps() {
             </div>
           </div>
         </div>
-
-        <svg
-          viewBox="0 0 1100 200"
-          preserveAspectRatio="none"
-          className="pointer-events-none absolute top-0 left-[0px] w-[calc(100%+2px)] h-24 sm:h-40 z-10"
-        >
-          <path
-            d="M 0 0 C 200 180, 400 0, 650 5 C 850 15, 950 180, 1100 30 L 1100 0 Z"
-            fill={paleBlueHex}
-          />
-          <path
-            d="M 0 0 C 200 180, 400 0, 650 5 C 850 15, 950 180, 1100 30 L 1100 30 C 950 200, 850 15, 650 7 C 400 10, 200 190, 0 30 Z"
-            fill={goldHex}
-          />
-        </svg>
       </div>
     </section>
   );

@@ -109,39 +109,41 @@ Current gaps
 
 Last Updated
 ------------
-- Date: 2026-06-30
-- Commit: 60613a7 "loading screen before receipt page" (changes below are
-  uncommitted working-tree edits made after this commit)
-- Follow-up fixes on top of the navbar/footer/shop wiring pass:
-  - Root cause of "footer category links do nothing while already on /shop":
-    ShopContent previously seeded `selectedCategory` from an `initialCategory`
-    prop via useState's initial value, which only applies on first mount. Since
-    /shop -> /shop (same route, different `category` search param) is a
-    client-side transition that reuses the mounted ShopContent instance, the
-    prop changed but the state never re-derived from it.
-  - Fix: ShopContent now reads `category` reactively via `useSearchParams()`
-    and syncs it into state with a `useEffect` keyed on the param (not just on
-    mount). This fixes same-page footer clicks AND keeps working for
-    cross-page navigation (home/product/receipt -> /shop?category=...).
-    ShopPage (src/app/shop/page.tsx) no longer reads searchParams server-side
-    at all — it just renders <Suspense><ShopContent products={...} /></Suspense>
-    (Suspense required because useSearchParams is now a client hook). This
-    also let /shop go back to fully static (○) in the build output.
-  - Added a Back button to ShopContent's hero (src/components/shop/ShopContent.tsx):
-    Lucide ArrowLeft, rounded-full white pill with shadow-md (matches the
-    existing soft-UI look), router.back() with a window.history.length > 1
-    fallback to router.push('/'). ponytail-flagged: history.length is a known
-    coarse heuristic — verified the true "no history" branch by stubbing
-    history.length in a Playwright addInitScript (Playwright's own
-    browser.newPage() always seeds about:blank first, so it can't represent a
-    truly fresh tab's history.length=1 directly).
-  - Navbar profile IconButton (src/components/layout/Navbar.tsx) now uses the
-    same border as the cart icon's default state — `1px solid ${blackHex}` —
-    replacing its old `color-mix(... whiteHex 30% ...)` border, for visual
-    parity between the two circular icon buttons.
-  - No new dependencies. Verified with a throwaway Playwright script (project
-    has `playwright`, not `@playwright/test`) against the dev server: same-page
-    footer category clicks on /shop, cross-page footer clicks from home and a
-    product detail page, back button (real back-nav + stubbed no-history
-    fallback), and cart/profile border equality via getComputedStyle — all
-    passed, zero console errors. typecheck + `next build` both pass.
+- Date: 2026-07-06 11:43
+- Commit: b7fe087 "minor fix for steps svg" (change below is an uncommitted
+  working-tree edit made after this commit)
+- StepsSection wave top edge (src/components/home/StepsSection.tsx) refactored
+  from an absolutely-positioned overlay SVG to SVG clipPaths, per request:
+  - The old approach drew a plain white rectangle and painted a paleBlue+gold
+    overlay SVG on top of it to fake the wave. Removed entirely. The section
+    background is now plainly paleBlueHex and the box is genuinely shaped.
+  - Two objectBoundingBox clipPaths in a hidden <defs> svg: `steps-wave-gold`
+    (outer curve) clips a gold-filled `absolute inset-0` layer; `steps-wave-clip`
+    (same curve offset ~24px lower) clips the white content layer (now
+    `relative z-10` so it paints above the gold layer). The gold wave "stroke"
+    is the band that shows between the two curves. Both clips are
+    objectBoundingBox so they scale together and stay aligned at any box size.
+  - Clip coordinates were derived from the old overlay's viewBox 1100x200 wave,
+    measured against the real rendered box via Playwright (white box 1492x529,
+    wave region 160px at 1536px viewport) and converted to bounding-box
+    fractions (x/1100, y*0.8/529).
+  - Verified with Playwright against the dev server: before/after screenshots
+    of #steps differ by only 0.53% (sub-pixel anti-aliasing along the ~1500px
+    wave edge); mobile (390px) renders the wave cleanly with the heading clear
+    of the trough and no content clipped.
+- Footer top wave (src/components/layout/Footer.tsx) refactored the same way,
+  from the 3-path in-flow SVG (paleBlue/gold/darkBlue polygons) to clipPaths:
+  - A fixed-height wave strip (h-24 sm:h-40) with a paleBlue base; two
+    absolute-inset layers on top clip to `footer-wave-gold` (outer curve) and
+    `footer-wave-dark` (curve offset lower). paleBlue shows above the crest,
+    gold in the band between the curves, darkBlue below — the body div still
+    follows with -mt-px, seamless.
+  - Because the strip keeps the old fixed height + viewBox 1100x200 mapping,
+    the objectBoundingBox fractions are the exact clean values (x/1100, y/200),
+    so geometry is pixel-identical to the old SVG at both breakpoints (unlike
+    #steps, whose clip scales with the box height). paleBlue stays as the
+    strip's base because the footer renders on many pages with varying content
+    above it — the old SVG painted paleBlue explicitly for the same reason.
+  - Verified with Playwright: before/after footer screenshots differ by only
+    0.45%, all along the wave edge (anti-aliasing). No new deps, no new files;
+    only StepsSection.tsx and Footer.tsx changed.
