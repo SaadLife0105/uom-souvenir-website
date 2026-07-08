@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "seed": "tsx src/db/seed.ts"
+    "seed": "tsx src/db/seed.ts",
+    "seed:superadmin": "tsx src/db/seed-superadmin.ts"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.1.0",
