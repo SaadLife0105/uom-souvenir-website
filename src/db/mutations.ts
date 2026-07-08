@@ -6,6 +6,8 @@ import {
   users,
   reservations,
   reservationItems,
+  sessions,
+  accounts,
 } from './schema';
 
 // Must match the seeded guest in src/db/seed.ts. We look the guest up by email
@@ -143,4 +145,65 @@ export async function createReservation(
     console.error('createReservation failed:', err);
     return { ok: false, error: 'Could not create reservation. Please try again.' };
   }
+}
+
+export type DeleteUserResult =
+  | { ok: true; mode: 'anonymized' | 'deleted' }
+  | { ok: false; error: string };
+
+// Admin-initiated user deletion. NOT the same as better-auth's admin.removeUser
+// endpoint — that hard-deletes unconditionally with no hook, which would break
+// our reservations FK and destroy sales history. This function is the one and
+// only path admin/superadmin actions should call to remove a user.
+//
+// Rules:
+//   - superadmin can never be deleted (by anyone, including itself)
+//   - admin accounts can only be deleted by superadmin
+//   - regular users can be deleted by either admin role
+//   - if the target has any reservations, we ANONYMIZE (preserve receipt/sales
+//     history) instead of hard-deleting
+//   - either way, their sessions/accounts are removed so they're logged out
+//     and can't sign back in
+export async function deleteUserByAdmin(
+  targetUserId: string,
+  actingUserRole: 'user' | 'admin' | 'superadmin',
+): Promise<DeleteUserResult> {
+  return await txDb.transaction(async (tx) => {
+    const [target] = await tx.select().from(users).where(eq(users.id, targetUserId));
+    if (!target) return { ok: false, error: 'User not found.' };
+
+    if (target.role === 'superadmin') {
+      return { ok: false, error: 'The superadmin account cannot be deleted.' };
+    }
+    if (target.role === 'admin' && actingUserRole !== 'superadmin') {
+      return { ok: false, error: 'Only the superadmin can delete an admin account.' };
+    }
+
+    // Does this user have any reservations? If so, anonymize instead of
+    // hard-deleting, to preserve sales/receipt history.
+    const [existingReservation] = await tx
+      .select({ id: reservations.id })
+      .from(reservations)
+      .where(eq(reservations.userId, targetUserId))
+      .limit(1);
+
+    // Either way: kill active sessions/credentials so they can't log back in.
+    await tx.delete(sessions).where(eq(sessions.userId, targetUserId));
+    await tx.delete(accounts).where(eq(accounts.userId, targetUserId));
+
+    if (existingReservation) {
+      await tx
+        .update(users)
+        .set({
+          name: 'Deleted User',
+          email: `deleted-${targetUserId}@uom-souvenir.local`,
+          affiliation: 'none',
+        })
+        .where(eq(users.id, targetUserId));
+      return { ok: true, mode: 'anonymized' };
+    }
+
+    await tx.delete(users).where(eq(users.id, targetUserId));
+    return { ok: true, mode: 'deleted' };
+  });
 }
