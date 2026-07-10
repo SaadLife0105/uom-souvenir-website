@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ShoppingBag } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
+import { useReserveGate } from '@/context/ReserveGateContext';
 import { darkBlueHex, whiteHex, goldHex, creamHex } from '@/constants/variables';
 
 const PLACEHOLDER_IMAGE =
@@ -11,6 +12,7 @@ const PLACEHOLDER_IMAGE =
 
 export default function CartSummary() {
   const { cartItems, getTotalPrice } = useCart();
+  const { requireAuth } = useReserveGate();
   const itemCount = cartItems.reduce((count, item) => count + item.selectedQuantity, 0);
 
   return (
@@ -67,6 +69,11 @@ export default function CartSummary() {
           href="/cart"
           className="cursor-pointer text-center text-sm font-semibold underline-offset-4 transition hover:underline"
           style={{ color: goldHex }}
+          onClick={(e) => {
+            if (!requireAuth()) {
+              e.preventDefault();
+            }
+          }}
         >
           View Cart
         </Link>

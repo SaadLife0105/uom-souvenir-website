@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Playfair_Display } from "next/font/google";
 import { CartProvider } from "@/context/CartContext";
+import { ReserveGateProvider } from "@/context/ReserveGateContext";
+import ReserveGateModal from "@/components/layout/ReserveGateModal";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -41,7 +43,10 @@ export default function RootLayout({
       data-scroll-behavior="smooth"
     >
       <body className="min-h-full flex flex-col overflow-x-hidden w-full max-w-full">
-        <CartProvider>{children}</CartProvider>
+        <ReserveGateProvider>
+          <CartProvider>{children}</CartProvider>
+          <ReserveGateModal />
+        </ReserveGateProvider>
       </body>
     </html>
   );

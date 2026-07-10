@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Ruler, Check, ShoppingBag, Minus, Plus, AlertTriangle } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
+import { useReserveGate } from '@/context/ReserveGateContext';
 import type { ShopProductData } from '@/db/queries';
 import type { ShopProduct } from '@/data/store-data';
 import { darkBlueHex, whiteHex, goldHex, redHex } from '@/constants/variables';
@@ -17,6 +18,7 @@ const LOW_STOCK_THRESHOLD = 5;
 
 export default function ProductBuyPanel({ product }: { product: ShopProductData }) {
   const { cartItems, addToCart } = useCart();
+  const { requireAuth } = useReserveGate();
   const isApparel = product.category === 'Apparel';
   const [selectedColor, setSelectedColor] = useState<string | undefined>(product.colors[0]?.name);
   const [selectedSize, setSelectedSize] = useState<string | undefined>(isApparel ? 'M' : undefined);
@@ -43,6 +45,7 @@ export default function ProductBuyPanel({ product }: { product: ShopProductData 
   };
 
   const handleAddToCart = () => {
+    if (!requireAuth()) return;
     if (cartAtMax) {
       setStockWarning(true);
       return;
