@@ -43,6 +43,7 @@ src/app/images/gifs
 color-audits.txt
 mockups/
 products/
+testing-local/
 
 # typescript
 *.tsbuildinfo

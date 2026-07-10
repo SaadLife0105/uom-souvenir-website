@@ -2,29 +2,19 @@
 
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ShoppingBag, User, Menu, X } from "lucide-react";
 import uomLogo from "@/app/images/sceo-logo.png";
 import { navLinks } from "@/data/store-data";
+import { authClient } from "@/lib/auth-client";
 import { useCart } from "@/context/CartContext";
 import { useSectionScroll } from "@/hooks/useSectionScroll";
 import { blackHex, redHex, whiteHex } from "@/constants/variables";
 
-const IconButton = ({ label, icon }: { label: string; icon: ReactNode }) => (
-  <button
-    type="button"
-    className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-transparent transition"
-    style={{ color: blackHex, border: `1px solid ${blackHex}` }}
-  >
-    <span className="sr-only">{label}</span>
-    {icon}
-  </button>
-);
-
 export default function Navbar() {
   const pathname = usePathname();
+  const { data: session } = authClient.useSession();
   const { navigateToSection, isHome } = useSectionScroll();
   const [activeHref, setActiveHref] = useState("");
   const [isOpen, setIsOpen] = useState(false);
@@ -159,7 +149,15 @@ export default function Navbar() {
               <span className="absolute -top-1 h-3 w-3 rounded-full" style={{ right: '1px', backgroundColor: redHex }} />
             )}
           </Link>
-          <IconButton label="Account" icon={<User className="h-5 w-5" style={{ color: blackHex }} />} />
+          <Link
+            href={session ? "/account" : "/sign-in"}
+            className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-transparent transition"
+            style={{ color: blackHex, border: `1px solid ${blackHex}` }}
+            onClick={() => setIsOpen(false)}
+          >
+            <span className="sr-only">Account</span>
+            <User className="h-5 w-5" style={{ color: blackHex }} />
+          </Link>
         </div>
       </div>
 
