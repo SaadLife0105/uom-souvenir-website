@@ -1,4 +1,4 @@
-import { eq, inArray } from 'drizzle-orm';
+import { eq, inArray, desc } from 'drizzle-orm';
 import { db } from './index';
 import {
   products,
@@ -157,4 +157,39 @@ export async function getReservationById(id: string): Promise<ReservationData | 
       unitTotalCents: item.unitTotalCents,
     })),
   };
+}
+
+export async function getReservationsByUserId(userId: string): Promise<ReservationData[]> {
+  const userReservations = await db
+    .select()
+    .from(reservations)
+    .where(eq(reservations.userId, userId))
+    .orderBy(desc(reservations.reservedAt));
+
+  if (userReservations.length === 0) return [];
+
+  const reservationIds = userReservations.map((r) => r.id);
+  const items = await db
+    .select()
+    .from(reservationItems)
+    .where(inArray(reservationItems.reservationId, reservationIds));
+
+  return userReservations.map((reservation) => ({
+    id: reservation.id,
+    receiptNumber: reservation.receiptNumber,
+    status: reservation.status,
+    paymentReferenceNumber: reservation.paymentReferenceNumber,
+    totalAmountCents: reservation.totalAmountCents,
+    reservedAt: reservation.reservedAt,
+    expiresAt: reservation.expiresAt,
+    items: items
+      .filter((item) => item.reservationId === reservation.id)
+      .map((item) => ({
+        id: item.id,
+        quantity: item.quantity,
+        unitPriceCents: item.unitPriceCents,
+        itemLabel: item.itemLabel,
+        unitTotalCents: item.unitTotalCents,
+      })),
+  }));
 }
