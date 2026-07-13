@@ -1,5 +1,7 @@
 'use server';
 
+import { headers } from 'next/headers';
+import { auth } from '@/lib/auth';
 import { createReservation, type CartLineInput, type CreateReservationResult } from '@/db/mutations';
 
 export interface SubmitReservationInput {
@@ -13,6 +15,11 @@ export interface SubmitReservationInput {
 export async function submitReservation(
   input: SubmitReservationInput,
 ): Promise<CreateReservationResult> {
+  const session = await auth.api.getSession({ headers: await headers() });
+  if (!session) {
+    return { ok: false, error: 'You must be signed in to reserve items.' };
+  }
+
   const items = (input.items ?? []).map((line) => ({
     id: line.id,
     selectedColor: line.selectedColor,
@@ -20,5 +27,5 @@ export async function submitReservation(
     selectedQuantity: line.selectedQuantity,
   }));
 
-  return createReservation(items, input.paymentReferenceNumber);
+  return createReservation(items, session.user.id, input.paymentReferenceNumber);
 }

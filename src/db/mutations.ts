@@ -10,9 +10,6 @@ import {
   accounts,
 } from './schema';
 
-// Must match the seeded guest in src/db/seed.ts. We look the guest up by email
-// (queried below) rather than hardcoding its UUID, so a re-seed can't desync it.
-const GUEST_EMAIL = 'guest@uom-souvenir.local';
 const RESERVATION_TTL_MS = 14 * 24 * 60 * 60 * 1000; // 14 days
 
 export interface CartLineInput {
@@ -32,15 +29,16 @@ export type CreateReservationResult =
 
 export async function createReservation(
   items: CartLineInput[],
+  userId: string,
   paymentReferenceNumber?: string | null,
 ): Promise<CreateReservationResult> {
   if (items.length === 0) return { ok: false, error: 'Your cart is empty.' };
 
   try {
     return await txDb.transaction(async (tx) => {
-      // 1. Resolve the guest identity by email (never trust a client-supplied user).
-      const [guest] = await tx.select().from(users).where(eq(users.email, GUEST_EMAIL));
-      if (!guest) throw new Error('Guest user not found — seed the guest record.');
+      // 1. Resolve the buyer identity by id (never trust a client-supplied user object).
+      const [buyer] = await tx.select().from(users).where(eq(users.id, userId));
+      if (!buyer) throw new Error('User not found.');
 
       // 2. Load + LOCK every involved product row (FOR UPDATE) so a concurrent
       //    checkout can't oversell between our read and our stock decrement.
@@ -123,8 +121,8 @@ export async function createReservation(
       await tx.insert(reservations).values({
         id: reservationId,
         receiptNumber: reservationId,
-        userId: guest.id,
-        affiliation: guest.affiliation,
+        userId: buyer.id,
+        affiliation: buyer.affiliation,
         paymentReferenceNumber: paymentReferenceNumber?.trim() || null,
         status: 'pending',
         totalAmountCents,
