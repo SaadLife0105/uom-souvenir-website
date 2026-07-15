@@ -6,7 +6,7 @@ import { useCart } from '@/context/CartContext';
 import { useReserveGate } from '@/context/ReserveGateContext';
 import type { ShopProductData } from '@/db/queries';
 import type { ShopProduct } from '@/data/store-data';
-import { darkBlueHex, whiteHex, goldHex, redHex } from '@/constants/variables';
+import { camelHex, whiteSmokeHex, racingRedHex } from '@/constants/variables';
 
 // ponytail: sizes are UI-only — the schema has no sizes table/column. Standard
 // apparel run, hardcoded client-side. A real sizes table would be needed to vary
@@ -69,7 +69,7 @@ export default function ProductBuyPanel({ product }: { product: ShopProductData 
     setTimeout(() => setAdded(false), 1500);
   };
 
-  const subtleBorder = `color-mix(in srgb, ${darkBlueHex} 12%, transparent)`;
+  const subtleBorder = `color-mix(in srgb, ${camelHex} 12%, transparent)`;
 
   return (
     <div className="flex flex-col gap-6 border-t pt-6" style={{ borderColor: subtleBorder }}>
@@ -77,7 +77,7 @@ export default function ProductBuyPanel({ product }: { product: ShopProductData 
       {product.colors.length > 0 && (
         <div>
           <div className="mb-3 flex items-center gap-2">
-            <span className="text-sm font-semibold" style={{ color: darkBlueHex }}>Color</span>
+            <span className="text-sm font-semibold" style={{ color: camelHex }}>Color</span>
             {selectedColor && <span className="text-sm text-[#5b6b86]">{selectedColor}</span>}
           </div>
           <div className="flex flex-wrap gap-3">
@@ -98,9 +98,9 @@ export default function ProductBuyPanel({ product }: { product: ShopProductData 
                   className="h-9 w-9 cursor-pointer rounded-full border-2 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
                   style={{
                     backgroundColor: color.hexCode,
-                    borderColor: active ? darkBlueHex : 'transparent',
-                    boxShadow: active ? `0 0 0 2px ${whiteHex} inset` : undefined,
-                    outlineColor: goldHex,
+                    borderColor: active ? camelHex : 'transparent',
+                    boxShadow: active ? `0 0 0 2px ${whiteSmokeHex} inset` : undefined,
+                    outlineColor: camelHex,
                   }}
                 />
               );
@@ -112,7 +112,7 @@ export default function ProductBuyPanel({ product }: { product: ShopProductData 
       {/* Size — apparel only (drinkware/stationery have no sizes) */}
       {isApparel && (
         <div>
-          <p className="mb-3 text-sm font-semibold" style={{ color: darkBlueHex }}>Size</p>
+          <p className="mb-3 text-sm font-semibold" style={{ color: camelHex }}>Size</p>
           <div className="flex flex-wrap gap-2">
             {APPAREL_SIZES.map((size) => {
               const active = selectedSize === size;
@@ -128,10 +128,10 @@ export default function ProductBuyPanel({ product }: { product: ShopProductData 
                   }}
                   className="inline-flex h-11 min-w-[2.75rem] cursor-pointer items-center justify-center rounded-xl border px-3 text-sm font-medium transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
                   style={{
-                    borderColor: active ? darkBlueHex : `color-mix(in srgb, ${darkBlueHex} 25%, transparent)`,
-                    backgroundColor: active ? darkBlueHex : 'transparent',
-                    color: active ? whiteHex : darkBlueHex,
-                    outlineColor: goldHex,
+                    borderColor: active ? camelHex : `color-mix(in srgb, ${camelHex} 25%, transparent)`,
+                    backgroundColor: active ? camelHex : 'transparent',
+                    color: active ? whiteSmokeHex : camelHex,
+                    outlineColor: camelHex,
                   }}
                 >
                   {size}
@@ -140,7 +140,7 @@ export default function ProductBuyPanel({ product }: { product: ShopProductData 
             })}
           </div>
           {/* ponytail: no size-guide content/page yet — static affordance, non-interactive */}
-          <span className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium" style={{ color: darkBlueHex }}>
+          <span className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium" style={{ color: camelHex }}>
             <Ruler className="h-4 w-4" />
             Size Guide
           </span>
@@ -149,7 +149,7 @@ export default function ProductBuyPanel({ product }: { product: ShopProductData 
 
       {/* Stock level */}
       {!product.isDisplayItem && (
-        <p className="text-sm font-semibold" style={{ color: outOfStock || lowStock ? redHex : '#5b6b86' }}>
+        <p className="text-sm font-semibold" style={{ color: outOfStock || lowStock ? racingRedHex : '#5b6b86' }}>
           {outOfStock ? 'Out of stock' : lowStock ? `Only ${product.stock} left` : `${product.stock} in stock`}
         </p>
       )}
@@ -157,7 +157,7 @@ export default function ProductBuyPanel({ product }: { product: ShopProductData 
       {/* Quantity stepper */}
       {!product.isDisplayItem && !outOfStock && (
         <div>
-          <p className="mb-3 text-sm font-semibold" style={{ color: darkBlueHex }}>Quantity</p>
+          <p className="mb-3 text-sm font-semibold" style={{ color: camelHex }}>Quantity</p>
           <div className="inline-flex items-center gap-3 rounded-full border px-2 py-1.5" style={{ borderColor: subtleBorder }}>
             <button
               type="button"
@@ -165,11 +165,11 @@ export default function ProductBuyPanel({ product }: { product: ShopProductData 
               onClick={() => setQuantity((q) => Math.max(1, q - 1))}
               disabled={quantity <= 1}
               className="inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-full transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
-              style={{ color: darkBlueHex, outlineColor: goldHex }}
+              style={{ color: camelHex, outlineColor: camelHex }}
             >
               <Minus className="h-4 w-4" />
             </button>
-            <span className="w-6 text-center text-sm font-semibold" style={{ color: darkBlueHex }}>
+            <span className="w-6 text-center text-sm font-semibold" style={{ color: camelHex }}>
               {quantity}
             </span>
             <button
@@ -178,7 +178,7 @@ export default function ProductBuyPanel({ product }: { product: ShopProductData 
               onClick={handleIncrement}
               disabled={quantity >= remainingForCart}
               className="inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-full transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
-              style={{ color: darkBlueHex, outlineColor: goldHex }}
+              style={{ color: camelHex, outlineColor: camelHex }}
             >
               <Plus className="h-4 w-4" />
             </button>
@@ -191,9 +191,9 @@ export default function ProductBuyPanel({ product }: { product: ShopProductData 
         <div
           className="flex items-start gap-2 rounded-xl border px-4 py-3 text-sm font-medium"
           style={{
-            borderColor: `color-mix(in srgb, ${redHex} 40%, transparent)`,
-            backgroundColor: `color-mix(in srgb, ${redHex} 8%, transparent)`,
-            color: redHex,
+            borderColor: `color-mix(in srgb, ${racingRedHex} 40%, transparent)`,
+            backgroundColor: `color-mix(in srgb, ${racingRedHex} 8%, transparent)`,
+            color: racingRedHex,
           }}
         >
           <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />
@@ -207,7 +207,7 @@ export default function ProductBuyPanel({ product }: { product: ShopProductData 
         onClick={handleAddToCart}
         disabled={product.isDisplayItem || outOfStock || cartAtMax}
         className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-        style={{ backgroundColor: darkBlueHex, color: whiteHex, outlineColor: goldHex }}
+        style={{ backgroundColor: camelHex, color: whiteSmokeHex, outlineColor: camelHex }}
       >
         {added ? (
           <>

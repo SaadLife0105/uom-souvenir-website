@@ -12,7 +12,7 @@ import { footerLinks, type FooterLink } from "@/data/store-data";
 import { useSectionScroll } from "@/hooks/useSectionScroll";
 import ComingSoonModal from "./ComingSoonModal";
 import LegalModal from "./LegalModal";
-import { darkBlueHex as darkBlue, goldHex as gold, whiteHex as white, paleBlueHex as paleBlue, redHex as red, goldHex } from "@/constants/variables";
+import { camelHex as darkBlue, camelHex as gold, whiteSmokeHex as white, azureMistHex as paleBlue, racingRedHex as red, camelHex } from "@/constants/variables";
 // ponytail: Footer uses pinned hex exports (never var()) — Samsung Browser /
 // Opera GX don't resolve CSS custom properties reliably in SVG fill attributes
 // or inline styles on certain elements.
@@ -231,7 +231,7 @@ export default function Footer() {
       </div>
 
       {/* Red band (kept for now) */}
-      <div id="red-band" className="relative -mt-[10px] px-4 py-[13.5px] sm:px-6 lg:px-8" style={{ backgroundColor: goldHex }}>
+      <div id="red-band" className="relative -mt-[10px] px-4 py-[13.5px] sm:px-6 lg:px-8" style={{ backgroundColor: camelHex }}>
         <div className="flex items-center justify-center text-sm" style={{ color: white }}>
           <Image src={ccLogo} alt="" aria-hidden className="h-6 w-auto object-contain" style={{ marginRight: "1rem" }} />
           <p>Powered by UOM Computer Club (2024-2025)</p>

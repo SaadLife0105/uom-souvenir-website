@@ -10,11 +10,11 @@
 
 /* ─── Legal modal scrollbar ─────────────────────────────────────────────────
    Subtle thin scrollbar for the scrollable body of LegalModal. Mirrors
-   goldHex / deepBlueHex from variables.tsx — update both if palette changes.
+   camelHex / brightSkyHex from variables.tsx — update both if palette changes.
    ───────────────────────────────────────────────────────────────────────── */
 .scrollbar-thin-gold {
   scrollbar-width: thin;
-  scrollbar-color: #BF9E60 transparent; /* goldHex track thumb */
+  scrollbar-color: #A68752 transparent; /* camelHex track thumb */
 }
 .scrollbar-thin-gold::-webkit-scrollbar {
   width: 8px;
@@ -23,7 +23,7 @@
   background: transparent;
 }
 .scrollbar-thin-gold::-webkit-scrollbar-thumb {
-  background-color: #BF9E60; /* goldHex */
+  background-color: #A68752; /* camelHex */
   border-radius: 9999px;
 }
 
@@ -44,8 +44,8 @@ body {
   forced-color-adjust: none;
   margin: 0;
   min-height: 100vh;
-  background: #B0E0F8; /* paleBlueHex */
-  color: #1E2019; /* blackHex */
+  background: #DFF7FF; /* azureMistHex */
+  color: #A68752; /* camelHex */
   font-family: var(--font-sans), system-ui, sans-serif;
   text-rendering: optimizeLegibility;
 }
@@ -55,8 +55,8 @@ body {
 }
 
 ::selection {
-  background: #05AFF2; /* lightBlueHex */
-  color: #F5F6F4; /* whiteHex */
+  background: #9CDDF5; /* frostedBlueHex */
+  color: #F5F6F4; /* whiteSmokeHex */
 }
 
 img {

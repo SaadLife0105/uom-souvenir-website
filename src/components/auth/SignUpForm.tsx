@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { Loader2, Eye, EyeOff, User as UserIcon, Mail, Lock } from 'lucide-react';
 import { authClient } from '@/lib/auth-client';
 import { getPasswordErrors } from '@/lib/password-validation';
-import { whiteHex, goldHex, redHex, deepBlueHex } from '@/constants/variables';
+import { whiteSmokeHex, camelHex, racingRedHex, brightSkyHex } from '@/constants/variables';
 
 type Affiliation = 'student' | 'staff' | 'alumni' | 'none';
 
@@ -58,23 +58,23 @@ export default function SignUpForm() {
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-5">
       <div className="mb-6 flex flex-col items-center gap-1 text-center">
-        <span className="text-xs font-semibold uppercase tracking-widest" style={{ color: goldHex }}>
+        <span className="text-xs font-semibold uppercase tracking-widest" style={{ color: camelHex }}>
           University of Mauritius
         </span>
-        <h1 className="text-2xl font-bold" style={{ color: whiteHex }}>Create an account</h1>
-        <p className="text-sm" style={{ color: `color-mix(in srgb, ${whiteHex} 70%, transparent)` }}>
+        <h1 className="text-2xl font-bold" style={{ color: whiteSmokeHex }}>Create an account</h1>
+        <p className="text-sm" style={{ color: `color-mix(in srgb, ${whiteSmokeHex} 70%, transparent)` }}>
           Enter your details below to sign up
         </p>
       </div>
 
       <div>
-        <label htmlFor="name" className="mb-1.5 block text-sm font-semibold" style={{ color: whiteHex }}>
+        <label htmlFor="name" className="mb-1.5 block text-sm font-semibold" style={{ color: whiteSmokeHex }}>
           Full name
         </label>
         <div className="relative">
           <UserIcon
             className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2"
-            style={{ color: `color-mix(in srgb, ${whiteHex} 60%, transparent)` }}
+            style={{ color: `color-mix(in srgb, ${whiteSmokeHex} 60%, transparent)` }}
           />
           <input
             id="name"
@@ -84,22 +84,22 @@ export default function SignUpForm() {
             onChange={(e) => setName(e.target.value)}
             className="w-full rounded-lg border py-2.5 pl-10 pr-3 text-sm outline-none transition-colors"
             style={{
-              backgroundColor: `color-mix(in srgb, ${whiteHex} 8%, transparent)`,
-              borderColor: `color-mix(in srgb, ${whiteHex} 15%, transparent)`,
-              color: whiteHex,
+              backgroundColor: `color-mix(in srgb, ${whiteSmokeHex} 8%, transparent)`,
+              borderColor: `color-mix(in srgb, ${whiteSmokeHex} 15%, transparent)`,
+              color: whiteSmokeHex,
             }}
           />
         </div>
       </div>
 
       <div>
-        <label htmlFor="email" className="mb-1.5 block text-sm font-semibold" style={{ color: whiteHex }}>
+        <label htmlFor="email" className="mb-1.5 block text-sm font-semibold" style={{ color: whiteSmokeHex }}>
           Email
         </label>
         <div className="relative">
           <Mail
             className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2"
-            style={{ color: `color-mix(in srgb, ${whiteHex} 60%, transparent)` }}
+            style={{ color: `color-mix(in srgb, ${whiteSmokeHex} 60%, transparent)` }}
           />
           <input
             id="email"
@@ -109,22 +109,22 @@ export default function SignUpForm() {
             onChange={(e) => setEmail(e.target.value)}
             className="w-full rounded-lg border py-2.5 pl-10 pr-3 text-sm outline-none transition-colors"
             style={{
-              backgroundColor: `color-mix(in srgb, ${whiteHex} 8%, transparent)`,
-              borderColor: `color-mix(in srgb, ${whiteHex} 15%, transparent)`,
-              color: whiteHex,
+              backgroundColor: `color-mix(in srgb, ${whiteSmokeHex} 8%, transparent)`,
+              borderColor: `color-mix(in srgb, ${whiteSmokeHex} 15%, transparent)`,
+              color: whiteSmokeHex,
             }}
           />
         </div>
       </div>
 
       <div>
-        <label htmlFor="password" className="mb-1.5 block text-sm font-semibold" style={{ color: whiteHex }}>
+        <label htmlFor="password" className="mb-1.5 block text-sm font-semibold" style={{ color: whiteSmokeHex }}>
           Password
         </label>
         <div className="relative">
           <Lock
             className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2"
-            style={{ color: `color-mix(in srgb, ${whiteHex} 60%, transparent)` }}
+            style={{ color: `color-mix(in srgb, ${whiteSmokeHex} 60%, transparent)` }}
           />
           <input
             id="password"
@@ -134,9 +134,9 @@ export default function SignUpForm() {
             onChange={(e) => setPassword(e.target.value)}
             className="w-full rounded-lg border py-2.5 pl-10 pr-10 text-sm outline-none transition-colors"
             style={{
-              backgroundColor: `color-mix(in srgb, ${whiteHex} 8%, transparent)`,
-              borderColor: `color-mix(in srgb, ${whiteHex} 15%, transparent)`,
-              color: whiteHex,
+              backgroundColor: `color-mix(in srgb, ${whiteSmokeHex} 8%, transparent)`,
+              borderColor: `color-mix(in srgb, ${whiteSmokeHex} 15%, transparent)`,
+              color: whiteSmokeHex,
             }}
           />
           <button
@@ -146,14 +146,14 @@ export default function SignUpForm() {
             className="absolute inset-y-0 right-0 flex items-center px-3"
           >
             {showPassword ? (
-              <EyeOff className="h-4 w-4" style={{ color: `color-mix(in srgb, ${whiteHex} 60%, transparent)` }} />
+              <EyeOff className="h-4 w-4" style={{ color: `color-mix(in srgb, ${whiteSmokeHex} 60%, transparent)` }} />
             ) : (
-              <Eye className="h-4 w-4" style={{ color: `color-mix(in srgb, ${whiteHex} 60%, transparent)` }} />
+              <Eye className="h-4 w-4" style={{ color: `color-mix(in srgb, ${whiteSmokeHex} 60%, transparent)` }} />
             )}
           </button>
         </div>
         {passwordErrors.length > 0 && (
-          <ul className="mt-2 space-y-0.5 text-xs font-medium" style={{ color: redHex }}>
+          <ul className="mt-2 space-y-0.5 text-xs font-medium" style={{ color: racingRedHex }}>
             {passwordErrors.map((err) => (
               <li key={err}>• {err}</li>
             ))}
@@ -162,7 +162,7 @@ export default function SignUpForm() {
       </div>
 
       <div>
-        <p className="mb-2 block text-sm font-semibold" style={{ color: whiteHex }}>
+        <p className="mb-2 block text-sm font-semibold" style={{ color: whiteSmokeHex }}>
           Affiliation
         </p>
         <div role="radiogroup" aria-label="Affiliation" className="flex flex-wrap gap-2">
@@ -177,10 +177,10 @@ export default function SignUpForm() {
                 onClick={() => setAffiliation(opt.value)}
                 className="cursor-pointer rounded-full border px-4 py-2 text-sm font-medium transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
                 style={{
-                  borderColor: active ? goldHex : `color-mix(in srgb, ${whiteHex} 25%, transparent)`,
-                  backgroundColor: active ? goldHex : 'transparent',
-                  color: active ? deepBlueHex : whiteHex,
-                  outlineColor: goldHex,
+                  borderColor: active ? camelHex : `color-mix(in srgb, ${whiteSmokeHex} 25%, transparent)`,
+                  backgroundColor: active ? camelHex : 'transparent',
+                  color: active ? brightSkyHex : whiteSmokeHex,
+                  outlineColor: camelHex,
                 }}
               >
                 {opt.label}
@@ -191,7 +191,7 @@ export default function SignUpForm() {
       </div>
 
       {error && (
-        <p className="text-sm font-medium" style={{ color: redHex }}>
+        <p className="text-sm font-medium" style={{ color: racingRedHex }}>
           {error}
         </p>
       )}
@@ -200,15 +200,15 @@ export default function SignUpForm() {
         type="submit"
         disabled={!canSubmit}
         className="mt-2 inline-flex cursor-pointer items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition hover:brightness-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-        style={{ backgroundColor: goldHex, color: deepBlueHex, outlineColor: goldHex }}
+        style={{ backgroundColor: camelHex, color: brightSkyHex, outlineColor: camelHex }}
       >
         {submitting && <Loader2 className="h-4 w-4 animate-spin" />}
         Create Account
       </button>
 
-      <p className="text-center text-sm" style={{ color: `color-mix(in srgb, ${whiteHex} 70%, transparent)` }}>
+      <p className="text-center text-sm" style={{ color: `color-mix(in srgb, ${whiteSmokeHex} 70%, transparent)` }}>
         Already have an account?{' '}
-        <Link href="/sign-in" className="font-semibold" style={{ color: goldHex }}>
+        <Link href="/sign-in" className="font-semibold" style={{ color: camelHex }}>
           Sign in
         </Link>
       </p>

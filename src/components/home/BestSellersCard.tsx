@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { BestSellerCampaign } from "@/data/store-data";
-import { whiteHex, blackHex, paleBlueHex } from "@/constants/variables";
+import { whiteSmokeHex, camelHex, azureMistHex } from "@/constants/variables";
 
 export default function BestSellersCard({ campaign }: { campaign: BestSellerCampaign }) {
   return (
@@ -19,7 +19,7 @@ export default function BestSellersCard({ campaign }: { campaign: BestSellerCamp
       <div
         className="absolute inset-0"
         style={{
-          backgroundImage: `linear-gradient(to top, color-mix(in srgb, ${blackHex} 75%, transparent), color-mix(in srgb, ${blackHex} 20%, transparent), transparent)`,
+          backgroundImage: `linear-gradient(to top, color-mix(in srgb, ${camelHex} 75%, transparent), color-mix(in srgb, ${camelHex} 20%, transparent), transparent)`,
         }}
       />
 
@@ -28,7 +28,7 @@ export default function BestSellersCard({ campaign }: { campaign: BestSellerCamp
         <h3 className="text-2xl leading-tight md:text-3xl">
           <span
             className="inline-block rounded-full px-4 pt-1 pb-2 font-bold backdrop-blur-sm"
-            style={{ color: whiteHex, backgroundColor: `color-mix(in srgb, ${paleBlueHex} 25%, transparent)` }}
+            style={{ color: whiteSmokeHex, backgroundColor: `color-mix(in srgb, ${azureMistHex} 25%, transparent)` }}
           >
             {campaign.title}
           </span>
@@ -40,10 +40,10 @@ export default function BestSellersCard({ campaign }: { campaign: BestSellerCamp
               href={campaign.buttons[0].href}
               className="cursor-pointer rounded-full border px-4 py-1.5 text-[11px] font-semibold uppercase tracking-widest backdrop-blur-sm transition focus-visible:outline-2 focus-visible:outline-offset-2"
               style={{
-                color: whiteHex,
-                borderColor: `${whiteHex}B3`,
-                backgroundColor: `${blackHex}40`,
-                outlineColor: whiteHex,
+                color: whiteSmokeHex,
+                borderColor: `${whiteSmokeHex}B3`,
+                backgroundColor: `${camelHex}40`,
+                outlineColor: whiteSmokeHex,
               }}
             >
               Order Now

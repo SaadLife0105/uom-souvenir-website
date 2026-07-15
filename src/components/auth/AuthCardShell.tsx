@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import backgroundImage from '@/app/images/registration/background-12.png';
-import { deepBlueHex, whiteHex } from '@/constants/variables';
+import { brightSkyHex, whiteSmokeHex } from '@/constants/variables';
 
 export default function AuthCardShell({ children }: { children: React.ReactNode }) {
   return (
@@ -14,13 +14,13 @@ export default function AuthCardShell({ children }: { children: React.ReactNode 
       />
       <div
         className="absolute inset-0"
-        style={{ backgroundColor: `color-mix(in srgb, ${deepBlueHex} 55%, transparent)` }}
+        style={{ backgroundColor: `color-mix(in srgb, ${brightSkyHex} 55%, transparent)` }}
       />
       <div
         className="relative z-10 w-full max-w-md rounded-2xl p-8 backdrop-blur-md"
         style={{
-          backgroundColor: `color-mix(in srgb, ${deepBlueHex} 70%, transparent)`,
-          border: `1px solid color-mix(in srgb, ${whiteHex} 15%, transparent)`,
+          backgroundColor: `color-mix(in srgb, ${brightSkyHex} 70%, transparent)`,
+          border: `1px solid color-mix(in srgb, ${whiteSmokeHex} 15%, transparent)`,
         }}
       >
         {children}

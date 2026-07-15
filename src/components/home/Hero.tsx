@@ -1,176 +1,104 @@
 import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import heroBackground from "@/app/images/hero/herobackground.jpg";
 import uomLogo from "@/app/images/uom-logo.png";
-import { goldHex, deepBlueHex, whiteHex, lightBlueHex } from "@/constants/variables";
-// ponytail: Hero uses pinned hex exports (never var()) — Samsung Browser / Opera GX
-// don't resolve CSS custom properties reliably in SVG or inline styles.
+import lineartUom from "@/app/images/footer/lineartuom.png";
+import { camelHex, brightSkyHex, frostedBlueHex, floralWhiteHex, whiteSmokeHex } from "@/constants/variables";
 
-// The hero artwork (polygon, dots, logo, text) is designed at this reference
-// width. Everything lives inside one "stage" whose size and every inner
-// coordinate are expressed in `--u` units (1u = 1px at the reference width),
-// so the whole group scales and repositions together with the viewport.
-// ponytail: pure-CSS scaling — no JS, no hydration flash, server component.
-const REF_W = 1477;
-const REF_H = 718;
-
-// Build a length that scales with the viewport: n reference-pixels.
-const u = (n: number) => `calc(var(--u) * ${n})`;
+const heroBlobShape = `shape(
+  from 0% 8%,
+  curve to 66% 14% with 20% -5% / 55% -3%,
+  curve to 72% 46% with 74% 26% / 62% 34%,
+  curve to 80% 74% with 82% 58% / 90% 62%,
+  curve to 60% 94% with 72% 84% / 78% 90%,
+  curve to 0% 90% with 42% 98% / 16% 100%,
+  close
+)`;
 
 export default function Hero() {
   return (
-    <section id="home" className="relative h-screen min-h-screen overflow-hidden">
-      {/* Background */}
-      <Image
-        src={heroBackground}
-        alt="Hero Background"
-        fill
-        priority
-        className="object-cover"
-      />
+    <section id="home" className="relative overflow-hidden">
+      <div className="relative h-[640px] w-full md:h-[760px]">
+        <Image
+          src={heroBackground}
+          alt="University of Mauritius students on campus"
+          fill
+          priority
+          className="object-cover"
+        />
 
-      {/* Design stage — fixed reference aspect, scaled to the viewport width and
-          anchored bottom-right so the blue panel always hugs that corner.
-          Phones use the dedicated portrait layout below instead. */}
-      <div
-        className="absolute bottom-0 right-0 hidden lg:block"
-        style={
-          {
-            "--u": `calc(100vw / ${REF_W})`,
-            width: u(REF_W),
-            height: u(REF_H),
-          } as React.CSSProperties
-        }
-      >
-        {/* Blue panel + outlines. Points bleed past the frame edges so the panel
-            keeps covering the corner even when the stage is shorter than the
-            viewport. The SVG scales with the stage automatically. */}
-        <svg
-          viewBox={`0 0 ${REF_W} ${REF_H}`}
-          preserveAspectRatio="none"
-          className="absolute inset-0 h-full w-full overflow-visible"
-        >
-          {/* Blue outline */}
-          <polyline
-            points="729,444 875,422 1477,206"
-            fill="none"
-            style={{ stroke: lightBlueHex }}
-            strokeWidth="4"
-          />
+        {/* Blob panel — outline ring behind, accent ring, glass panel on top */}
+        <div
+          className="absolute left-0 top-0 h-[92%] w-[70%] md:h-[97%] md:w-[46%]"
+          style={{ backgroundColor: whiteSmokeHex, clipPath: heroBlobShape }}
+        />
+        <div
+          className="absolute left-0 top-0 h-[92%] w-[70%] scale-[0.994] md:h-[97%] md:w-[46%]"
+          style={{ backgroundColor: frostedBlueHex, clipPath: heroBlobShape }}
+        />
+        <div
+          className="absolute left-0 top-0 h-[92%] w-[70%] scale-[0.985] backdrop-blur-md md:h-[97%] md:w-[46%]"
+          style={{ backgroundColor: `color-mix(in srgb, ${floralWhiteHex} 78%, transparent)`, clipPath: heroBlobShape }}
+        />
 
-          {/* Blue panel */}
-          <polygon
-            points="1477,179 1477,-400 1477,820 300,900 704,444 875,422 1477,206"
-            style={{ fill: deepBlueHex }}
-          />
+        {/* Decorative circles */}
+        <div className="absolute left-[6%] top-[10%] h-2 w-2 rounded-full" style={{ backgroundColor: brightSkyHex }} />
+        <div className="absolute left-[4%] top-[38%] h-4 w-4 rounded-full border-2" style={{ borderColor: camelHex }} />
+        <div className="absolute left-[6%] top-[72%] h-2 w-2 rounded-full" style={{ backgroundColor: brightSkyHex }} />
+        <div className="absolute right-[10%] top-[10%] h-8 w-8 rounded-full opacity-60" style={{ backgroundColor: brightSkyHex }} />
+        <div className="absolute right-[3%] top-[55%] hidden h-6 w-6 rounded-full border-2 md:block" style={{ borderColor: whiteSmokeHex }} />
+        <div className="absolute right-[8%] bottom-[16%] hidden h-3 w-10 rounded-full md:block" style={{ backgroundColor: frostedBlueHex }} />
 
-          {/* Gold outline */}
-          <polyline
-            points="300,900 704,444 925,421 1477,224"
-            fill="none"
-            style={{ stroke: goldHex }}
-            strokeWidth="2"
-          />
-        </svg>
-
-        {/* Main content */}
-        <div className="absolute" style={{ left: u(753), top: u(500) }}>
-          {/* Logo — crest is 255×348, so keep that ratio (99×135) to avoid
-              squashing. Change the numbers freely; the text won't move. */}
-          <Image
-            src={uomLogo}
-            alt="Logo"
-            width={150}
-            height={200}
-            className="absolute"
-            style={{ top: u(-20), left: u(-80), width: u(150), height: u(200) }}
-          />
-
-          <div style={{ paddingLeft: u(82) }}>
-            <h1
-              className="font-bold leading-none"
-              style={{ fontSize: u(40), color: goldHex }}
-            >
-              University of Mauritius
-            </h1>
-
-            <p
-              style={{ fontSize: u(32), marginTop: u(4), color: lightBlueHex }}
-            >
-              Forever UoM
-            </p>
+        {/* Content */}
+        <div className="absolute left-0 top-0 flex h-[85%] w-[85%] flex-col justify-center gap-4 px-8 md:h-[90%] md:w-[42%] md:px-12">
+          <div
+            className="inline-flex w-fit items-center rounded-full border px-4 py-1.5 text-sm font-semibold"
+            style={{ borderColor: camelHex, color: camelHex }}
+          >
+            Forever UoM
           </div>
 
-          <p
-            className="absolute"
-            style={{
-              color: whiteHex,
-              left: u(83),
-              width: u(547),
-              fontSize: u(15),
-              lineHeight: u(27),
-            }}
+          <div className="flex items-center gap-3">
+            <Image src={uomLogo} alt="University of Mauritius logo" width={56} height={76} className="h-14 w-auto" />
+            <h1 className="font-sans text-4xl font-extrabold leading-[1.05] md:text-6xl">
+              <span style={{ color: camelHex }}>University</span>
+              <br />
+              <span style={{ color: brightSkyHex }}>of Mauritius</span>
+            </h1>
+          </div>
+
+          <p className="max-w-sm text-base leading-relaxed md:text-lg" style={{ color: camelHex }}>
+            From your first lecture to graduation day and decades beyond, wear
+            the colors that shaped your story. Welcome to the UoM Online
+            Boutique where UoM spirit never fades~
+          </p>
+
+          <Link
+            href="/shop"
+            className="mt-2 inline-flex w-fit items-center gap-2 rounded-full border px-6 py-3 text-sm font-semibold transition hover:opacity-80"
+            style={{ borderColor: camelHex, color: camelHex }}
           >
-            From your first lecture to graduation day and decades beyond, wear the colors that shaped your story. Welcome to the UoM Online Boutique where UoM spirit never fades~
-          </p>
+            Shop Souvenirs
+            <ArrowRight className="h-4 w-4" />
+          </Link>
         </div>
 
-        {/* Yellow dots */}
-        <div
-          className="absolute grid grid-cols-4"
-          style={{ top: u(400), right: u(80), gap: u(8) }}
-        >
-          {[...Array(16)].map((_, i) => (
-            <div
-              key={i}
-              className="rounded-full"
-              style={{ backgroundColor: goldHex, width: u(3), height: u(3) }}
-            />
-          ))}
-        </div>
-
-        {/* Blue dots */}
-        <div
-          className="absolute grid grid-cols-5"
-          style={{ bottom: u(60), right: u(35), gap: u(12) }}
-        >
-          {[...Array(25)].map((_, i) => (
-            <div
-              key={i}
-              className="rounded-full"
-              style={{ backgroundColor: lightBlueHex, width: u(3), height: u(3) }}
-            />
-          ))}
-        </div>
-      </div>
-
-      {/* Mobile / portrait layout — the desktop composition is anchored
-          bottom-right with its content mid-stage, so it can't simply scale up
-          without sliding off-screen. Phones get this readable stacked version. */}
-      <div className="absolute inset-0 lg:hidden">
-        {/* Angled blue panel filling the lower portion */}
-        <svg
-          viewBox="0 0 100 100"
-          preserveAspectRatio="none"
-          className="absolute inset-0 h-full w-full"
-        >
-          <polygon points="0,55 100,38 100,100 0,100" style={{ fill: deepBlueHex }} />
-          <polyline points="0,55 100,38" fill="none" style={{ stroke: goldHex }} strokeWidth="0.35" />
-          <polyline points="0,58.5 100,41.5" fill="none" style={{ stroke: lightBlueHex }} strokeWidth="0.6" />
-        </svg>
-
-        <div className="absolute inset-x-0 bottom-0 top-[50%] flex flex-col items-center justify-center gap-3 px-8 text-center">
-          <Image src={uomLogo} alt="Logo" width={150} height={200} className="h-24 w-auto" />
-
-          <h1 className="text-3xl font-bold leading-tight" style={{ color: goldHex }}>
-            University of Mauritius
-          </h1>
-
-          <p className="text-xl" style={{ color: lightBlueHex }}>A piece of UoM</p>
-
-          <p className="max-w-sm text-base leading-relaxed" style={{ color: whiteHex }}>
-            Browse premium UoM merchandise, reserve your favorites online, and
-            collect them with ease on campus.
-          </p>
+        {/* Bottom wave + cream strip with faint building line-art */}
+        <div className="absolute inset-x-0 bottom-0 h-24 md:h-32">
+          <svg viewBox="0 0 1000 100" preserveAspectRatio="none" className="absolute inset-x-0 top-0 h-10 w-full md:h-14">
+            <path d="M0,60 C250,20 750,90 1000,40 L1000,100 L0,100 Z" style={{ fill: floralWhiteHex }} />
+            <path d="M0,60 C250,20 750,90 1000,40" fill="none" style={{ stroke: camelHex }} strokeWidth="2" />
+          </svg>
+          <div
+            className="absolute inset-x-0 bottom-0 top-8 flex items-center justify-center overflow-hidden md:top-10"
+            style={{ backgroundColor: floralWhiteHex }}
+          >
+            <Image src={lineartUom} alt="" fill className="object-cover object-top opacity-40" />
+            <p className="relative z-10 text-xs font-semibold tracking-[0.3em] md:text-sm" style={{ color: camelHex }}>
+              THE UNIVERSITY OF MAURITIUS
+            </p>
+          </div>
         </div>
       </div>
     </section>

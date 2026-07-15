@@ -1,12 +1,12 @@
 import { Fragment } from "react";
 import { ArrowRight } from "lucide-react";
 import { workflowSteps } from "@/data/store-data";
-import { goldHex, darkBlueHex, blackHex, whiteHex, redHex, paleBlueHex } from "@/constants/variables";
+import { camelHex, whiteSmokeHex, racingRedHex, azureMistHex } from "@/constants/variables";
 // reliable than var() in SVG on Samsung Browser / Opera GX.
 
 export default function WorkflowSteps() {
   return (
-    <section id="steps" className="px-[15px] pt-[40px] pb-[50px] md:px-[20px]" style={{ backgroundColor: paleBlueHex }}>
+    <section id="steps" className="px-[15px] pt-[40px] pb-[50px] md:px-[20px]" style={{ backgroundColor: azureMistHex }}>
       {/* objectBoundingBox clips: derived from the old overlay's viewBox 1100x200 wave,
           mapped against the box's rendered size (h-40 wave over the full box height).
           Two curves an offset apart form the gold stroke band between them. */}
@@ -20,18 +20,18 @@ export default function WorkflowSteps() {
           </clipPath>
         </defs>
       </svg>
-      <div className="relative rounded-b-3xl border-l-2 border-r-2 border-b-2" style={{ borderColor: goldHex }}>
-        <div className="absolute inset-0 rounded-b-3xl" style={{ backgroundColor: goldHex, clipPath: "url(#steps-wave-gold)" }} />
-        <div className="relative z-10 overflow-hidden rounded-b-3xl" style={{ backgroundColor: whiteHex, clipPath: "url(#steps-wave-clip)" }}>
+      <div className="relative rounded-b-3xl border-l-2 border-r-2 border-b-2" style={{ borderColor: camelHex }}>
+        <div className="absolute inset-0 rounded-b-3xl" style={{ backgroundColor: camelHex, clipPath: "url(#steps-wave-gold)" }} />
+        <div className="relative z-10 overflow-hidden rounded-b-3xl" style={{ backgroundColor: whiteSmokeHex, clipPath: "url(#steps-wave-clip)" }}>
           <div className="relative -top-[20px] flex flex-col gap-4 px-4 pb-4 pt-24 sm:gap-8 sm:p-10 sm:pt-44 md:flex-row md:items-start md:gap-12">
 
             {/* Left: heading + divider + description */}
             <div className="md:w-[360px] flex-shrink-0">
-              <h2 className="text-[1.8rem] font-bold leading-tight sm:text-[2.2rem] md:text-[2.52rem] lg:text-[3.08rem]" style={{ color: darkBlueHex }}>
-                Reserve your souvenirs in 3 simple <span style={{ color: redHex }}>steps</span>.
+              <h2 className="text-[1.8rem] font-bold leading-tight sm:text-[2.2rem] md:text-[2.52rem] lg:text-[3.08rem]" style={{ color: camelHex }}>
+                Reserve your souvenirs in 3 simple <span style={{ color: racingRedHex }}>steps</span>.
               </h2>
-              <hr className="my-4" style={{ borderColor: goldHex }} />
-              <p className="text-sm leading-relaxed sm:text-base md:text-[1.09rem]" style={{ color: blackHex }}>
+              <hr className="my-4" style={{ borderColor: camelHex }} />
+              <p className="text-sm leading-relaxed sm:text-base md:text-[1.09rem]" style={{ color: camelHex }}>
                 The portal reserves your items and prepares your order for collection at the UoM Finance Office.
               </p>
             </div>
@@ -42,30 +42,30 @@ export default function WorkflowSteps() {
                 <Fragment key={step.step}>
                   {/* Mobile: icon left, text right. Desktop: stacked centered */}
                   <div className="flex flex-row items-center gap-4 md:flex-1 md:flex-col md:items-center md:text-center">
-                    <div className="flex h-[74px] w-[74px] flex-shrink-0 items-center justify-center rounded-full shadow-md md:h-[94px] md:w-[94px]" style={{ backgroundColor: goldHex }}>
+                    <div className="flex h-[74px] w-[74px] flex-shrink-0 items-center justify-center rounded-full shadow-md md:h-[94px] md:w-[94px]" style={{ backgroundColor: camelHex }}>
                       <ArrowRight
                         className="h-[32px] w-[32px] md:h-[36px] md:w-[36px]"
-                        style={{ color: whiteHex }}
+                        style={{ color: whiteSmokeHex }}
                         strokeWidth={2.5}
                       />
                     </div>
                     <div className="flex flex-col md:items-center md:text-center">
                       <div className="flex items-center gap-2 md:flex-col md:items-center md:gap-0">
-                        <span className="text-[1.8rem] font-bold md:mt-3 md:text-[2.52rem]" style={{ color: goldHex }}>
+                        <span className="text-[1.8rem] font-bold md:mt-3 md:text-[2.52rem]" style={{ color: camelHex }}>
                           {String(step.step).padStart(2, "0")}
                         </span>
-                        <h3 className="text-[1.05rem] font-bold md:mt-1 md:text-[1.4rem]" style={{ color: darkBlueHex }}>
+                        <h3 className="text-[1.05rem] font-bold md:mt-1 md:text-[1.4rem]" style={{ color: camelHex }}>
                           {step.title}
                         </h3>
                       </div>
-                      <p className="-mt-1 text-[0.78rem] leading-snug sm:text-[0.9rem] md:mt-2 md:text-[1.09rem] md:leading-relaxed" style={{ color: blackHex }}>
+                      <p className="-mt-1 text-[0.78rem] leading-snug sm:text-[0.9rem] md:mt-2 md:text-[1.09rem] md:leading-relaxed" style={{ color: camelHex }}>
                         {step.description}
                       </p>
                     </div>
                   </div>
                   {i < 2 && (
                     <div className="hidden md:relative md:block md:mt-10 md:w-0 md:flex-shrink-0">
-                      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[28px] border-t-[4px] border-dashed lg:w-[140px]" style={{ borderColor: goldHex }} />
+                      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[28px] border-t-[4px] border-dashed lg:w-[140px]" style={{ borderColor: camelHex }} />
                     </div>
                   )}
                 </Fragment>

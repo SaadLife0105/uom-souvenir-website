@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { Truck, RefreshCw, Palette, MapPin, Clock, Tag, CreditCard, Bell, MessageCircle, Plus, Minus } from "lucide-react";
 import uomMap from "@/app/images/faq/uom-map.png";
-import { goldHex, creamHex, darkBlueHex, whiteHex, redHex } from "@/constants/variables";
+import { camelHex, floralWhiteHex, whiteSmokeHex, racingRedHex } from "@/constants/variables";
 
 interface FaqItem {
   icon: React.ElementType;
@@ -65,14 +65,14 @@ export default function FaqAccordion() {
       <div>
         {/* Header */}
         <div className="mb-4 flex items-start gap-5">
-          <div className="flex h-18 w-18 shrink-0 items-center justify-center rounded-full border-2" style={{ borderColor: goldHex, backgroundColor: creamHex }}>
-            <MessageCircle className="h-9 w-9" style={{ color: darkBlueHex }} strokeWidth={1.5} />
+          <div className="flex h-18 w-18 shrink-0 items-center justify-center rounded-full border-2" style={{ borderColor: camelHex, backgroundColor: floralWhiteHex }}>
+            <MessageCircle className="h-9 w-9" style={{ color: camelHex }} strokeWidth={1.5} />
           </div>
           <div>
-            <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl" style={{ color: darkBlueHex }}>
-              Frequently Asked Questions <span style={{ color: redHex }}>(FAQ)</span>
+            <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl" style={{ color: camelHex }}>
+              Frequently Asked Questions <span style={{ color: racingRedHex }}>(FAQ)</span>
             </h2>
-            <p className="mt-2 text-sm leading-7" style={{ color: darkBlueHex }}>
+            <p className="mt-2 text-sm leading-7" style={{ color: camelHex }}>
               Everything you need to know about reserving items, generating invoices, and collecting your University of Mauritius souvenirs.
             </p>
           </div>
@@ -91,7 +91,7 @@ export default function FaqAccordion() {
                     ? "border-2 shadow-[0_4px_24px_-8px_rgba(201,164,64,0.25)]"
                     : "border-2 border-transparent shadow-[0_2px_12px_-4px_rgba(0,0,0,0.08)]"
                 }`}
-                style={{ backgroundColor: whiteHex, borderColor: isOpen ? goldHex : "transparent" }}
+                style={{ backgroundColor: whiteSmokeHex, borderColor: isOpen ? camelHex : "transparent" }}
               >
                 <button
                   type="button"
@@ -100,22 +100,22 @@ export default function FaqAccordion() {
                   aria-expanded={isOpen}
                 >
                   {/* Icon circle */}
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full" style={{ backgroundColor: creamHex }}>
-                    <Icon className="h-5 w-5" style={{ color: darkBlueHex }} strokeWidth={1.5} />
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full" style={{ backgroundColor: floralWhiteHex }}>
+                    <Icon className="h-5 w-5" style={{ color: camelHex }} strokeWidth={1.5} />
                   </div>
 
                   {/* Vertical divider */}
-                  <div className="h-8 w-px shrink-0" style={{ backgroundColor: creamHex }} />
+                  <div className="h-8 w-px shrink-0" style={{ backgroundColor: floralWhiteHex }} />
 
                   {/* Question */}
-                  <span className="flex-1 text-base font-bold" style={{ color: darkBlueHex }}>
+                  <span className="flex-1 text-base font-bold" style={{ color: camelHex }}>
                     {item.question}
                   </span>
 
                   {/* +/− button */}
                   <div
                     className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition-colors"
-                    style={{ color: whiteHex, backgroundColor: isOpen ? darkBlueHex : goldHex }}
+                    style={{ color: whiteSmokeHex, backgroundColor: isOpen ? camelHex : camelHex }}
                   >
                     {isOpen ? <Minus className="h-4 w-4" strokeWidth={2} /> : <Plus className="h-4 w-4" strokeWidth={2} />}
                   </div>
@@ -127,13 +127,13 @@ export default function FaqAccordion() {
                     isOpen ? "max-h-[900px]" : "max-h-0"
                   }`}
                 >
-                  <div className="mx-5 border-t-2" style={{ borderColor: creamHex }} />
+                  <div className="mx-5 border-t-2" style={{ borderColor: floralWhiteHex }} />
                   <div className="px-5 py-4">
-                    <p className="text-sm leading-7 whitespace-pre-line" style={{ color: darkBlueHex }}>
+                    <p className="text-sm leading-7 whitespace-pre-line" style={{ color: camelHex }}>
                       {item.answer}
                     </p>
                     {item.mapImage && (
-                      <div className="mt-3 rounded-xl overflow-hidden max-w-[835px]" style={{ backgroundColor: whiteHex }}>
+                      <div className="mt-3 rounded-xl overflow-hidden max-w-[835px]" style={{ backgroundColor: whiteSmokeHex }}>
                         <Image
                           src={uomMap}
                           alt="UoM Campus Map — NAC Basement (Building 17)"

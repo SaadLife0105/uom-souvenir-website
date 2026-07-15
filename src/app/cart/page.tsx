@@ -9,7 +9,7 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import { useCart } from '@/context/CartContext';
 import { submitReservation } from './actions';
-import { darkBlueHex, whiteHex, goldHex, creamHex, redHex, blackHex } from '@/constants/variables';
+import { camelHex, whiteSmokeHex, floralWhiteHex, racingRedHex } from '@/constants/variables';
 
 const PLACEHOLDER_IMAGE = 'https://placehold.co/200x200/e6f1fb/0c447c?text=UOM';
 
@@ -20,7 +20,7 @@ export default function CartPage() {
   const router = useRouter();
   const itemCount = cartItems.reduce((count, item) => count + item.selectedQuantity, 0);
   const subtotal = getTotalPrice();
-  const subtleBorder = `color-mix(in srgb, ${darkBlueHex} 12%, transparent)`;
+  const subtleBorder = `color-mix(in srgb, ${camelHex} 12%, transparent)`;
 
   const [paymentRef, setPaymentRef] = useState('');
   const [submitting, setSubmitting] = useState(false);
@@ -59,13 +59,13 @@ export default function CartPage() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col" style={{ ["--ink"]: blackHex } as React.CSSProperties}>
+    <div className="flex min-h-screen flex-col" style={{ ["--ink"]: camelHex } as React.CSSProperties}>
       <Navbar />
 
-      <main className="flex-1 pb-20 pt-28" style={{ backgroundColor: creamHex }}>
+      <main className="flex-1 pb-20 pt-28" style={{ backgroundColor: floralWhiteHex }}>
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           {/* Hero */}
-          <h1 className="text-4xl font-bold tracking-tight sm:text-5xl" style={{ color: darkBlueHex }}>
+          <h1 className="text-4xl font-bold tracking-tight sm:text-5xl" style={{ color: camelHex }}>
             Your Cart
           </h1>
           <p className="mt-2 text-base" style={{ color: MUTED }}>
@@ -74,16 +74,16 @@ export default function CartPage() {
 
           {cartItems.length === 0 ? (
             /* Empty state */
-            <div className="mt-10 rounded-3xl p-12 text-center shadow-md" style={{ backgroundColor: whiteHex }}>
-              <ShoppingBag className="mx-auto h-10 w-10" style={{ color: goldHex }} />
-              <p className="mt-4 text-lg font-semibold" style={{ color: darkBlueHex }}>Your cart is empty.</p>
+            <div className="mt-10 rounded-3xl p-12 text-center shadow-md" style={{ backgroundColor: whiteSmokeHex }}>
+              <ShoppingBag className="mx-auto h-10 w-10" style={{ color: camelHex }} />
+              <p className="mt-4 text-lg font-semibold" style={{ color: camelHex }}>Your cart is empty.</p>
               <p className="mt-1 text-sm" style={{ color: MUTED }}>
                 Browse the UoM souvenir collection and add items to begin.
               </p>
               <Link
                 href="/shop"
                 className="mt-6 inline-flex cursor-pointer items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-                style={{ backgroundColor: darkBlueHex, color: whiteHex, outlineColor: goldHex }}
+                style={{ backgroundColor: camelHex, color: whiteSmokeHex, outlineColor: camelHex }}
               >
                 <ShoppingBag className="h-4 w-4" />
                 Continue Shopping
@@ -93,8 +93,8 @@ export default function CartPage() {
             <>
               {/* Items header */}
               <div className="mt-8 flex items-center gap-2">
-                <ShoppingBag className="h-5 w-5" style={{ color: darkBlueHex }} />
-                <h2 className="text-lg font-bold" style={{ color: darkBlueHex }}>
+                <ShoppingBag className="h-5 w-5" style={{ color: camelHex }} />
+                <h2 className="text-lg font-bold" style={{ color: camelHex }}>
                   Cart Items ({itemCount})
                 </h2>
               </div>
@@ -113,11 +113,11 @@ export default function CartPage() {
                     <li
                       key={`${item.id}-${item.selectedColor ?? 'default'}-${item.selectedSize ?? 'default'}`}
                       className="flex flex-col gap-4 rounded-3xl p-4 shadow-md sm:flex-row sm:items-center sm:gap-6 sm:p-5"
-                      style={{ backgroundColor: whiteHex }}
+                      style={{ backgroundColor: whiteSmokeHex }}
                     >
                       {/* Thumbnail + identity */}
                       <div className="flex flex-1 items-center gap-4">
-                        <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-2xl" style={{ backgroundColor: creamHex }}>
+                        <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-2xl" style={{ backgroundColor: floralWhiteHex }}>
                           <Image
                             src={imageSrc}
                             alt={item.name}
@@ -128,16 +128,16 @@ export default function CartPage() {
                           />
                         </div>
                         <div className="min-w-0">
-                          <p className="text-base font-semibold" style={{ color: darkBlueHex }}>{item.name}</p>
+                          <p className="text-base font-semibold" style={{ color: camelHex }}>{item.name}</p>
                           {meta && <p className="mt-0.5 text-sm" style={{ color: MUTED }}>{meta}</p>}
-                          <p className="mt-1 text-base font-bold" style={{ color: darkBlueHex }}>{priceLabel}</p>
+                          <p className="mt-1 text-base font-bold" style={{ color: camelHex }}>{priceLabel}</p>
                         </div>
                       </div>
 
                       {/* Unit price */}
                       <div className="hidden w-28 shrink-0 lg:block">
                         <p className="text-xs" style={{ color: MUTED }}>Unit Price</p>
-                        <p className="mt-0.5 text-base font-bold" style={{ color: darkBlueHex }}>{priceLabel}</p>
+                        <p className="mt-0.5 text-base font-bold" style={{ color: camelHex }}>{priceLabel}</p>
                       </div>
 
                       {/* Stepper + delete */}
@@ -149,11 +149,11 @@ export default function CartPage() {
                             onClick={() => updateQuantity(item.id, item.selectedQuantity - 1, item.selectedColor, item.selectedSize)}
                             disabled={item.selectedQuantity <= 1}
                             className="inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-l-xl transition hover:bg-[var(--ink)]/5 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
-                            style={{ color: darkBlueHex, outlineColor: goldHex }}
+                            style={{ color: camelHex, outlineColor: camelHex }}
                           >
                             <Minus className="h-4 w-4" />
                           </button>
-                          <span className="min-w-[2.5rem] text-center text-sm font-semibold" style={{ color: darkBlueHex }}>
+                          <span className="min-w-[2.5rem] text-center text-sm font-semibold" style={{ color: camelHex }}>
                             {item.selectedQuantity}
                           </span>
                           <button
@@ -162,7 +162,7 @@ export default function CartPage() {
                             onClick={() => updateQuantity(item.id, item.selectedQuantity + 1, item.selectedColor, item.selectedSize)}
                             disabled={item.selectedQuantity >= item.quantity}
                             className="inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-r-xl transition hover:bg-[var(--ink)]/5 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
-                            style={{ color: darkBlueHex, outlineColor: goldHex }}
+                            style={{ color: camelHex, outlineColor: camelHex }}
                           >
                             <Plus className="h-4 w-4" />
                           </button>
@@ -173,7 +173,7 @@ export default function CartPage() {
                           aria-label={`Remove ${item.name} from cart`}
                           onClick={() => removeFromCart(item.id, item.selectedColor, item.selectedSize)}
                           className="inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl transition hover:bg-[var(--ink)]/5 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2"
-                          style={{ color: MUTED, outlineColor: goldHex }}
+                          style={{ color: MUTED, outlineColor: camelHex }}
                         >
                           <Trash2 className="h-5 w-5" />
                         </button>
@@ -188,7 +188,7 @@ export default function CartPage() {
                 <Link
                   href="/shop"
                   className="inline-flex cursor-pointer items-center gap-2 rounded-full border px-5 py-3 text-sm font-semibold transition hover:bg-[var(--ink)]/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-                  style={{ borderColor: darkBlueHex, color: darkBlueHex, outlineColor: goldHex }}
+                  style={{ borderColor: camelHex, color: camelHex, outlineColor: camelHex }}
                 >
                   <ShoppingBag className="h-4 w-4" />
                   Continue Shopping
@@ -197,7 +197,7 @@ export default function CartPage() {
                   type="button"
                   onClick={clearCart}
                   className="inline-flex cursor-pointer items-center gap-2 rounded-full border px-5 py-3 text-sm font-semibold transition hover:bg-[var(--ink)]/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-                  style={{ borderColor: subtleBorder, color: MUTED, outlineColor: goldHex }}
+                  style={{ borderColor: subtleBorder, color: MUTED, outlineColor: camelHex }}
                 >
                   <Trash2 className="h-4 w-4" />
                   Clear Cart
@@ -206,16 +206,16 @@ export default function CartPage() {
 
               {/* Disclaimer + checkout */}
               <div className="mt-6 grid gap-6 lg:grid-cols-[1fr_minmax(0,420px)] lg:items-start">
-                <div className="flex gap-3 rounded-3xl p-6 shadow-md" style={{ backgroundColor: whiteHex }}>
-                  <Info className="mt-0.5 h-5 w-5 shrink-0" style={{ color: goldHex }} />
+                <div className="flex gap-3 rounded-3xl p-6 shadow-md" style={{ backgroundColor: whiteSmokeHex }}>
+                  <Info className="mt-0.5 h-5 w-5 shrink-0" style={{ color: camelHex }} />
                   <div className="text-sm leading-6" style={{ color: MUTED }}>
-                    <p className="font-bold" style={{ color: darkBlueHex }}>Disclaimer</p>
+                    <p className="font-bold" style={{ color: camelHex }}>Disclaimer</p>
                     {/* ponytail: static copy — not DB-backed. */}
                     <p className="mt-1">All products are official UOM souvenirs. Colors may vary slightly from images.</p>
                     <p>We are not responsible for any delays caused by delivery partners.</p>
                     <p>
                       By proceeding, you agree to our{' '}
-                      <Link href="#" className="cursor-pointer font-semibold underline underline-offset-2" style={{ color: darkBlueHex }}>
+                      <Link href="#" className="cursor-pointer font-semibold underline underline-offset-2" style={{ color: camelHex }}>
                         Terms &amp; Conditions
                       </Link>
                       .
@@ -223,15 +223,15 @@ export default function CartPage() {
                   </div>
                 </div>
 
-                <div className="flex flex-col gap-4 rounded-3xl p-6 shadow-md" style={{ backgroundColor: whiteHex }}>
+                <div className="flex flex-col gap-4 rounded-3xl p-6 shadow-md" style={{ backgroundColor: whiteSmokeHex }}>
                   <div className="flex items-center justify-between">
                     <span className="text-sm font-medium" style={{ color: MUTED }}>Subtotal</span>
-                    <span className="text-2xl font-bold" style={{ color: darkBlueHex }}>Rs {subtotal.toLocaleString()}</span>
+                    <span className="text-2xl font-bold" style={{ color: camelHex }}>Rs {subtotal.toLocaleString()}</span>
                   </div>
 
                   {/* Payment reference — optional */}
                   <div>
-                    <label htmlFor="payment-ref" className="block text-sm font-medium" style={{ color: darkBlueHex }}>
+                    <label htmlFor="payment-ref" className="block text-sm font-medium" style={{ color: camelHex }}>
                       Payment Reference Number <span style={{ color: MUTED }}>(optional)</span>
                     </label>
                     <input
@@ -242,7 +242,7 @@ export default function CartPage() {
                       disabled={submitting}
                       placeholder="e.g. bank transfer reference"
                       className="mt-1.5 w-full rounded-xl border px-3 py-2.5 text-sm transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-60"
-                      style={{ borderColor: subtleBorder, color: darkBlueHex, outlineColor: goldHex }}
+                      style={{ borderColor: subtleBorder, color: camelHex, outlineColor: camelHex }}
                     />
                     <p className="mt-1 text-xs" style={{ color: MUTED }}>Leave blank if paying on collection.</p>
                   </div>
@@ -253,12 +253,12 @@ export default function CartPage() {
                       role="alert"
                       className="flex gap-2 rounded-xl border p-3 text-sm"
                       style={{
-                        borderColor: `color-mix(in srgb, ${redHex} 40%, transparent)`,
-                        backgroundColor: `color-mix(in srgb, ${redHex} 8%, transparent)`,
-                        color: darkBlueHex,
+                        borderColor: `color-mix(in srgb, ${racingRedHex} 40%, transparent)`,
+                        backgroundColor: `color-mix(in srgb, ${racingRedHex} 8%, transparent)`,
+                        color: camelHex,
                       }}
                     >
-                      <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" style={{ color: redHex }} />
+                      <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" style={{ color: racingRedHex }} />
                       <div>
                         <p className="font-semibold">{error}</p>
                         {insufficient.length > 0 && (
@@ -279,7 +279,7 @@ export default function CartPage() {
                     onClick={handleGenerateReceipt}
                     disabled={submitting}
                     className="inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl px-6 py-4 text-base font-semibold transition hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-70"
-                    style={{ backgroundColor: redHex, color: whiteHex, outlineColor: goldHex }}
+                    style={{ backgroundColor: racingRedHex, color: whiteSmokeHex, outlineColor: camelHex }}
                   >
                     {submitting ? (
                       <>

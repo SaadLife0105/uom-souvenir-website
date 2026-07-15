@@ -1,6 +1,6 @@
 import Image, { type StaticImageData } from "next/image";
 import Link from "next/link";
-import { whiteHex, blackHex } from "@/constants/variables";
+import { whiteSmokeHex, camelHex } from "@/constants/variables";
 
 interface CategoryCardProps {
   title: string;
@@ -41,7 +41,7 @@ export default function CategoryCard({
             {/* ponytail: --tag-bg lets Tailwind's /30 alpha modifier work on a runtime color */}
             <span
               className="inline-block rounded-full px-3 sm:px-4 pt-0.5 pb-1.5 sm:pt-1 sm:pb-2 text-lg sm:text-2xl md:text-4xl font-bold bg-[var(--tag-bg)]/30 backdrop-blur-sm"
-              style={{ "--tag-bg": bgColor, color: whiteHex } as React.CSSProperties}
+              style={{ "--tag-bg": bgColor, color: whiteSmokeHex } as React.CSSProperties}
             >
               {title}
             </span>
@@ -49,10 +49,10 @@ export default function CategoryCard({
           <span
             className="pointer-events-none opacity-0 cursor-pointer rounded-full border px-4 sm:px-6 py-1.5 text-[11px] font-semibold uppercase tracking-widest backdrop-blur-sm transition-all duration-300 group-hover:opacity-100 group-hover:pointer-events-auto focus-visible:outline-2 focus-visible:outline-offset-2"
             style={{
-              color: whiteHex,
-              borderColor: `${whiteHex}B3`,
-              backgroundColor: `${blackHex}40`,
-              outlineColor: whiteHex,
+              color: whiteSmokeHex,
+              borderColor: `${whiteSmokeHex}B3`,
+              backgroundColor: `${camelHex}40`,
+              outlineColor: whiteSmokeHex,
             }}
           >
             Shop Now

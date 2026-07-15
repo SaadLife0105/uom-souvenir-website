@@ -5,7 +5,7 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import { getReservationById, type ReservationData } from '@/db/queries';
 import { formatPrice } from '@/lib/price';
-import { darkBlueHex, goldHex, creamHex, redHex, lightBlueHex } from '@/constants/variables';
+import { camelHex, floralWhiteHex, racingRedHex, frostedBlueHex } from '@/constants/variables';
 import ReceiptView, { type ReceiptViewModel } from './ReceiptView';
 import ClearCartOnMount from './ClearCartOnMount';
 
@@ -21,10 +21,10 @@ const formatTime = (d: Date) => `${pad(d.getHours())}:${pad(d.getMinutes())}`;
 // Map each reservation status to an existing palette token (no green token
 // exists, so "confirmed" reads as the positive light blue).
 const STATUS_TOKEN: Record<ReservationData['status'], string> = {
-  pending: goldHex,
-  confirmed: lightBlueHex,
-  collected: darkBlueHex,
-  cancelled: redHex,
+  pending: camelHex,
+  confirmed: frostedBlueHex,
+  collected: camelHex,
+  cancelled: racingRedHex,
 };
 
 // ponytail: deliberate UX delay, not a real loading dependency — keeps
@@ -71,13 +71,13 @@ export default async function ReceiptPage({ params }: { params: Promise<{ id: st
       <ClearCartOnMount />
       <Navbar />
 
-      <main className="flex-1 pb-20 pt-28" style={{ backgroundColor: creamHex }}>
+      <main className="flex-1 pb-20 pt-28" style={{ backgroundColor: floralWhiteHex }}>
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           {/* Back link */}
           <Link
             href="/shop"
             className="inline-flex cursor-pointer items-center gap-2 text-sm font-semibold transition hover:opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-            style={{ color: darkBlueHex, outlineColor: goldHex }}
+            style={{ color: camelHex, outlineColor: camelHex }}
           >
             <ArrowLeft className="h-4 w-4" />
             Back to Shop
@@ -86,7 +86,7 @@ export default async function ReceiptPage({ params }: { params: Promise<{ id: st
           {/* Heading */}
           <h1
             className="mt-4 text-4xl font-bold tracking-tight sm:text-5xl"
-            style={{ color: darkBlueHex }}
+            style={{ color: camelHex }}
           >
             Your Receipt
           </h1>

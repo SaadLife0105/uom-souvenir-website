@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import type { ShopProductData } from '@/db/queries';
 import { formatPrice } from '@/lib/price';
-import { darkBlueHex, whiteHex, redHex, creamHex, blackHex } from '@/constants/variables';
+import { camelHex, whiteSmokeHex, racingRedHex, floralWhiteHex } from '@/constants/variables';
 
 const PLACEHOLDER_IMAGE =
   'https://placehold.co/600x600/e6f1fb/0c447c?text=UOM+Souvenir';
@@ -14,9 +14,9 @@ export default function ProductCard({ product }: { product: ShopProductData }) {
     <Link
       href={`/shop/${product.id}`}
       className="group flex h-full cursor-pointer flex-col overflow-hidden rounded-3xl shadow-md transition hover:-translate-y-1 hover:shadow-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-      style={{ backgroundColor: whiteHex, outlineColor: darkBlueHex }}
+      style={{ backgroundColor: whiteSmokeHex, outlineColor: camelHex }}
     >
-      <div className="relative aspect-square w-full overflow-hidden" style={{ backgroundColor: `color-mix(in srgb, ${creamHex} 40%, transparent)` }}>
+      <div className="relative aspect-square w-full overflow-hidden" style={{ backgroundColor: `color-mix(in srgb, ${floralWhiteHex} 40%, transparent)` }}>
         <Image
           src={product.imageUrl ?? PLACEHOLDER_IMAGE}
           alt={product.name}
@@ -31,7 +31,7 @@ export default function ProductCard({ product }: { product: ShopProductData }) {
           <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
             <span
               className="absolute left-[-30%] top-[14%] flex w-[160%] -rotate-45 items-center justify-center py-1.5 text-xs font-bold uppercase tracking-widest shadow-md"
-              style={{ backgroundColor: redHex, color: whiteHex }}
+              style={{ backgroundColor: racingRedHex, color: whiteSmokeHex }}
             >
               Sold Out
             </span>
@@ -41,13 +41,13 @@ export default function ProductCard({ product }: { product: ShopProductData }) {
 
       <div className="flex flex-1 flex-col gap-3 p-5">
         <div>
-          <p className="text-lg font-semibold" style={{ color: darkBlueHex }}>
+          <p className="text-lg font-semibold" style={{ color: camelHex }}>
             {product.name}
           </p>
           <p className="mt-1 text-sm text-[#5b6b86]">{product.category}</p>
         </div>
 
-        <p className="text-base font-semibold" style={{ color: darkBlueHex }}>
+        <p className="text-base font-semibold" style={{ color: camelHex }}>
           {formatPrice(product.priceCents)}
         </p>
 
@@ -61,7 +61,7 @@ export default function ProductCard({ product }: { product: ShopProductData }) {
                   title={color.name}
                   aria-hidden
                   className="h-5 w-5 rounded-full border"
-                  style={{ backgroundColor: color.hexCode, borderColor: `color-mix(in srgb, ${blackHex} 10%, transparent)` }}
+                  style={{ backgroundColor: color.hexCode, borderColor: `color-mix(in srgb, ${camelHex} 10%, transparent)` }}
                 />
               ))}
             </div>

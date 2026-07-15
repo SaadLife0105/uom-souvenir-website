@@ -6,7 +6,7 @@ import { ArrowLeft, Search, SlidersHorizontal } from 'lucide-react';
 import type { ShopProductData } from '@/db/queries';
 import ProductCard from './ProductCard';
 import CartSummary from './CartSummary';
-import { darkBlueHex, whiteHex, goldHex, creamHex, paleBlueHex, redHex } from '@/constants/variables';
+import { camelHex, whiteSmokeHex, floralWhiteHex, azureMistHex, racingRedHex } from '@/constants/variables';
 
 type PriceBucket = 'all' | 'under-250' | '250-500' | 'over-500';
 type SortOption = 'newest' | 'price-asc' | 'price-desc' | 'name';
@@ -121,22 +121,22 @@ export default function ShopContent({ products }: { products: ShopProductData[] 
   return (
     <div>
       {/* Hero */}
-      <section className="pb-10 pt-28" style={{ backgroundColor: paleBlueHex }}>
+      <section className="pb-10 pt-28" style={{ backgroundColor: azureMistHex }}>
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <button
             type="button"
             onClick={handleBack}
             className="mb-4 inline-flex cursor-pointer items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold shadow-md transition hover:opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-            style={{ backgroundColor: whiteHex, color: darkBlueHex, outlineColor: goldHex }}
+            style={{ backgroundColor: whiteSmokeHex, color: camelHex, outlineColor: camelHex }}
           >
             <ArrowLeft className="h-4 w-4" />
             Back
           </button>
 
-          <h1 className="text-5xl font-bold tracking-tight" style={{ color: darkBlueHex }}>
+          <h1 className="text-5xl font-bold tracking-tight" style={{ color: camelHex }}>
             Shop
           </h1>
-          <p className="mt-2 text-base" style={{ color: darkBlueHex }}>
+          <p className="mt-2 text-base" style={{ color: camelHex }}>
             Explore our official UOM merchandise.
           </p>
 
@@ -147,43 +147,43 @@ export default function ShopContent({ products }: { products: ShopProductData[] 
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search products..."
               className="w-full rounded-2xl border-0 py-3.5 pl-5 pr-12 text-sm shadow-md transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-              style={{ backgroundColor: whiteHex, color: darkBlueHex, outlineColor: goldHex }}
+              style={{ backgroundColor: whiteSmokeHex, color: camelHex, outlineColor: camelHex }}
             />
             <button
               type="button"
               aria-label="Search"
               className="absolute right-2 top-1/2 inline-flex h-9 w-9 -translate-y-1/2 cursor-pointer items-center justify-center rounded-xl transition"
-              style={{ backgroundColor: darkBlueHex }}
+              style={{ backgroundColor: camelHex }}
             >
-              <Search className="h-4 w-4" style={{ color: whiteHex }} />
+              <Search className="h-4 w-4" style={{ color: whiteSmokeHex }} />
             </button>
           </div>
         </div>
       </section>
 
       {/* Body */}
-      <section className="mx-auto max-w-7xl px-4 pb-20 pt-8 sm:px-6 lg:px-8" style={{ backgroundColor: creamHex }}>
+      <section className="mx-auto max-w-7xl px-4 pb-20 pt-8 sm:px-6 lg:px-8" style={{ backgroundColor: floralWhiteHex }}>
         <div className="grid gap-6 lg:grid-cols-[240px_1fr_300px] lg:items-start">
           {/* Filters */}
-          <aside className="order-1 rounded-3xl shadow-md lg:sticky lg:top-28" style={{ backgroundColor: whiteHex }}>
-            <div className="flex items-center gap-2 rounded-t-3xl px-5 py-4" style={{ backgroundColor: darkBlueHex, color: whiteHex }}>
+          <aside className="order-1 rounded-3xl shadow-md lg:sticky lg:top-28" style={{ backgroundColor: whiteSmokeHex }}>
+            <div className="flex items-center gap-2 rounded-t-3xl px-5 py-4" style={{ backgroundColor: camelHex, color: whiteSmokeHex }}>
               <SlidersHorizontal className="h-4 w-4" />
               <p className="font-semibold">Filter</p>
             </div>
 
             <div className="flex flex-col gap-6 p-5">
               <div>
-                <p className="mb-3 text-sm font-semibold" style={{ color: darkBlueHex }}>Categories</p>
+                <p className="mb-3 text-sm font-semibold" style={{ color: camelHex }}>Categories</p>
                 <div className="flex flex-col gap-2">
                   {categories.map((category) => (
-                    <label key={category} className="flex cursor-pointer items-center gap-2 text-sm" style={{ color: darkBlueHex }}>
+                    <label key={category} className="flex cursor-pointer items-center gap-2 text-sm" style={{ color: camelHex }}>
                       <input
                         type="radio"
                         name="category"
                         checked={selectedCategory === category}
                         onChange={() => setSelectedCategory(category)}
                         className="h-4 w-4 cursor-pointer"
-                        style={{ accentColor: darkBlueHex }}
+                        style={{ accentColor: camelHex }}
                       />
                       {category}
                     </label>
@@ -192,12 +192,12 @@ export default function ShopContent({ products }: { products: ShopProductData[] 
               </div>
 
               <div>
-                <p className="mb-2 text-sm font-semibold" style={{ color: darkBlueHex }}>Price</p>
+                <p className="mb-2 text-sm font-semibold" style={{ color: camelHex }}>Price</p>
                 <select
                   value={priceBucket}
                   onChange={(e) => setPriceBucket(e.target.value as PriceBucket)}
                   className="w-full cursor-pointer rounded-xl border px-3 py-2 text-sm outline-none"
-                  style={{ borderColor: `color-mix(in srgb, ${darkBlueHex} 20%, transparent)`, color: darkBlueHex }}
+                  style={{ borderColor: `color-mix(in srgb, ${camelHex} 20%, transparent)`, color: camelHex }}
                 >
                   {PRICE_BUCKETS.map((bucket) => (
                     <option key={bucket.value} value={bucket.value}>{bucket.label}</option>
@@ -206,12 +206,12 @@ export default function ShopContent({ products }: { products: ShopProductData[] 
               </div>
 
               <div>
-                <p className="mb-2 text-sm font-semibold" style={{ color: darkBlueHex }}>Sort By</p>
+                <p className="mb-2 text-sm font-semibold" style={{ color: camelHex }}>Sort By</p>
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value as SortOption)}
                   className="w-full cursor-pointer rounded-xl border px-3 py-2 text-sm outline-none"
-                  style={{ borderColor: `color-mix(in srgb, ${darkBlueHex} 20%, transparent)`, color: darkBlueHex }}
+                  style={{ borderColor: `color-mix(in srgb, ${camelHex} 20%, transparent)`, color: camelHex }}
                 >
                   {SORT_OPTIONS.map((option) => (
                     <option key={option.value} value={option.value}>{option.label}</option>
@@ -224,7 +224,7 @@ export default function ShopContent({ products }: { products: ShopProductData[] 
                   type="button"
                   onClick={clearFilters}
                   className="cursor-pointer text-left text-sm font-semibold transition hover:underline"
-                  style={{ color: redHex }}
+                  style={{ color: racingRedHex }}
                 >
                   Clear Filters
                 </button>
@@ -235,16 +235,16 @@ export default function ShopContent({ products }: { products: ShopProductData[] 
           {/* Grid */}
           <div className="order-3 lg:order-2">
             <div className="mb-5 flex items-center justify-between">
-              <p className="text-sm font-medium" style={{ color: darkBlueHex }}>
+              <p className="text-sm font-medium" style={{ color: camelHex }}>
                 {visibleProducts.length} Product{visibleProducts.length === 1 ? '' : 's'}
               </p>
-              <div className="hidden items-center gap-2 text-sm sm:flex" style={{ color: darkBlueHex }}>
+              <div className="hidden items-center gap-2 text-sm sm:flex" style={{ color: camelHex }}>
                 <span>Sort by:</span>
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value as SortOption)}
                   className="cursor-pointer rounded-xl border px-3 py-1.5 outline-none"
-                  style={{ borderColor: `color-mix(in srgb, ${darkBlueHex} 20%, transparent)` }}
+                  style={{ borderColor: `color-mix(in srgb, ${camelHex} 20%, transparent)` }}
                 >
                   {SORT_OPTIONS.map((option) => (
                     <option key={option.value} value={option.value}>{option.label}</option>
@@ -260,13 +260,13 @@ export default function ShopContent({ products }: { products: ShopProductData[] 
                 ))}
               </div>
             ) : (
-              <div className="rounded-3xl p-12 text-center shadow-md" style={{ backgroundColor: whiteHex }}>
-                <p className="text-base" style={{ color: darkBlueHex }}>No products match your filters.</p>
+              <div className="rounded-3xl p-12 text-center shadow-md" style={{ backgroundColor: whiteSmokeHex }}>
+                <p className="text-base" style={{ color: camelHex }}>No products match your filters.</p>
                 <button
                   type="button"
                   onClick={clearFilters}
                   className="mt-4 cursor-pointer rounded-full px-6 py-2 text-sm font-semibold transition"
-                  style={{ backgroundColor: darkBlueHex, color: whiteHex }}
+                  style={{ backgroundColor: camelHex, color: whiteSmokeHex }}
                 >
                   Clear Filters
                 </button>

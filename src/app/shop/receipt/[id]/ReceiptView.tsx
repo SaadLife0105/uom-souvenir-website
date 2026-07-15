@@ -7,7 +7,7 @@ import type { CSSProperties } from 'react';
 import { Info, ShoppingBag, Download, Loader2 } from 'lucide-react';
 import { toPng } from 'html-to-image';
 import receiptTemplate from '@/app/images/receipt/receipt-template.png';
-import { darkBlueHex, whiteHex, goldHex } from '@/constants/variables';
+import { camelHex, whiteSmokeHex } from '@/constants/variables';
 
 // ponytail: the receipt card renders the OFFICIAL institutional template
 // (receipt-template.png, 1414×2000) as a literal image and overlays only the
@@ -148,16 +148,16 @@ export default function ReceiptView({ vm }: { vm: ReceiptViewModel }) {
       {/* ---------------------------------------------------------------- */}
       <div className="flex flex-col gap-6">
         {/* Disclaimer — copy kept in sync with /cart's disclaimer box */}
-        <div className="flex gap-3 rounded-3xl p-6 shadow-md" style={{ backgroundColor: whiteHex }}>
-          <Info className="mt-0.5 h-5 w-5 shrink-0" style={{ color: goldHex }} />
+        <div className="flex gap-3 rounded-3xl p-6 shadow-md" style={{ backgroundColor: whiteSmokeHex }}>
+          <Info className="mt-0.5 h-5 w-5 shrink-0" style={{ color: camelHex }} />
           <div className="text-sm leading-6" style={{ color: MUTED }}>
-            <p className="font-bold" style={{ color: darkBlueHex }}>Disclaimer</p>
+            <p className="font-bold" style={{ color: camelHex }}>Disclaimer</p>
             {/* ponytail: static copy — mirrors the /cart disclaimer. */}
             <p className="mt-1">All products are official UOM souvenirs. Colors may vary slightly from images.</p>
             <p>We are not responsible for any delays caused by delivery partners.</p>
             <p>
               By proceeding, you agree to our{' '}
-              <Link href="#" className="cursor-pointer font-semibold underline underline-offset-2" style={{ color: darkBlueHex }}>
+              <Link href="#" className="cursor-pointer font-semibold underline underline-offset-2" style={{ color: camelHex }}>
                 Terms &amp; Conditions
               </Link>
               .
@@ -167,16 +167,16 @@ export default function ReceiptView({ vm }: { vm: ReceiptViewModel }) {
 
         {/* Order Summary — real status pill + reservedAt; no Receipt No.,
             Customer ID, or Payment Method (none exist in the schema). */}
-        <div className="rounded-3xl p-6 shadow-md" style={{ backgroundColor: whiteHex }}>
+        <div className="rounded-3xl p-6 shadow-md" style={{ backgroundColor: whiteSmokeHex }}>
           <div className="flex items-center gap-2">
-            <ShoppingBag className="h-5 w-5" style={{ color: goldHex }} />
-            <p className="font-bold" style={{ color: darkBlueHex }}>Order Summary</p>
+            <ShoppingBag className="h-5 w-5" style={{ color: camelHex }} />
+            <p className="font-bold" style={{ color: camelHex }}>Order Summary</p>
           </div>
 
           <div className="mt-4 flex flex-col gap-4">
             <div>
               <p className="text-xs" style={{ color: MUTED }}>Order Date</p>
-              <p className="mt-0.5 text-sm font-semibold" style={{ color: darkBlueHex }}>
+              <p className="mt-0.5 text-sm font-semibold" style={{ color: camelHex }}>
                 {vm.orderDateTime}
               </p>
             </div>
@@ -186,7 +186,7 @@ export default function ReceiptView({ vm }: { vm: ReceiptViewModel }) {
               <span
                 className="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold"
                 style={{
-                  backgroundColor: `color-mix(in srgb, ${vm.statusColor} 16%, ${whiteHex})`,
+                  backgroundColor: `color-mix(in srgb, ${vm.statusColor} 16%, ${whiteSmokeHex})`,
                   color: `color-mix(in srgb, ${vm.statusColor} 75%, ${RECEIPT_INK})`,
                 }}
               >
@@ -203,7 +203,7 @@ export default function ReceiptView({ vm }: { vm: ReceiptViewModel }) {
           onClick={handleDownload}
           disabled={downloading}
           className="inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold shadow-md transition hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-70"
-          style={{ backgroundColor: darkBlueHex, color: whiteHex, outlineColor: goldHex }}
+          style={{ backgroundColor: camelHex, color: whiteSmokeHex, outlineColor: camelHex }}
         >
           {downloading ? (
             <>
@@ -230,7 +230,7 @@ export default function ReceiptView({ vm }: { vm: ReceiptViewModel }) {
       <div
         ref={cardRef}
         className="relative w-full overflow-hidden rounded-3xl shadow-md"
-        style={{ aspectRatio: '1414 / 2000', containerType: 'inline-size', backgroundColor: whiteHex }}
+        style={{ aspectRatio: '1414 / 2000', containerType: 'inline-size', backgroundColor: whiteSmokeHex }}
       >
         <Image
           src={receiptTemplate}

@@ -1,7 +1,7 @@
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import { Loader2 } from 'lucide-react';
-import { creamHex, whiteHex, darkBlueHex } from '@/constants/variables';
+import { floralWhiteHex, whiteSmokeHex, camelHex } from '@/constants/variables';
 
 // Shown automatically by the App Router while page.tsx's server component runs
 // getReservationById() — covers the gap between /cart's redirect and the receipt
@@ -10,14 +10,14 @@ import { creamHex, whiteHex, darkBlueHex } from '@/constants/variables';
 
 // No gray token in the palette, so the skeleton blocks use a toned-down darkBlue
 // (variables.tsx) — keeps it on-brand with no new hardcoded color.
-const SKELETON = `color-mix(in srgb, ${darkBlueHex} 14%, ${whiteHex})`;
+const SKELETON = `color-mix(in srgb, ${camelHex} 14%, ${whiteSmokeHex})`;
 
 export default function ReceiptLoading() {
   return (
     <div className="flex min-h-screen flex-col">
       <Navbar />
 
-      <main className="flex-1 pb-20 pt-28" style={{ backgroundColor: creamHex }}>
+      <main className="flex-1 pb-20 pt-28" style={{ backgroundColor: floralWhiteHex }}>
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           {/* Back link */}
           <div className="h-5 w-28 animate-pulse rounded-md" style={{ backgroundColor: SKELETON }} />
@@ -31,7 +31,7 @@ export default function ReceiptLoading() {
             {/* Left sidebar */}
             <div className="flex flex-col gap-6">
               {/* Disclaimer box */}
-              <div className="rounded-3xl p-6 shadow-md" style={{ backgroundColor: whiteHex }}>
+              <div className="rounded-3xl p-6 shadow-md" style={{ backgroundColor: whiteSmokeHex }}>
                 <div className="flex items-center gap-2">
                   <div className="h-5 w-5 shrink-0 animate-pulse rounded-full" style={{ backgroundColor: SKELETON }} />
                   <div className="h-5 w-28 animate-pulse rounded-md" style={{ backgroundColor: SKELETON }} />
@@ -45,7 +45,7 @@ export default function ReceiptLoading() {
               </div>
 
               {/* Order Summary box */}
-              <div className="rounded-3xl p-6 shadow-md" style={{ backgroundColor: whiteHex }}>
+              <div className="rounded-3xl p-6 shadow-md" style={{ backgroundColor: whiteSmokeHex }}>
                 <div className="flex items-center gap-2">
                   <div className="h-5 w-5 shrink-0 animate-pulse rounded-full" style={{ backgroundColor: SKELETON }} />
                   <div className="h-5 w-32 animate-pulse rounded-md" style={{ backgroundColor: SKELETON }} />
@@ -69,7 +69,7 @@ export default function ReceiptLoading() {
             {/* Right — receipt card placeholder, same 1414:2000 frame as ReceiptView */}
             <div
               className="relative w-full overflow-hidden rounded-3xl shadow-md"
-              style={{ aspectRatio: '1414 / 2000', backgroundColor: whiteHex }}
+              style={{ aspectRatio: '1414 / 2000', backgroundColor: whiteSmokeHex }}
             >
               {/* Header / brand band */}
               <div className="absolute inset-x-[8%] top-[5%] h-[6%] animate-pulse rounded-lg" style={{ backgroundColor: SKELETON }} />
@@ -97,8 +97,8 @@ export default function ReceiptLoading() {
 
               {/* Centered spinner + label over the card */}
               <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
-                <Loader2 className="h-10 w-10 animate-spin" style={{ color: darkBlueHex }} />
-                <span className="text-sm font-semibold" style={{ color: darkBlueHex }}>Loading...</span>
+                <Loader2 className="h-10 w-10 animate-spin" style={{ color: camelHex }} />
+                <span className="text-sm font-semibold" style={{ color: camelHex }}>Loading...</span>
               </div>
             </div>
           </div>

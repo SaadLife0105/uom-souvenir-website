@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { X } from "lucide-react";
-import { goldHex, deepBlueHex, whiteHex } from "@/constants/variables";
+import { camelHex, brightSkyHex, whiteSmokeHex } from "@/constants/variables";
 
 const TITLES = {
   terms: "Terms & Conditions",
@@ -17,7 +17,7 @@ function TermsContent() {
         operate, what to do if there is a problem and other important information.
       </p>
 
-      <h3 className="mb-2 text-lg font-bold" style={{ color: goldHex }}>
+      <h3 className="mb-2 text-lg font-bold" style={{ color: camelHex }}>
         1. Introduction
       </h3>
       <ul className="mb-4 list-disc space-y-2 pl-6">
@@ -32,7 +32,7 @@ function TermsContent() {
         </li>
       </ul>
 
-      <h3 className="mb-2 text-lg font-bold" style={{ color: goldHex }}>
+      <h3 className="mb-2 text-lg font-bold" style={{ color: camelHex }}>
         2. Copyright Notice
       </h3>
       <ul className="mb-4 list-disc space-y-2 pl-6">
@@ -47,7 +47,7 @@ function TermsContent() {
         <li>It is the client&apos;s responsibility to gain authorisation to use any copyrighted material/logo.</li>
       </ul>
 
-      <h3 className="mb-2 text-lg font-bold" style={{ color: goldHex }}>
+      <h3 className="mb-2 text-lg font-bold" style={{ color: camelHex }}>
         3. Terms of Sale
       </h3>
       <ul className="mb-4 list-disc space-y-2 pl-6">
@@ -66,7 +66,7 @@ function TermsContent() {
         <li>Risk in the goods shall pass to the client once sold.</li>
       </ul>
 
-      <h3 className="mb-2 text-lg font-bold" style={{ color: goldHex }}>
+      <h3 className="mb-2 text-lg font-bold" style={{ color: camelHex }}>
         4. Invoice
       </h3>
       <ul className="mb-4 list-disc space-y-2 pl-6">
@@ -77,7 +77,7 @@ function TermsContent() {
         </li>
       </ul>
 
-      <h3 className="mb-2 text-lg font-bold" style={{ color: goldHex }}>
+      <h3 className="mb-2 text-lg font-bold" style={{ color: camelHex }}>
         5. Privacy Policy
       </h3>
       <ul className="mb-4 list-disc space-y-2 pl-6">
@@ -110,7 +110,7 @@ function PrivacyContent() {
         agree to the terms described herein.
       </p>
 
-      <h3 className="mb-2 text-lg font-bold" style={{ color: goldHex }}>
+      <h3 className="mb-2 text-lg font-bold" style={{ color: camelHex }}>
         The user data we collect:
       </h3>
       <p className="mb-2">When you visit our online shop, we may collect the following data:</p>
@@ -120,7 +120,7 @@ function PrivacyContent() {
         <li>Order details and product preferences.</li>
       </ul>
 
-      <h3 className="mb-2 text-lg font-bold" style={{ color: goldHex }}>
+      <h3 className="mb-2 text-lg font-bold" style={{ color: camelHex }}>
         Purpose of Data Collection
       </h3>
       <p className="mb-4">
@@ -129,7 +129,7 @@ function PrivacyContent() {
         functions unless explicitly authorized by you.
       </p>
 
-      <h3 className="mb-2 text-lg font-bold" style={{ color: goldHex }}>
+      <h3 className="mb-2 text-lg font-bold" style={{ color: camelHex }}>
         Data Security Measures
       </h3>
       <p className="mb-4">
@@ -139,7 +139,7 @@ function PrivacyContent() {
         risks.
       </p>
 
-      <h3 className="mb-2 text-lg font-bold" style={{ color: goldHex }}>
+      <h3 className="mb-2 text-lg font-bold" style={{ color: camelHex }}>
         Payment Information
       </h3>
       <p className="mb-4">
@@ -151,7 +151,7 @@ function PrivacyContent() {
         information you provide is encrypted and securely processed.
       </p>
 
-      <h3 className="mb-2 text-lg font-bold" style={{ color: goldHex }}>
+      <h3 className="mb-2 text-lg font-bold" style={{ color: camelHex }}>
         Policy Updates
       </h3>
       <p>We reserve the right to change this policy at any given time, of which you will be promptly updated.</p>
@@ -207,7 +207,7 @@ export default function LegalModal({
   return (
     <div
       className="fixed inset-0 z-[100] flex items-center justify-center p-4"
-      style={{ backgroundColor: `color-mix(in srgb, ${deepBlueHex} 70%, transparent)` }}
+      style={{ backgroundColor: `color-mix(in srgb, ${brightSkyHex} 70%, transparent)` }}
       onClick={onClose}
     >
       <div
@@ -216,14 +216,14 @@ export default function LegalModal({
         aria-modal="true"
         aria-labelledby="legal-modal-title"
         className="relative flex w-full max-w-2xl flex-col rounded-3xl border-2 shadow-2xl"
-        style={{ backgroundColor: deepBlueHex, borderColor: goldHex, maxHeight: "85vh" }}
+        style={{ backgroundColor: brightSkyHex, borderColor: camelHex, maxHeight: "85vh" }}
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex shrink-0 items-start justify-between gap-4 rounded-t-3xl p-6 sm:p-8 sm:pb-6">
           <h2
             id="legal-modal-title"
             className="text-2xl font-bold sm:text-3xl"
-            style={{ color: goldHex }}
+            style={{ color: camelHex }}
           >
             {TITLES[type]}
           </h2>
@@ -233,7 +233,7 @@ export default function LegalModal({
             onClick={onClose}
             aria-label="Close"
             className="inline-flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-full transition hover:opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-            style={{ color: whiteHex, outlineColor: goldHex }}
+            style={{ color: whiteSmokeHex, outlineColor: camelHex }}
           >
             <X className="h-5 w-5" />
           </button>
@@ -241,7 +241,7 @@ export default function LegalModal({
 
         <div
           className="scrollbar-thin-gold overflow-y-auto px-6 pb-6 text-sm leading-relaxed sm:px-8 sm:pb-8 sm:text-base"
-          style={{ color: whiteHex }}
+          style={{ color: whiteSmokeHex }}
         >
           {type === "terms" ? <TermsContent /> : <PrivacyContent />}
         </div>

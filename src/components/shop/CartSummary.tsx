@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { ShoppingBag } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { useReserveGate } from '@/context/ReserveGateContext';
-import { darkBlueHex, whiteHex, goldHex, creamHex } from '@/constants/variables';
+import { camelHex, whiteSmokeHex, floralWhiteHex } from '@/constants/variables';
 
 const PLACEHOLDER_IMAGE =
   'https://placehold.co/200x200/e6f1fb/0c447c?text=UOM';
@@ -16,10 +16,10 @@ export default function CartSummary() {
   const itemCount = cartItems.reduce((count, item) => count + item.selectedQuantity, 0);
 
   return (
-    <div className="overflow-hidden rounded-3xl shadow-md" style={{ backgroundColor: whiteHex }}>
+    <div className="overflow-hidden rounded-3xl shadow-md" style={{ backgroundColor: whiteSmokeHex }}>
       <div
         className="flex items-center gap-2 px-5 py-4"
-        style={{ backgroundColor: darkBlueHex, color: whiteHex }}
+        style={{ backgroundColor: camelHex, color: whiteSmokeHex }}
       >
         <ShoppingBag className="h-5 w-5" />
         <p className="font-semibold">Your Cart ({itemCount})</p>
@@ -32,7 +32,7 @@ export default function CartSummary() {
           <ul className="flex flex-col gap-4">
             {cartItems.map((item) => (
               <li key={`${item.id}-${item.selectedColor ?? 'default'}-${item.selectedSize ?? 'default'}`} className="flex items-center gap-3">
-                <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-xl" style={{ backgroundColor: creamHex }}>
+                <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-xl" style={{ backgroundColor: floralWhiteHex }}>
                   <Image
                     src={item.image && item.image.startsWith('http') ? item.image : PLACEHOLDER_IMAGE}
                     alt={item.name}
@@ -43,7 +43,7 @@ export default function CartSummary() {
                   />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-sm font-semibold" style={{ color: darkBlueHex }}>
+                  <p className="truncate text-sm font-semibold" style={{ color: camelHex }}>
                     {item.name}
                   </p>
                   {(item.selectedColor || item.selectedSize) && (
@@ -52,7 +52,7 @@ export default function CartSummary() {
                     </p>
                   )}
                 </div>
-                <span className="text-sm font-medium" style={{ color: darkBlueHex }}>
+                <span className="text-sm font-medium" style={{ color: camelHex }}>
                   x{item.selectedQuantity}
                 </span>
               </li>
@@ -60,15 +60,15 @@ export default function CartSummary() {
           </ul>
         )}
 
-        <div className="flex items-center justify-between border-t pt-4" style={{ borderColor: `color-mix(in srgb, ${darkBlueHex} 12%, transparent)` }}>
-          <span className="text-sm font-medium" style={{ color: darkBlueHex }}>Subtotal</span>
-          <span className="text-lg font-bold" style={{ color: darkBlueHex }}>Rs {getTotalPrice().toLocaleString()}</span>
+        <div className="flex items-center justify-between border-t pt-4" style={{ borderColor: `color-mix(in srgb, ${camelHex} 12%, transparent)` }}>
+          <span className="text-sm font-medium" style={{ color: camelHex }}>Subtotal</span>
+          <span className="text-lg font-bold" style={{ color: camelHex }}>Rs {getTotalPrice().toLocaleString()}</span>
         </div>
 
         <Link
           href="/cart"
           className="cursor-pointer text-center text-sm font-semibold underline-offset-4 transition hover:underline"
-          style={{ color: goldHex }}
+          style={{ color: camelHex }}
           onClick={(e) => {
             if (!requireAuth()) {
               e.preventDefault();

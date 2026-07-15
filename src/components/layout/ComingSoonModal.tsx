@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { X } from "lucide-react";
-import { goldHex, deepBlueHex, whiteHex } from "@/constants/variables";
+import { camelHex, brightSkyHex, whiteSmokeHex } from "@/constants/variables";
 
 export default function ComingSoonModal({
   title,
@@ -52,7 +52,7 @@ export default function ComingSoonModal({
   return (
     <div
       className="fixed inset-0 z-[100] flex items-center justify-center p-4"
-      style={{ backgroundColor: `color-mix(in srgb, ${deepBlueHex} 70%, transparent)` }}
+      style={{ backgroundColor: `color-mix(in srgb, ${brightSkyHex} 70%, transparent)` }}
       onClick={onClose}
     >
       <div
@@ -61,7 +61,7 @@ export default function ComingSoonModal({
         aria-modal="true"
         aria-labelledby="coming-soon-modal-title"
         className="relative w-full max-w-2xl rounded-3xl border-2 p-8 shadow-2xl sm:p-12"
-        style={{ backgroundColor: deepBlueHex, borderColor: goldHex }}
+        style={{ backgroundColor: brightSkyHex, borderColor: camelHex }}
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -70,7 +70,7 @@ export default function ComingSoonModal({
           onClick={onClose}
           aria-label="Close"
           className="absolute right-4 top-4 inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-full transition hover:opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-          style={{ color: whiteHex, outlineColor: goldHex }}
+          style={{ color: whiteSmokeHex, outlineColor: camelHex }}
         >
           <X className="h-5 w-5" />
         </button>
@@ -78,11 +78,11 @@ export default function ComingSoonModal({
         <h2
           id="coming-soon-modal-title"
           className="text-2xl font-bold sm:text-3xl"
-          style={{ color: goldHex }}
+          style={{ color: camelHex }}
         >
           {title}
         </h2>
-        <p className="mt-4 text-base" style={{ color: whiteHex }}>
+        <p className="mt-4 text-base" style={{ color: whiteSmokeHex }}>
           Content to be added soon.
         </p>
       </div>
