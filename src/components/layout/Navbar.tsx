@@ -10,7 +10,7 @@ import { navLinks } from "@/data/store-data";
 import { authClient } from "@/lib/auth-client";
 import { useCart } from "@/context/CartContext";
 import { useSectionScroll } from "@/hooks/useSectionScroll";
-import { camelHex, racingRedHex, whiteSmokeHex } from "@/constants/variables";
+import { brightSkyHex, camelHex, racingRedHex, whiteSmokeHex } from "@/constants/variables";
 import { useDockMouseX, DockItem } from "@/components/ui/Dock";
 
 const navIcons: Record<string, React.ElementType> = {
@@ -43,6 +43,7 @@ export default function Navbar() {
   }, []);
 
   const scrollLinks = navLinks.filter((link) => link.type === "scroll");
+  const sectionActivity = useRef<Record<string, boolean>>({});
 
   useEffect(() => {
     if (isShopPage) {
@@ -55,58 +56,63 @@ export default function Navbar() {
       return;
     }
 
-    const offset = 96;
+    sectionActivity.current = {};
 
-    const handleScroll = () => {
-      let current = "";
+    // Instead of "is 65% of this section visible" (which never fires for a
+    // section taller than the viewport, like FAQ, and is unreliable for very
+    // short sections too), watch whether a fixed horizontal trigger line
+    // partway down the viewport currently falls inside each section. This is
+    // size-agnostic — works the same for a tall section or a short one.
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          sectionActivity.current[entry.target.id] = entry.isIntersecting;
+        });
 
-      scrollLinks.forEach((link) => {
-        const element = document.getElementById(link.sectionId);
-        if (!element) {
-          return;
-        }
+        const active = scrollLinks.find((link) => sectionActivity.current[link.sectionId]);
+        setActiveHref(active ? active.sectionId : "");
+      },
+      { rootMargin: "-45% 0px -50% 0px", threshold: 0 }
+    );
 
-        const top = element.getBoundingClientRect().top;
+    scrollLinks.forEach((link) => {
+      const element = document.getElementById(link.sectionId);
+      if (element) observer.observe(element);
+    });
 
-        if (top <= offset) {
-          current = link.sectionId;
-        }
-      });
-
-      setActiveHref(current);
-    };
-
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => observer.disconnect();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isCartPage, isShopPage, isHome, pathname]);
 
   const { cartItems } = useCart();
   const cartQuantity = cartItems.reduce((count, item) => count + item.selectedQuantity, 0);
 
+  const isLinkActive = (link: (typeof navLinks)[number]) =>
+    link.type === "route" ? pathname === link.href : activeHref === link.sectionId;
+
   const renderNavLink = (onLinkClick: () => void, animated: boolean) =>
     navLinks.map((link) => {
       const href = link.type === "route" ? link.href : (isHome ? `#${link.sectionId}` : `/#${link.sectionId}`);
       const onClick = link.type === "route" ? onLinkClick : navigateToSection(link.sectionId, onLinkClick);
       const Icon = navIcons[link.label];
+      const linkColor = isLinkActive(link) ? racingRedHex : brightSkyHex;
 
       if (animated) {
         const button = (
           <Link
             href={href}
             className="relative inline-flex h-12 w-12 items-center justify-center rounded-full transition"
-            style={{ color: racingRedHex, backgroundColor: `color-mix(in srgb, ${whiteSmokeHex} 18%, transparent)` }}
+            style={{ color: linkColor, backgroundColor: `color-mix(in srgb, ${whiteSmokeHex} 18%, transparent)` }}
             aria-label={link.label}
             title={link.label}
             onClick={onClick}
           >
             <span className="sr-only">{link.label}</span>
-            <Icon className="h-5 w-5" style={{ color: racingRedHex }} />
+            <Icon className="h-5 w-5" style={{ color: linkColor }} />
           </Link>
         );
         return (
-          <DockItem key={link.label} mouseX={mouseX} className="mx-[2px]" label={link.label}>
+          <DockItem key={link.label} mouseX={mouseX} className="mx-[2px]" label={link.label} labelColor={linkColor}>
             {button}
           </DockItem>
         );
@@ -117,10 +123,10 @@ export default function Navbar() {
           key={link.label}
           href={href}
           className="flex items-center gap-3 px-4 py-3 text-sm font-medium transition rounded-lg"
-          style={{ color: racingRedHex }}
+          style={{ color: linkColor }}
           onClick={onClick}
         >
-          <Icon className="h-5 w-5" style={{ color: racingRedHex }} />
+          <Icon className="h-5 w-5" style={{ color: linkColor }} />
           {link.label}
         </Link>
       );
@@ -152,7 +158,7 @@ export default function Navbar() {
         </button>
 
         {/* Logo */}
-        <DockItem mouseX={mouseX} label="Home">
+        <DockItem mouseX={mouseX} label="Home" labelColor={brightSkyHex}>
           <Link
             href="/"
             className="flex h-12 w-12 items-center justify-center rounded-full bg-transparent transition"
@@ -177,29 +183,29 @@ export default function Navbar() {
 
         {/* Cart and User Icons */}
         <div className="ml-auto flex shrink-0 items-center gap-3 md:flex">
-          <DockItem mouseX={mouseX} className="mx-[2px]" label="Cart">
+          <DockItem mouseX={mouseX} className="mx-[2px]" label="Cart" labelColor={isCartPage ? racingRedHex : brightSkyHex}>
             <Link
               href="/cart"
               className="relative inline-flex h-12 w-12 items-center justify-center rounded-full transition"
-              style={{ color: racingRedHex, backgroundColor: `color-mix(in srgb, ${whiteSmokeHex} 18%, transparent)` }}
+              style={{ color: isCartPage ? racingRedHex : brightSkyHex, backgroundColor: `color-mix(in srgb, ${whiteSmokeHex} 18%, transparent)` }}
               aria-label="Cart"
               onClick={() => setIsOpen(false)}
             >
-              <ShoppingBag className="h-5 w-5" style={{ color: racingRedHex }} />
+              <ShoppingBag className="h-5 w-5" style={{ color: isCartPage ? racingRedHex : brightSkyHex }} />
               {cartQuantity > 0 && (
                 <span className="absolute -top-1 h-3 w-3 rounded-full" style={{ right: '1px', backgroundColor: racingRedHex }} />
               )}
             </Link>
           </DockItem>
-          <DockItem mouseX={mouseX} className="mx-[2px]" label="Account">
+          <DockItem mouseX={mouseX} className="mx-[2px]" label="Account" labelColor={(pathname === "/account" || pathname === "/sign-in") ? racingRedHex : brightSkyHex}>
             <Link
               href={session ? "/account" : "/sign-in"}
               className="inline-flex h-12 w-12 items-center justify-center rounded-full transition"
-              style={{ color: racingRedHex, backgroundColor: `color-mix(in srgb, ${whiteSmokeHex} 18%, transparent)` }}
+              style={{ color: (pathname === "/account" || pathname === "/sign-in") ? racingRedHex : brightSkyHex, backgroundColor: `color-mix(in srgb, ${whiteSmokeHex} 18%, transparent)` }}
               onClick={() => setIsOpen(false)}
             >
               <span className="sr-only">Account</span>
-              <User className="h-5 w-5" style={{ color: racingRedHex }} />
+              <User className="h-5 w-5" style={{ color: (pathname === "/account" || pathname === "/sign-in") ? racingRedHex : brightSkyHex }} />
             </Link>
           </DockItem>
         </div>

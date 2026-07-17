@@ -17,7 +17,7 @@ import {
   type SpringOptions,
 } from 'motion/react';
 import { useRef, useState } from 'react';
-import { whiteSmokeHex, racingRedHex } from '@/constants/variables';
+import { whiteSmokeHex } from '@/constants/variables';
 
 export function useDockMouseX() {
   return useMotionValue(Infinity);
@@ -28,6 +28,7 @@ type DockItemProps = {
   mouseX: MotionValue<number>;
   className?: string;
   label?: string; // shown as a tooltip above the item on hover/focus
+  labelColor?: string; // tooltip text color — defaults to matching the icon's current color
   scaleAmount?: number; // peak scale multiplier — 1.22 = 22% bigger at the cursor
   lift?: number; // px risen at peak (upward)
   distance?: number; // px radius of influence around the cursor
@@ -39,6 +40,7 @@ export function DockItem({
   mouseX,
   className = '',
   label,
+  labelColor,
   scaleAmount = 1.22,
   lift = 6,
   distance = 70,
@@ -75,7 +77,7 @@ export function DockItem({
               exit={{ opacity: 0, y: 4 }}
               transition={{ duration: 0.15 }}
               className="pointer-events-none absolute bottom-full left-1/2 z-50 mb-[10.5px] -translate-x-1/2 whitespace-nowrap rounded px-[5px] py-0.5 text-xs font-semibold"
-              style={{ color: racingRedHex, backgroundColor: `color-mix(in srgb, ${whiteSmokeHex} 90%, transparent)` }}
+              style={{ color: labelColor, backgroundColor: `color-mix(in srgb, ${whiteSmokeHex} 100%, transparent)` }}
               role="tooltip"
             >
               {label}

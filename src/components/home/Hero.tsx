@@ -13,61 +13,112 @@ import {
   frostedBlueHex,
   floralWhiteHex,
   whiteSmokeHex,
+  racingRedHex,
 } from "@/constants/variables";
 
 /*
  * Main glass panel shape.
  *
- * The rounded lobe is reduced slightly and rebuilt with longer, tangent
- * Bezier sections. This removes the small changes in direction that were
- * creating visible kinks along the edge.
+ * The exposed lobe uses a broader elliptical arc with tangent-aligned
+ * control points. Its horizontal reach stays almost unchanged, but the
+ * upper and lower shoulders are about 20% rounder.
  */
 const heroBlobShape = `shape(
   from 44.2% -2%,
   curve to 52% 9.8% with 46.3% 2.2% / 48.5% 7.1%,
   curve to 74% 19.2% with 58.8% 13.4% / 68.8% 16.2%,
-  curve to 83.7% 28.5% with 78.8% 22.1% / 82.2% 24.8%,
-  curve to 86.8% 41.5% with 85.3% 32.3% / 86.7% 36.6%,
-  curve to 86.75% 53.5% with 86.9% 45.5% / 86.9% 49.6%,
-  curve to 83.4% 65.8% with 86.5% 57.8% / 85.3% 61.8%,
-  curve to 74.8% 75.2% with 81.5% 69.8% / 78.3% 72.9%,
-  curve to 63.4% 83.5% with 71.2% 77.6% / 67% 80.3%,
-  curve to 57.1% 91.7% with 59.8% 86.3% / 58.2% 89%,
-  curve to 55.4% 103% with 56% 95% / 55.5% 99%,
+  curve to 84.8% 29.8% with 79% 22.5% / 83% 25.7%,
+  curve to 87.1% 47.5% with 86.6% 34% / 87.2% 42%,
+  curve to 82.9% 64.5% with 87% 53% / 85.5% 59.9%,
+  curve to 68.2% 79.5% with 80.3% 69.1% / 73.5% 75.5%,
+  curve to 59% 88.5% with 63.2% 83.3% / 60.5% 85.8%,
+  curve to 55.8% 103% with 57.5% 91.2% / 55.8% 98%,
   line to 0% 103%,
   line to 0% -2%,
   close
 )`;
 
 /*
- * Thin irregular blue accent.
+ * Two independent accent lines beside the blob.
  *
- * Both sides use the same tangent flow as the blob so the ribbon remains
- * smooth while its narrow width still reveals parts of the white edge.
+ * Both lines use continuous cubic splines with tangent-aligned joins.
+ * Their original layout and crossings are preserved, but the paths are
+ * stretched vertically so they begin above the hero and continue beneath
+ * the bottom wave instead of ending visibly inside the section.
  */
-const heroBlobAccentShape = `shape(
-  from 44.72% -2%,
-  curve to 52.22% 9.95% with 46.72% 2.25% / 48.72% 7.25%,
-  curve to 74.22% 19.35% with 59.02% 13.55% / 69.02% 16.35%,
-  curve to 83.92% 28.65% with 79.02% 22.25% / 82.42% 24.95%,
-  curve to 87.12% 41.65% with 85.52% 32.45% / 87.02% 36.75%,
-  curve to 87.07% 53.65% with 87.22% 45.65% / 87.22% 49.75%,
-  curve to 83.72% 65.95% with 86.82% 57.95% / 85.62% 61.95%,
-  curve to 75.12% 75.35% with 81.82% 69.95% / 78.62% 73.05%,
-  curve to 63.72% 83.65% with 71.52% 77.75% / 67.32% 80.45%,
-  curve to 57.42% 91.85% with 60.12% 86.45% / 58.52% 89.15%,
-  curve to 55.72% 103% with 56.32% 95.15% / 55.82% 99.15%,
-  line to 55.48% 103%,
-  curve to 57.18% 91.85% with 55.58% 99.15% / 56.08% 95.15%,
-  curve to 63.48% 83.65% with 58.28% 89.15% / 59.88% 86.45%,
-  curve to 74.88% 75.35% with 67.08% 80.45% / 71.28% 77.75%,
-  curve to 83.48% 65.95% with 78.38% 73.05% / 81.58% 69.95%,
-  curve to 86.83% 53.65% with 85.38% 61.95% / 86.58% 57.95%,
-  curve to 86.88% 41.65% with 86.98% 49.75% / 86.98% 45.65%,
-  curve to 83.68% 28.65% with 86.78% 36.75% / 85.28% 32.45%,
-  curve to 73.98% 19.35% with 82.18% 24.95% / 78.78% 22.25%,
-  curve to 51.98% 9.95% with 68.78% 16.35% / 58.78% 13.55%,
-  curve to 44.48% -2% with 48.48% 7.25% / 46.48% 2.25%,
+const heroBlobBlueLineShape = `shape(
+  from 44.416% -6%,
+  curve to 44.81% -3.5% with 44.51% -5.166% / 44.645% -4.334%,
+  curve to 46.721% 2.75% with 45.222% -1.416% / 45.819% 0.666%,
+  curve to 49.852% 9% with 47.623% 4.834% / 48.83% 6.916%,
+  curve to 54.576% 15.25% with 50.874% 11.084% / 51.709% 13.166%,
+  curve to 67.634% 21.5% with 57.442% 17.334% / 62.34% 19.416%,
+  curve to 79.393% 26.5% with 71.87% 23.166% / 76.36% 24.834%,
+  curve to 84.978% 31.5% with 82.426% 28.166% / 84.002% 29.834%,
+  curve to 86.616% 36.5% with 85.954% 33.166% / 86.331% 34.834%,
+  curve to 87.339% 46.5% with 87.186% 39.834% / 87.388% 43.166%,
+  curve to 85.979% 59% with 87.278% 50.666% / 86.824% 54.834%,
+  curve to 80.409% 71.5% with 85.133% 63.166% / 83.897% 67.334%,
+  curve to 66.494% 84% with 76.92% 75.666% / 71.179% 79.834%,
+  curve to 59.672% 91.5% with 63.683% 86.5% / 61.252% 89%,
+  curve to 57.376% 96.5% with 58.619% 93.166% / 57.944% 94.834%,
+  curve to 55.633% 102.125% with 56.738% 98.375% / 56.235% 100.25%,
+  curve to 54.988% 104% with 55.433% 102.75% / 55.221% 103.375%,
+  line to 54.808% 104%,
+  curve to 55.453% 102.125% with 55.041% 103.375% / 55.253% 102.75%,
+  curve to 57.196% 96.5% with 56.055% 100.25% / 56.558% 98.375%,
+  curve to 59.492% 91.5% with 57.764% 94.834% / 58.439% 93.166%,
+  curve to 66.314% 84% with 61.072% 89% / 63.503% 86.5%,
+  curve to 80.229% 71.5% with 70.999% 79.834% / 76.74% 75.666%,
+  curve to 85.799% 59% with 83.717% 67.334% / 84.953% 63.166%,
+  curve to 87.159% 46.5% with 86.644% 54.834% / 87.098% 50.666%,
+  curve to 86.436% 36.5% with 87.208% 43.166% / 87.006% 39.834%,
+  curve to 84.798% 31.5% with 86.151% 34.834% / 85.774% 33.166%,
+  curve to 79.213% 26.5% with 83.822% 29.834% / 82.246% 28.166%,
+  curve to 67.454% 21.5% with 76.18% 24.834% / 71.69% 23.166%,
+  curve to 54.396% 15.25% with 62.16% 19.416% / 57.262% 17.334%,
+  curve to 49.672% 9% with 51.529% 13.166% / 50.694% 11.084%,
+  curve to 46.541% 2.75% with 48.65% 6.916% / 47.443% 4.834%,
+  curve to 44.63% -3.5% with 45.639% 0.666% / 45.042% -1.416%,
+  curve to 44.236% -6% with 44.465% -4.334% / 44.33% -5.166%,
+  close
+)`;
+
+const heroBlobWhiteLineShape = `shape(
+  from 42.88% -6%,
+  curve to 43.4% -3.5% with 42.967% -5.583% / 42.921% -4.958%,
+  curve to 45.755% 2.75% with 43.879% -2.042% / 44.655% 0.667%,
+  curve to 50.003% 9% with 46.855% 4.833% / 47.893% 6.917%,
+  curve to 58.413% 15.25% with 52.113% 11.083% / 54.441% 13.167%,
+  curve to 73.836% 21.5% with 62.385% 17.333% / 70.309% 19.625%,
+  curve to 79.576% 26.5% with 77.363% 23.375% / 78.055% 24.833%,
+  curve to 82.964% 31.5% with 81.097% 28.167% / 82.134% 29.833%,
+  curve to 84.556% 36.5% with 83.794% 33.167% / 84.11% 34%,
+  curve to 85.64% 46.5% with 85.002% 39% / 85.743% 42.75%,
+  curve to 83.94% 59% with 85.537% 50.25% / 85.517% 54.833%,
+  curve to 76.179% 71.5% with 82.363% 63.167% / 80.175% 67.333%,
+  curve to 59.961% 84% with 72.183% 75.667% / 63.351% 80.667%,
+  curve to 55.841% 91.5% with 56.571% 87.333% / 56.717% 89.417%,
+  curve to 54.705% 96.5% with 54.965% 93.583% / 54.952% 94.729%,
+  curve to 54.357% 102.125% with 54.458% 98.271% / 54.417% 100.875%,
+  curve to 54.348% 104% with 54.298% 103.375% / 54.35% 103.688%,
+  line to 54.168% 104%,
+  curve to 54.177% 102.125% with 54.169% 103.688% / 54.117% 103.375%,
+  curve to 54.525% 96.5% with 54.236% 100.875% / 54.278% 98.271%,
+  curve to 55.661% 91.5% with 54.772% 94.729% / 54.785% 93.583%,
+  curve to 59.781% 84% with 56.537% 89.417% / 56.391% 87.333%,
+  curve to 75.999% 71.5% with 63.171% 80.667% / 72.002% 75.667%,
+  curve to 83.76% 59% with 79.995% 67.333% / 82.183% 63.167%,
+  curve to 85.46% 46.5% with 85.337% 54.833% / 85.357% 50.25%,
+  curve to 84.376% 36.5% with 85.563% 42.75% / 84.822% 39%,
+  curve to 82.784% 31.5% with 83.93% 34% / 83.614% 33.167%,
+  curve to 79.396% 26.5% with 81.954% 29.833% / 80.917% 28.167%,
+  curve to 73.656% 21.5% with 77.875% 24.833% / 77.183% 23.375%,
+  curve to 58.233% 15.25% with 70.129% 19.625% / 62.205% 17.333%,
+  curve to 49.823% 9% with 54.261% 13.167% / 51.933% 11.083%,
+  curve to 45.575% 2.75% with 47.713% 6.917% / 46.675% 4.833%,
+  curve to 43.22% -3.5% with 44.474% 0.667% / 43.699% -2.042%,
+  curve to 42.7% -6% with 42.741% -4.958% / 42.787% -5.583%,
   close
 )`;
 
@@ -131,7 +182,7 @@ export default function Hero() {
         >
           {/* Subtle white outer edge */}
           <div
-            className="absolute inset-0"
+            className="absolute inset-0 opacity-70"
             style={{
               backgroundColor: whiteSmokeHex,
               clipPath: heroBlobShape,
@@ -140,7 +191,7 @@ export default function Hero() {
 
           {/* Main translucent panel */}
           <div
-            className="absolute inset-[2px] backdrop-blur-[18px]"
+            className="absolute inset-[2px] opacity-70 backdrop-blur-[18px]"
             style={{
               background: `linear-gradient(
                 90deg,
@@ -152,12 +203,21 @@ export default function Hero() {
             }}
           />
 
-          {/* Irregular blue accent line */}
+          {/* Blue accent line */}
           <div
-            className="absolute inset-0 opacity-60"
+            className="absolute inset-0 opacity-70"
             style={{
               backgroundColor: brightSkyHex,
-              clipPath: heroBlobAccentShape,
+              clipPath: heroBlobBlueLineShape,
+            }}
+          />
+
+          {/* White crossing accent line */}
+          <div
+            className="absolute inset-0 opacity-95"
+            style={{
+              backgroundColor: whiteSmokeHex,
+              clipPath: heroBlobWhiteLineShape,
             }}
           />
         </div>
@@ -202,7 +262,7 @@ export default function Hero() {
             pointer-events-none
             absolute
             left-[30%]
-            top-[63%]
+            top-[66%]
             z-20
             hidden
             h-6
@@ -230,57 +290,10 @@ export default function Hero() {
           style={{ backgroundColor: brightSkyHex }}
         />
 
-        {/* Decorative elements over the photograph */}
-        <div
-          className="
-            pointer-events-none
-            absolute
-            right-[4.5%]
-            top-[12%]
-            z-20
-            hidden
-            h-[72px]
-            w-[72px]
-            rounded-full
-            opacity-55
-            md:block
-          "
-          style={{ backgroundColor: brightSkyHex }}
-        />
 
-        <div
-          className="
-            pointer-events-none
-            absolute
-            right-[1.7%]
-            top-[55%]
-            z-20
-            hidden
-            h-12
-            w-12
-            rounded-full
-            border-[3px]
-            md:block
-          "
-          style={{ borderColor: whiteSmokeHex }}
-        />
 
-        <div
-          className="
-            pointer-events-none
-            absolute
-            right-[8.5%]
-            top-[76%]
-            z-20
-            hidden
-            h-11
-            w-28
-            rounded-full
-            opacity-90
-            md:block
-          "
-          style={{ backgroundColor: frostedBlueHex }}
-        />
+
+        
 
         {/* Hero text */}
         <div
@@ -292,13 +305,13 @@ export default function Hero() {
             flex
             w-[88%]
             flex-col
-            gap-4
+            gap-7
             pl-8
             pr-6
             sm:top-[17%]
             md:top-[20%]
             md:w-[47%]
-            md:gap-5
+            md:gap-10
             md:pl-[8.5vw]
             md:pr-[3vw]
           "
@@ -308,17 +321,16 @@ export default function Hero() {
               inline-flex
               w-fit
               items-center
-              rounded-full
-              border
-              px-5
+              px-7
               py-2
               text-sm
               font-semibold
               md:text-base
             "
             style={{
-              borderColor: camelHex,
-              color: camelHex,
+              backgroundColor: camelHex,
+              color: whiteSmokeHex,
+              clipPath: "polygon(0% 0%, 100% 0%, 90% 50%, 100% 100%, 0% 100%, 10% 50%)",
             }}
           >
             Forever UoM
@@ -336,10 +348,11 @@ export default function Hero() {
                 w-auto
                 object-contain
                 md:absolute
-                md:-left-[4.25rem]
-                md:top-2
+                md:-left-[8px]
+                md:top-1/2
+                md:-translate-y-1/2
                 md:mt-0
-                md:h-16
+                md:h-32
               "
             />
 
@@ -353,20 +366,25 @@ export default function Hero() {
                 md:text-[clamp(3.6rem,4.5vw,5rem)]
               "
             >
-              <span style={{ color: camelHex }}>UoM Online</span>
+              <div style={{ transform: "translateX(95px)", fontSize: "0.9em" }}>
+                <span style={{ color: camelHex }}>UoM Online</span>
 
-              <br />
+                <br />
 
-              <span style={{ color: brightSkyHex }}>Boutique</span>
+                <span style={{ color: brightSkyHex }}>Boutique</span>
+              </div>
+              
             </h1>
           </div>
 
           <p
             className="
+              -mt-4
               max-w-[28rem]
               text-[0.95rem]
               font-medium
               leading-[1.55]
+              md:-mt-6
               md:text-[clamp(1rem,1.15vw,1.15rem)]
               md:leading-[1.6]
             "
@@ -380,13 +398,13 @@ export default function Hero() {
           <Link
             href="/shop"
             className="
-              mt-1
+              -mt-[16px]
               inline-flex
               w-fit
+              scale-[1]
               items-center
-              gap-5
+              gap-2
               rounded-full
-              border
               px-6
               py-3
               text-sm
@@ -397,8 +415,8 @@ export default function Hero() {
               md:text-base
             "
             style={{
-              borderColor: camelHex,
-              color: camelHex,
+              backgroundColor: brightSkyHex,
+              color: whiteSmokeHex,
             }}
           >
             Shop Souvenirs
@@ -465,9 +483,9 @@ export default function Hero() {
               fill
               sizes="100vw"
               className="
-                scale-[1.04]
-                object-cover
-                object-bottom
+                scale-[3.0]
+                object-contain
+                object-center
                 opacity-30
               "
             />
