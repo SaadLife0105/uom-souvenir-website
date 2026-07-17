@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import { ArrowRight } from "lucide-react";
 import { workflowSteps } from "@/data/store-data";
-import { camelHex, whiteSmokeHex, racingRedHex, azureMistHex } from "@/constants/variables";
+import { camelHex, whiteSmokeHex, racingRedHex, azureMistHex, brightSkyHex } from "@/constants/variables";
 // reliable than var() in SVG on Samsung Browser / Opera GX.
 
 export default function WorkflowSteps() {
@@ -42,18 +42,13 @@ export default function WorkflowSteps() {
                 <Fragment key={step.step}>
                   {/* Mobile: icon left, text right. Desktop: stacked centered */}
                   <div className="flex flex-row items-center gap-4 md:flex-1 md:flex-col md:items-center md:text-center">
-                    <div className="flex h-[74px] w-[74px] flex-shrink-0 items-center justify-center rounded-full shadow-md md:h-[94px] md:w-[94px]" style={{ backgroundColor: camelHex }}>
-                      <ArrowRight
-                        className="h-[32px] w-[32px] md:h-[36px] md:w-[36px]"
-                        style={{ color: whiteSmokeHex }}
-                        strokeWidth={2.5}
-                      />
+                    <div className="flex h-[88px] w-[88px] flex-shrink-0 items-center justify-center rounded-full shadow-md md:h-[116px] md:w-[116px]" style={{ backgroundColor: brightSkyHex }}>
+                      <span className="text-[2.1rem] font-bold md:text-[3.1rem]" style={{ color: whiteSmokeHex }}>
+                        {step.step}
+                      </span>
                     </div>
                     <div className="flex flex-col md:items-center md:text-center">
                       <div className="flex items-center gap-2 md:flex-col md:items-center md:gap-0">
-                        <span className="text-[1.8rem] font-bold md:mt-3 md:text-[2.52rem]" style={{ color: camelHex }}>
-                          {String(step.step).padStart(2, "0")}
-                        </span>
                         <h3 className="text-[1.05rem] font-bold md:mt-1 md:text-[1.4rem]" style={{ color: camelHex }}>
                           {step.title}
                         </h3>
@@ -64,8 +59,12 @@ export default function WorkflowSteps() {
                     </div>
                   </div>
                   {i < 2 && (
-                    <div className="hidden md:relative md:block md:mt-10 md:w-0 md:flex-shrink-0">
-                      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[28px] border-t-[4px] border-dashed lg:w-[140px]" style={{ borderColor: camelHex }} />
+                    <div className="hidden md:flex md:items-center md:justify-center md:mt-10 md:h-[116px] md:w-[48px] md:flex-shrink-0">
+                      <ArrowRight
+                        className="h-[40px] w-[40px] lg:h-[52px] lg:w-[52px]"
+                        style={{ color: camelHex }}
+                        strokeWidth={2.5}
+                      />
                     </div>
                   )}
                 </Fragment>

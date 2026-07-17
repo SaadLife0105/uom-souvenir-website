@@ -1,7 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { BestSellerCampaign } from "@/data/store-data";
-import { whiteSmokeHex, camelHex, azureMistHex } from "@/constants/variables";
+import { whiteSmokeHex, camelHex } from "@/constants/variables";
+
+// Dark glass tint (camelHex darkened toward black) so white label/button text
+// stays readable even over light/near-white product photos. Shared with
+// CategoryCard, which reuses the same glass styling.
+export const glassBg = `color-mix(in srgb, color-mix(in srgb, ${camelHex} 45%, black) 65%, transparent)`;
+export const textShadow = "0 1px 3px rgba(0,0,0,0.6)";
 
 export default function BestSellersCard({ campaign }: { campaign: BestSellerCampaign }) {
   return (
@@ -15,20 +21,12 @@ export default function BestSellersCard({ campaign }: { campaign: BestSellerCamp
         sizes="(max-width: 768px) 90vw, 33vw"
       />
 
-      {/* Gradient overlay — darker at bottom for text legibility */}
-      <div
-        className="absolute inset-0"
-        style={{
-          backgroundImage: `linear-gradient(to top, color-mix(in srgb, ${camelHex} 75%, transparent), color-mix(in srgb, ${camelHex} 20%, transparent), transparent)`,
-        }}
-      />
-
       {/* Bottom content */}
       <div className="absolute bottom-0 left-0 right-0 flex flex-col gap-3 p-5">
         <h3 className="text-2xl leading-tight md:text-3xl">
           <span
             className="inline-block rounded-full px-4 pt-1 pb-2 font-bold backdrop-blur-sm"
-            style={{ color: whiteSmokeHex, backgroundColor: `color-mix(in srgb, ${azureMistHex} 25%, transparent)` }}
+            style={{ color: whiteSmokeHex, backgroundColor: glassBg, textShadow }}
           >
             {campaign.title}
           </span>
@@ -38,13 +36,17 @@ export default function BestSellersCard({ campaign }: { campaign: BestSellerCamp
           {campaign.buttons[0] && (
             <Link
               href={campaign.buttons[0].href}
-              className="cursor-pointer rounded-full border px-4 py-1.5 text-[11px] font-semibold uppercase tracking-widest backdrop-blur-sm transition focus-visible:outline-2 focus-visible:outline-offset-2"
+              className="cursor-pointer rounded-full border px-4 py-1.5 text-[11px] font-semibold uppercase tracking-widest backdrop-blur-sm transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 bg-[var(--btn-bg-default)] text-[var(--btn-text-default)] [text-shadow:var(--btn-shadow-default)] hover:bg-[var(--btn-bg-hover)] hover:text-[var(--btn-text-hover)] hover:[text-shadow:var(--btn-shadow-hover)]"
               style={{
-                color: whiteSmokeHex,
+                "--btn-bg-default": glassBg,
+                "--btn-bg-hover": whiteSmokeHex,
+                "--btn-text-default": whiteSmokeHex,
+                "--btn-text-hover": camelHex,
+                "--btn-shadow-default": textShadow,
+                "--btn-shadow-hover": "none",
                 borderColor: `${whiteSmokeHex}B3`,
-                backgroundColor: `${camelHex}40`,
                 outlineColor: whiteSmokeHex,
-              }}
+              } as React.CSSProperties}
             >
               Order Now
             </Link>

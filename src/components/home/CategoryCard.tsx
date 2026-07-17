@@ -1,6 +1,11 @@
 import Image, { type StaticImageData } from "next/image";
 import Link from "next/link";
 import { whiteSmokeHex, camelHex } from "@/constants/variables";
+import { textShadow } from "./BestSellersCard";
+
+// Faint neutral glass — no camel/dark tint — for the title bubble and the
+// button's default (non-hover) state.
+const faintGlassBg = `color-mix(in srgb, ${whiteSmokeHex} 18%, transparent)`;
 
 interface CategoryCardProps {
   title: string;
@@ -38,22 +43,25 @@ export default function CategoryCard({
 
         <div className="relative z-10 flex flex-col items-center justify-center text-center gap-2 md:gap-4">
           <h3 className="transition-transform duration-300 group-hover:-translate-y-2">
-            {/* ponytail: --tag-bg lets Tailwind's /30 alpha modifier work on a runtime color */}
             <span
-              className="inline-block rounded-full px-3 sm:px-4 pt-0.5 pb-1.5 sm:pt-1 sm:pb-2 text-lg sm:text-2xl md:text-4xl font-bold bg-[var(--tag-bg)]/30 backdrop-blur-sm"
-              style={{ "--tag-bg": bgColor, color: whiteSmokeHex } as React.CSSProperties}
+              className="inline-block rounded-full px-3 sm:px-4 pt-0.5 pb-1.5 sm:pt-1 sm:pb-2 text-lg sm:text-2xl md:text-4xl font-bold backdrop-blur-sm"
+              style={{ color: whiteSmokeHex, backgroundColor: faintGlassBg, textShadow }}
             >
               {title}
             </span>
           </h3>
           <span
-            className="pointer-events-none opacity-0 cursor-pointer rounded-full border px-4 sm:px-6 py-1.5 text-[11px] font-semibold uppercase tracking-widest backdrop-blur-sm transition-all duration-300 group-hover:opacity-100 group-hover:pointer-events-auto focus-visible:outline-2 focus-visible:outline-offset-2"
+            className="pointer-events-none opacity-0 cursor-pointer rounded-full border px-4 sm:px-6 py-1.5 text-[11px] font-semibold uppercase tracking-widest backdrop-blur-sm transition-all duration-300 group-hover:opacity-100 group-hover:pointer-events-auto focus-visible:outline-2 focus-visible:outline-offset-2 bg-[var(--btn-bg-default)] text-[var(--btn-text-default)] [text-shadow:var(--btn-shadow-default)] hover:bg-[var(--btn-bg-hover)] hover:text-[var(--btn-text-hover)] hover:[text-shadow:var(--btn-shadow-hover)]"
             style={{
-              color: whiteSmokeHex,
+              "--btn-bg-default": faintGlassBg,
+              "--btn-bg-hover": whiteSmokeHex,
+              "--btn-text-default": whiteSmokeHex,
+              "--btn-text-hover": camelHex,
+              "--btn-shadow-default": textShadow,
+              "--btn-shadow-hover": "none",
               borderColor: `${whiteSmokeHex}B3`,
-              backgroundColor: `${camelHex}40`,
               outlineColor: whiteSmokeHex,
-            }}
+            } as React.CSSProperties}
           >
             Shop Now
           </span>

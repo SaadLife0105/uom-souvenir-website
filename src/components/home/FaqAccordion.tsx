@@ -69,10 +69,10 @@ export default function FaqAccordion() {
             <MessageCircle className="h-9 w-9" style={{ color: camelHex }} strokeWidth={1.5} />
           </div>
           <div>
-            <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl" style={{ color: camelHex }}>
+            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl" style={{ color: camelHex }}>
               Frequently Asked Questions <span style={{ color: racingRedHex }}>(FAQ)</span>
             </h2>
-            <p className="mt-2 text-sm leading-7" style={{ color: camelHex }}>
+            <p className="mt-[4px] text-base leading-7" style={{ color: camelHex }}>
               Everything you need to know about reserving items, generating invoices, and collecting your University of Mauritius souvenirs.
             </p>
           </div>
